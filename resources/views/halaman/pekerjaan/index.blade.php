@@ -47,14 +47,10 @@
                 <td>{{$item->tahun_anggaran}}</td>
                 <td>
                   <a href="{{ route('pekerjaan.detail', $item->id) }}">
-                    <button class="btn btn-success btn-xs" type="button">
                       <i class="fas fa-info"></i>         
-                    </button>
                   </a>
                   <a href="{{ route('pekerjaan.edit', $item->id) }}">
-                    <button class="btn btn-primary btn-xs" type="button">
                        <i class="fas fa-cog"></i>         
-                    </button>
                   </a>
                   <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-original-title="test" data-target="#exampleModal{{$item->id}}"><i class="fas fa-trash"></i></button></td>
                 </tr>

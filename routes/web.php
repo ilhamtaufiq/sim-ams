@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth'], function()
             'store' => 'pekerjaan.store',
             'edit' => 'pekerjaan.edit',
             'update' => 'pekerjaan.update',
-            // 'show' => 'pekerjaan.detail'
+            'show' => 'pekerjaan.detail'
             // etc...
         ]
     ]);

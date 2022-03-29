@@ -69,6 +69,16 @@
                         <td>{{$am3->count()}} Lokasi</td>
                         <td>{{number_format($am3->sum('pagu'))}}</td>
                     </tr>
+                    <tr>
+                        <td>Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</td>
+                        <td>{{$sandak->count()}} Lokasi</td>
+                        <td>{{number_format($sandak->sum('pagu'))}}</td>
+                    </tr>
+                    <tr>
+                        <td>Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat Skala Permukiman</td>
+                        <td>{{$mck->count()}} Lokasi</td>
+                        <td>{{number_format($mck->sum('pagu'))}}</td>
+                    </tr>
                 </tbody>
                 </table>
             </div>

@@ -119,11 +119,11 @@ class PekerjaanController extends Controller
     public function show(Pekerjaan $pekerjaan)
     {
         //
-        $pekerjaan = Pekerjaan::with('kec','desa','kegiatan','detail','dokumen')->where('id',$pekerjaan->id)->get();
+        $pekerjaan = Pekerjaan::with('kec','desa','kegiatan','detail','dokumen')->where('id',$pekerjaan->id)->first();
         $pekerjaan_id = $pekerjaan->id;
         $foto = Foto::where('pekerjaan_id',$pekerjaan_id)->get();
         $dokumen = Dokumen::where('pekerjaan_id',$pekerjaan_id)->get();
-        dd($pekerjaan);
+        // dd($pekerjaan);
 
         if (!is_null($pekerjaan->detail)) {
             # code...

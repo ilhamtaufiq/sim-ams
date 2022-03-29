@@ -31,11 +31,16 @@ class DashboardController extends Controller
         //  dd($pekerjaan);
         $am1 = Pekerjaan::where('program_id', '=', 3)->get();
         $am2 = Pekerjaan::where('program_id', '=', 4)->get();
-        $am3 = Pekerjaan::where('program_id', '=', 5)->get();        
+        $am3 = Pekerjaan::where('program_id', '=', 5)->get();
+        $sandak = Pekerjaan::where('program_id','=',1)->get(); 
+        $mck = Pekerjaan::where('program_id','=',2)->get();        
+       
         return view ('dashboard',[
             'am1' => $am1,
             'am2' => $am2,
             'am3' => $am3,
+            'sandak'=> $sandak,
+            'mck'=> $mck,
             'pagu' => $pagu,
             'total_pagu' => $total_pagu,
             'total_pekerjaan' => $total_pekerjaan

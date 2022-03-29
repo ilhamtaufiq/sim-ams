@@ -116,23 +116,13 @@
                     <b class="d-block">{{$pekerjaan->detail->nama_pengawas ?? 'Data Belum Diinput'}}</b>
                     </p>
                 </div>
-                    <h5 class="mt-5 text-muted">Dokumentasi</h5>
+                    <h5 class="mt-5 text-muted">Dokumen Pekerjaan</h5>
                     <ul class="list-unstyled">
-                    <li>
-                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> Functional-requirements.docx</a>
+                    @foreach ($dokumen as $dok)
+                    <li>                         
+                    <a href="{{$dok->path}}" class="btn-link text-secondary"><i class="fas fa-copy"></i> {{$dok->file}}</a>
                     </li>
-                    <li>
-                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> {{$dokumen}}</a>
-                    </li>
-                    <li>
-                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i> Email-from-flatbal.mln</a>
-                    </li>
-                    <li>
-                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-image "></i> Logo.png</a>
-                    </li>
-                    <li>
-                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> Contract-10_12_2014.docx</a>
-                    </li>
+                    @endforeach   
                     </ul>
                 <div class="text-center mt-5 mb-3">
                     <a href="#" class="btn btn-sm btn-primary">Add files</a>

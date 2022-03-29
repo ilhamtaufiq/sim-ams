@@ -267,7 +267,21 @@ return [
         [
             'text' => 'Data Kontrak',
             'url'  => '/kontrak',
-            'icon' => 'fas fa-fw fa-folder',
+            'icon' => 'fas fa-file',
+        ],
+        [
+            'text'    => 'Upload Dokumentasi',
+            'icon'    => 'fas fa-folder-open',
+            'submenu' => [
+                [
+                    'text' => 'Foto',
+                    'url'  => '/foto/create',
+                ],
+                [
+                    'text' => 'Dokumen',
+                    'url' => '/dokumen/create',
+                ],
+            ],
         ],
         // Multi Level Menu
         // [

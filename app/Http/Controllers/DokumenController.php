@@ -56,8 +56,8 @@ class DokumenController extends Controller
   
               foreach($files as $file) {
                   $name1 = $request->pekerjaan_id; 
-                //   $name2 = $image->getClientOriginalName();
-                  $name = $name1.'-'.uniqid().'.'.$file->extension();
+                  $ket = $request->keterangan;
+                  $name = $name1.'-'.$ket.'.'.$file->extension();
                   $path = $file->storeAs('dokumen', $name, 'public');
   
                   Dokumen::create([
@@ -69,7 +69,7 @@ class DokumenController extends Controller
               }
            }
   
-          return back()->with('success', 'Images uploaded successfully');
+          return back()->with('pesan', 'Dokumen Berhasil Ditambahkan');
     }
 
     /**

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Upload Dokumen')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Upload Dokumen Pekerjaan</h1>
 @stop
 
 @section('content')
@@ -42,6 +42,22 @@
 @stop
 
 @section('js')
+@if(session()->has('pesan'))  
+<script>
+    $(function() {
+      var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000
+      });
+      Toast.fire({
+          type: 'success',
+          title: '{{ session()->get('pesan') }}'
+        });
+    });
+    </script>
+  @endif
 @if($errors->any())
 <script>
     $(function() {
