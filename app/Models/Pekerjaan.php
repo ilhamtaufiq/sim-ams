@@ -74,15 +74,6 @@ class Pekerjaan extends Model
         return $this->hasMany(Dokumen::class, 'pekerjaan_id', 'id');
     }
 
-    /**
-     * Get the user associated with the Pekerjaan
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function realisasi()
-    {
-        return $this->hasOne(Realisasi::class, 'pekerjaan_id', 'id');
-    }
 
     public static function boot() {
         parent::boot();

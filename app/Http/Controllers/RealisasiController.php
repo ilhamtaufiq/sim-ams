@@ -18,7 +18,7 @@ class RealisasiController extends Controller
     {
         //Nested relationships kontrak with pekerjaan
         $data =  Realisasi::with('kontrak.pekerjaan')->get();
-        dd($data);
+        // dd($data);
         return view('halaman.realisasi.index',[
             'data' => $data,
         ]);
