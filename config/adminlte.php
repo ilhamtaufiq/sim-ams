@@ -15,7 +15,7 @@ return [
     */
 
     'title' => 'SIM AMS',
-    'title_prefix' => '',
+    'title_prefix' => 'SIMAS',
     'title_postfix' => '',
 
     /*
@@ -30,8 +30,8 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'use_ico_only' => true,
+    'use_full_favicon' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -48,9 +48,13 @@ return [
     'logo' => '<b>SIM</b>-AMS',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
-    'logo_img_xl' => null,
+    'logo_img_xl' => false,
     'logo_img_xl_class' => 'brand-image-xs',
+<<<<<<< HEAD
     'logo_img_alt' => 'AMS',
+=======
+    'logo_img_alt' => 'SIMAS',
+>>>>>>> dev
 
     /*
     |--------------------------------------------------------------------------
@@ -105,7 +109,7 @@ return [
     'classes_auth_card' => 'card-outline card-primary',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
-    'classes_auth_footer' => '',
+    'classes_auth_footer' => 'text-center',
     'classes_auth_icon' => '',
     'classes_auth_btn' => 'btn-flat btn-primary',
 
@@ -145,8 +149,8 @@ return [
     |
     */
 
-    'sidebar_mini' => 'lg',
-    'sidebar_collapse' => false,
+    'sidebar_mini' => 'xs',
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -188,7 +192,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -268,6 +272,11 @@ return [
             'text' => 'Data Kontrak',
             'url'  => '/kontrak',
             'icon' => 'fas fa-file',
+        ],
+        [
+            'text' => 'Realisasi Kontrak',
+            'url'  => '/realisasi',
+            'icon' => 'fas fa-folder',
         ],
         [
             'text'    => 'Upload Dokumentasi',

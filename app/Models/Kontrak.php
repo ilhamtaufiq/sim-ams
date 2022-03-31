@@ -31,4 +31,14 @@ class Kontrak extends Model
         return $this->hasOne(Kegiatan::class, 'id', 'program_id');
     }
 
+    /**
+     * Get the user associated with the Kontrak
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function realisasi()
+    {
+        return $this->hasOne(Realisasi::class, 'kontrak_id', 'id');
+    }
+
 }

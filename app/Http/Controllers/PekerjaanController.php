@@ -119,7 +119,7 @@ class PekerjaanController extends Controller
     public function show(Pekerjaan $pekerjaan)
     {
         //
-        $pekerjaan = Pekerjaan::with('kec','desa','kegiatan','detail','dokumen')->where('id',$pekerjaan->id)->first();
+        $pekerjaan = Pekerjaan::with('kec','desa','kegiatan','detail.realisasi','dokumen')->where('id',$pekerjaan->id)->first();
         $pekerjaan_id = $pekerjaan->id;
         $foto = Foto::where('pekerjaan_id',$pekerjaan_id)->get();
         $dokumen = Dokumen::where('pekerjaan_id',$pekerjaan_id)->get();
@@ -130,10 +130,11 @@ class PekerjaanController extends Controller
             $mulai = new DateTime($pekerjaan->detail->tgl_mulai);
             $selesai = new DateTime($pekerjaan->detail->tgl_selesai);
             $interval = $mulai->diff($selesai);
-            $days = $interval->format('%a');
+            $days = $interval->format('%a')." Hari Kalender";
             return view('halaman.pekerjaan.detail', compact('pekerjaan'),[
                 'foto' => $foto,
                 'dokumen' => $dokumen,
+                'days' => $days,
 
             ]);
 
@@ -142,6 +143,8 @@ class PekerjaanController extends Controller
             return view('halaman.pekerjaan.detail', compact('pekerjaan'),[
                 'foto' => $foto,
                 'dokumen' => $dokumen,
+                'days' => $days,
+
 
             ]);
 
