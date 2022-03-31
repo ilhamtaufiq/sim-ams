@@ -28,7 +28,10 @@
                         <div class="info-box bg-light">
                             <div class="info-box-content">
                                 <span class="info-box-text text-center text-muted">Pagu</span>
-                                <span class="info-box-number text-center text-muted mb-0">{{$pekerjaan->pagu ?: 'Data Belum Diinput'}}</span>
+                                @php
+                                $pagu = "Rp" . number_format($pekerjaan->pagu,2,',','.');
+                                @endphp
+                                <span class="info-box-number text-center text-muted mb-0">{{$pagu ?: 'Data Belum Diinput'}}</span>
                             </div>
                         </div>
                     </div>
@@ -36,7 +39,10 @@
                         <div class="info-box bg-light">
                             <div class="info-box-content">
                                 <span class="info-box-text text-center text-muted">Harga Kontrak</span>
-                                <span class="info-box-number text-center text-muted mb-0">{{$pekerjaan->detail->harga_kontrak ?? 'Data Belum Diinput'}}</span>
+                                @php
+                                $kontrak = "Rp" . number_format($pekerjaan->detail->harga_kontrak,2,',','.');
+                                @endphp
+                                <span class="info-box-number text-center text-muted mb-0">{{$kontrak ?? 'Data Belum Diinput'}}</span>
                             </div>
                         </div>
                     </div>
@@ -44,7 +50,7 @@
                         <div class="info-box bg-light">
                             <div class="info-box-content">
                                 <span class="info-box-text text-center text-muted">Masa Pelaksanaan</span>
-                                <span class="info-box-number text-center text-muted mb-0">{{$days ?? 'Data Belum Diinput'}} Hari Kalender
+                                <span class="info-box-number text-center text-muted mb-0">{{$days ?? 'Data Belum Diinput'}}
                                 </span>
                             </div>
                         </div>
@@ -63,11 +69,11 @@
                             </div>
                     <div class="post clearfix">
                         <div class="user-block">
-                            <p>Nomor NPHD:</p>
-                            <p>Tanggal NPHD:</p>
+                            <p>Nomor NPHD: {{$pekerjaan->realisasi->no_nphd}}</p>
+                            <p>Tanggal NPHD: {{$pekerjaan->realisasi->tgl_nphd}}</p>
                         </div>
-                        <p>Nomor Berita Acara Serah Terima:</p>
-                        <p>Tanggal Berita Acara Serah Terima:</p>
+                        <p>Nomor Berita Acara Serah Terima: {{$pekerjaan->realisasi->no_bast}}</p>
+                        <p>Tanggal Berita Acara Serah Terima: {{$pekerjaan->realisasi->tgl_bast}}</p>
                     </div>
                     <div class="post">
                         <div class="container-fluid">

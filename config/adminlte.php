@@ -87,7 +87,7 @@ return [
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => null,
+    'layout_fixed_footer' => true,
     'layout_dark_mode' => null,
 
     /*
@@ -105,7 +105,7 @@ return [
     'classes_auth_card' => 'card-outline card-primary',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
-    'classes_auth_footer' => '',
+    'classes_auth_footer' => 'text-center',
     'classes_auth_icon' => '',
     'classes_auth_btn' => 'btn-flat btn-primary',
 
@@ -268,6 +268,11 @@ return [
             'text' => 'Data Kontrak',
             'url'  => '/kontrak',
             'icon' => 'fas fa-file',
+        ],
+        [
+            'text' => 'Realisasi Kontrak',
+            'url'  => '/realisasi',
+            'icon' => 'fas fa-folder',
         ],
         [
             'text'    => 'Upload Dokumentasi',

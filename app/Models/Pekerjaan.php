@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Kegiatan;
+use App\Models\Realisasi;
 
 class Pekerjaan extends Model
 {
@@ -71,6 +72,16 @@ class Pekerjaan extends Model
     public function dokumen()
     {
         return $this->hasMany(Dokumen::class, 'pekerjaan_id', 'id');
+    }
+
+    /**
+     * Get the user associated with the Pekerjaan
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function realisasi()
+    {
+        return $this->hasOne(Realisasi::class, 'pekerjaan_id', 'id');
     }
 
     public static function boot() {

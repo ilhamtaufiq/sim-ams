@@ -8,6 +8,8 @@ use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\FotoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DokumenController;
+use App\Http\Controllers\RealisasiController;
+
 
 
 
@@ -91,6 +93,17 @@ Route::group(['middleware' => 'auth'], function()
             'edit' => 'dokumen.edit',
             'update' => 'dokumen.update',
             'show' => 'dokumen.detail'
+            // etc...
+        ]
+    ]);
+    Route::resource('realisasi', RealisasiController::class, [
+        'names' => [
+            'index' => 'realisasi',
+            'create' => 'realisasi.tambah',
+            'store' => 'realisasi.post',
+            'edit' => 'dokumen.edit',
+            'update' => 'realisasi.update',
+            'show' => 'realisasi.detail'
             // etc...
         ]
     ]);

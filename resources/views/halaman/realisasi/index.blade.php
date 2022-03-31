@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Daftar Kontrak')
+@section('title', 'Realisasi Kontrak')
 
 @section('content_header')
-    <h1>Daftar Kontrak</h1>
+    <h1>Realisasi Kontrak</h1>
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
     <div class="card-header">
     <h3 class="card-title">Bidang Air Minum dan Sanitasi Tahun Anggaran 2022</h3>
       <div class="card-tools">
-        <a href="{{route('kontrak.tambah')}}"><button class="btn btn-primary">Tambah</button></a>
+        <a href="{{route('realisasi.tambah')}}"><button class="btn btn-primary">Tambah</button></a>
       </div>
     </div>
     <div class="card-body">
@@ -19,12 +19,11 @@
             <thead>
                 <tr>
                 <th>No</th>
-                <th>Pekerjaan</th>
-                <th>No. SPK</th>
-                <th>Masa Pelaksanaan</th>
-                <th>Kontrak</th>
-                <th>Pelaksana</th>
-                <th>Pengawas</th>
+                <th>Nomor Kontrak</th>
+                <th>NPHD</th>
+                <th>BAST</th>
+                <th>Jumlah SP2D</th>
+                <th>Nomor SP2D</th>
                 <th>Opsi</th>
                 </tr>
             </thead>
@@ -35,15 +34,14 @@
                 @foreach($data as $item)
                 <tr>
                 <td>{{$i++}}</td>
-                <td>{{$item->pekerjaan->nama_pekerjaan}}</td>
-                <td>{{$item->no_spk}} - {{$item->tgl_spk}}</td>
-                <td>{{$item->tgl_mulai}} s/d {{$item->tgl_selesai}}</td>
+                <td>{{$item->kontrak->no_spk}}</td>
+                <td>{{$item->no_nphd}}</td>
+                <td>{{$item->no_bast}}</td>
                 @php
-                $kontrak = "Rp" . number_format($item->harga_kontrak,2,',','.');
+                $sp2d = "Rp" . number_format($item->jumlah_sp2d,2,',','.');
                 @endphp
-                <td>{{$kontrak}}</td>
-                <td>{{$item->nama_pelaksana}}</td>
-                <td>{{$item->nama_pengawas}}</td>
+                <td>{{$sp2d}}</td>
+                <td>{{$item->no_sp2d}}</td>
                 <td>
                   <a href="{{ route('kontrak.edit', $item->id) }}">
                     <button class="btn btn-primary btn-xs" type="button">
@@ -55,7 +53,7 @@
                 @endforeach
             </tbody>
         </table>
-        @foreach ($data as $d)
+        {{-- @foreach ($data as $d)
       <div class="modal fade" id="exampleModal{{$d->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -75,7 +73,7 @@
               </div>
            </div>
         </div>
-      @endforeach
+      @endforeach --}}
     </div>
 </div>
 @stop
