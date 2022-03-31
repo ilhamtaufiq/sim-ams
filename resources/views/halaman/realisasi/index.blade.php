@@ -34,7 +34,7 @@
                 @foreach($data as $item)
                 <tr>
                 <td>{{$i++}}</td>
-                <td>{{$item->kontrak->no_spk}}</td>
+                <td><a href="/pekerjaan/{{$item->kontrak->pekerjaan_id}}">{{$item->kontrak->no_spk}}</a> </td>
                 <td>{{$item->no_nphd}}</td>
                 <td>{{$item->no_bast}}</td>
                 @php

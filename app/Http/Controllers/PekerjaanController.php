@@ -143,7 +143,7 @@ class PekerjaanController extends Controller
             return view('halaman.pekerjaan.detail', compact('pekerjaan'),[
                 'foto' => $foto,
                 'dokumen' => $dokumen,
-                'days' => $days,
+                // 'days' => $days,
 
 
             ]);

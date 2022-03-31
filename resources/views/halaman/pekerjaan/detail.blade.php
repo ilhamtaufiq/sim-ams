@@ -39,9 +39,12 @@
                         <div class="info-box bg-light">
                             <div class="info-box-content">
                                 <span class="info-box-text text-center text-muted">Harga Kontrak</span>
+                                @if (!is_null($pekerjaan->detail))
                                 @php
                                 $kontrak = "Rp" . number_format($pekerjaan->detail->harga_kontrak,2,',','.');
                                 @endphp
+                                @endif
+
                                 <span class="info-box-number text-center text-muted mb-0">{{$kontrak ?? 'Data Belum Diinput'}}</span>
                             </div>
                         </div>
@@ -69,11 +72,15 @@
                             </div>
                     <div class="post clearfix">
                         <div class="user-block">
-                            <p>Nomor NPHD: {{$pekerjaan->realisasi->no_nphd}}</p>
-                            <p>Tanggal NPHD: {{$pekerjaan->realisasi->tgl_nphd}}</p>
+                            @if (!is_null($pekerjaan->detail))
+                            <p>Nomor NPHD: {{$pekerjaan->detail->realisasi->no_nphd}}</p>
+                            <p>Tanggal NPHD: {{$pekerjaan->detail->realisasi->tgl_nphd}}</p>
+                            @endif
                         </div>
-                        <p>Nomor Berita Acara Serah Terima: {{$pekerjaan->realisasi->no_bast}}</p>
-                        <p>Tanggal Berita Acara Serah Terima: {{$pekerjaan->realisasi->tgl_bast}}</p>
+                        @if (!is_null($pekerjaan->detail))
+                        <p>Nomor Berita Acara Serah Terima: {{$pekerjaan->detail->realisasi->no_bast}}</p>
+                        <p>Tanggal Berita Acara Serah Terima: {{$pekerjaan->detail->realisasi->tgl_bast}}</p>
+                        @endif
                     </div>
                     <div class="post">
                         <div class="container-fluid">
