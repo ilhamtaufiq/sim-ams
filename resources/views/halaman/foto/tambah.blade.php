@@ -31,15 +31,14 @@
                 </select>
             </div>
             <div class="form-group">
-                  <div class="dropzone" id="myDropzone"></div>
-                {{-- <input type="file" name="images[]" multiple class="form-control" accept="image/*">
+                <input type="file" name="images[]" multiple class="form-control" accept="image/*">
                 @if ($errors->has('files'))
                   @foreach ($errors->get('files') as $error)
                   <span>
                       <strong>{{ $error }}</strong>
                   </span>
                   @endforeach
-                @endif --}}
+                @endif
             </div>
             <div class="card-footer">
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
@@ -70,42 +69,6 @@
     });
     </script>
   @endif
-<script type="text/javascript">
-  let token = $('meta[name="csrf-token"]').attr('content');
-  Dropzone.options.myDropzone= {
-    url: '{{route('foto.store')}}',
-    paramName: "images",
-    autoProcessQueue: false,
-    uploadMultiple: true,
-    parallelUploads: 5,
-    maxFiles: 5,
-    maxFilesize: 1,
-    acceptedFiles: 'image/*',
-    addRemoveLinks: true,
-    params: {_token: token},
-    init: function() {
-        dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
-
-        // for Dropzone to process the queue (instead of default form behavior):
-        document.getElementById("submit").addEventListener("click", function(e) {
-            // Make sure that the form isn't actually being sent.
-            e.preventDefault();
-            e.stopPropagation();
-            dzClosure.processQueue();
-            // window.location.href="/pekerjaan"
-        });
-
-        //send all the form data along with the files:
-        this.on("sendingmultiple", function(data, xhr, formData) {
-            formData.append("program_id", jQuery("#program_id").val());
-            formData.append("pekerjaan_id", jQuery("#pekerjaan_id").val());
-                        window.location.href="/pekerjaan"
-
-            
-        });
-    }
-}
-</script>
     <script>
   $(function () {
     //Initialize Select2 Elements
