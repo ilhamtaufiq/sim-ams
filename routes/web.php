@@ -34,7 +34,7 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
 
-Route::group(['middleware' => 'auth'], function()
+Route::group(['middleware' => ['auth']], function()
 {
     Route::resource('dashboard', DashboardController::class, [
         'names' => [
