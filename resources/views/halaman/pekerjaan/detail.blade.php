@@ -75,11 +75,15 @@
                             @if (!is_null($pekerjaan->detail))
                             <p>Nomor NPHD: {{$pekerjaan->detail->realisasi->no_nphd}}</p>
                             <p>Tanggal NPHD: {{$pekerjaan->detail->realisasi->tgl_nphd}}</p>
+                            @else
+                            <p>Nomor dan Tangggal NPHD Belum Diinput</p>
                             @endif
                         </div>
                         @if (!is_null($pekerjaan->detail))
                         <p>Nomor Berita Acara Serah Terima: {{$pekerjaan->detail->realisasi->no_bast}}</p>
                         <p>Tanggal Berita Acara Serah Terima: {{$pekerjaan->detail->realisasi->tgl_bast}}</p>
+                        @else
+                        <p>Nomor dan Tangggal Berita Acara Serah Terima Belum Diinput</p>
                         @endif
                     </div>
                     <div class="post">

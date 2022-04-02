@@ -268,6 +268,7 @@ return [
             'text' => 'Data Kontrak',
             'url'  => '/kontrak',
             'icon' => 'fas fa-file',
+            'can'  => 'kontrak',
         ],
         [
             'text' => 'Realisasi Kontrak',
@@ -285,6 +286,31 @@ return [
                 [
                     'text' => 'Dokumen',
                     'url' => '/dokumen/create',
+                ],
+            ],
+        ],
+        ['header' => 'Access Control List',
+         'can'      => ['users.index'],
+        ],
+        [
+            'text'    => 'Manajemen Pengguna',
+            'icon'    => 'fa fa-user',
+            'can'      => ['users.index'],
+            'submenu' => [
+                [
+                    'text' => 'Pengguna',
+                    'url'  => '/users',
+                    'can' =>['users.index']
+                ],
+                [
+                    'text' => 'Roles',
+                    'url' => '/roles',
+                    'can' => ['roles.index']
+                ],
+                [
+                    'text' => 'Permissions',
+                    'url' => '/permissions',
+                    'can' => ['roles.index']
                 ],
             ],
         ],
