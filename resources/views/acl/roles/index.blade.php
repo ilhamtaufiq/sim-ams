@@ -9,6 +9,9 @@
 @section('content')
     <div>
         <div class="card-header">
+        <div class="card-tools">
+            <a href="{{route('roles.create')}}"><button class="btn btn-primary">Tambah</button></a>
+        </div>
         </div>
         <div class="card-body">
             <table class="table table-bordered">
