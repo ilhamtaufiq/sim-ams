@@ -111,16 +111,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             // etc...
         ]
     ]);
-    Route::get('/pekerjaan/{pekerjaan_id}', [PekerjaanController::class, 'pekerjaan.detail']);
 
-    Route::get('/cover/kontrak/{kontrak}', [KontrakController::class, 'cover']);
+    // Route::get('/pekerjaan/{pekerjaan_id}', [PekerjaanController::class, 'pekerjaan.detail']);
 
-    Route::get('/foto/pekerjaan/{pekerjaan}', [FotoController::class, 'progress']);
-    Route::post('/foto/pekerjaan/post', [FotoController::class, 'storeFoto']);
+    Route::get('/cover/kontrak/{kontrak}', [App\Http\Controllers\KontrakController::class, 'cover']);
+
+    Route::get('/foto/pekerjaan/{pekerjaan}', [App\Http\Controllers\FotoController::class, 'progress']);
+    Route::post('/foto/pekerjaan/post', [App\Http\Controllers\FotoController::class, 'storeFoto']);
 
 
-    Route::get('/desa/{kec_id}', [DesaController::class, 'getdesa']);
-    Route::get('/pekerjaan/kegiatan/{keg_id}', [PekerjaanController::class, 'getPekerjaan']);
+    Route::get('/desa/{kec_id}', [App\Http\Controllers\DesaController::class, 'getdesa']);
+    Route::get('/pekerjaan/kegiatan/{keg_id}', [App\Http\Controllers\PekerjaanController::class, 'getPekerjaan']);
 });
 
 
