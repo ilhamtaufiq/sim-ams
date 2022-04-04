@@ -1,14 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\KegiatanController;
-use App\Http\Controllers\PekerjaanController;
-use App\Http\Controllers\DesaController;
-use App\Http\Controllers\KontrakController;
-use App\Http\Controllers\FotoController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DokumenController;
-use App\Http\Controllers\RealisasiController;
+
+
+
+
 
 
 
@@ -28,6 +24,11 @@ use App\Http\Controllers\RealisasiController;
 |
 */
 
+
+
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -35,9 +36,12 @@ Route::get('/', function () {
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
-
-Route::group(['middleware' => ['auth']], function()
+Route::group(['namespace' => 'App\Http\Controllers'], function()
 {
+    Route::resource('roles', RolesController::class);
+    Route::resource('permissions', PermissionsController::class);
+    Route::resource('users', UsersController::class);
+
     Route::resource('dashboard', DashboardController::class, [
         'names' => [
             'index' => 'dashboard',
@@ -117,8 +121,6 @@ Route::group(['middleware' => ['auth']], function()
 
     Route::get('/desa/{kec_id}', [DesaController::class, 'getdesa']);
     Route::get('/pekerjaan/kegiatan/{keg_id}', [PekerjaanController::class, 'getPekerjaan']);
-
-
 });
 
 
