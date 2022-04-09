@@ -112,6 +112,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         ]
     ]);
 
+    Route::resource('penyedia', PenyediaController::class, [
+        'names' => [
+            'index' => 'penyedia',
+            'create' => 'penyedia.tambah',
+            'store' => 'penyedia.store',
+            'edit' => 'penyedia.edit',
+            'update' => 'penyedia.update',
+            'show' => 'penyedia.detail'
+            // etc...
+        ]
+    ]);
+
     // Route::get('/pekerjaan/{pekerjaan_id}', [PekerjaanController::class, 'pekerjaan.detail']);
 
     Route::get('/cover/kontrak/{kontrak}', [App\Http\Controllers\KontrakController::class, 'cover']);
