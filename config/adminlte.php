@@ -276,6 +276,11 @@ return [
             'icon' => 'fas fa-folder',
         ],
         [
+            'text' => 'Daftar Penyedia',
+            'url'  => '/penyedia',
+            'icon' => 'fas fa-folder',
+        ],
+        [
             'text'    => 'Upload Dokumentasi',
             'icon'    => 'fas fa-folder-open',
             'submenu' => [

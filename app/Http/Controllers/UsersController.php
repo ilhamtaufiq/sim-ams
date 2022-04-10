@@ -10,6 +10,10 @@ use App\Http\Requests\UpdateUserRequest;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin']);
+    }
     /**
      * Display all users
      * 

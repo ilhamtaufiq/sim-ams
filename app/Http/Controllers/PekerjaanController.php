@@ -9,11 +9,30 @@ use App\Models\Kegiatan;
 use App\Models\Kecamatan;
 use App\Models\Foto;
 use App\Models\Dokumen;
+use App\Models\Tfl;
+use Auth;
+
 
 use DateTime;
 
 class PekerjaanController extends Controller
 {
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tfl_index()
+    {
+        //TFL
+        $userId = Auth::id();
+        $data = Tfl::with('pekerjaan.kegiatan')->where('user_id',$userId)->get();
+        return view('tfl.home',[
+            'data' => $data
+        ]);
+
+    }
+
     //custom
     public function getPekerjaan($keg_id)
     {

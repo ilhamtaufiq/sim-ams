@@ -32,6 +32,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', function () {
+    return view('home');
+});
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -61,11 +64,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             'store' => 'pekerjaan.store',
             'edit' => 'pekerjaan.edit',
             'update' => 'pekerjaan.update',
-            'show' => 'pekerjaan.detail'
+            'show' => 'pekerjaan.detail',
             // etc...
         ]
     ]);
-    Route::get('/pekerjaan/tahun/{tahun}', [PekerjaanController::class, 'pekerjaan']);
+    Route::get('/pekerjaan/tahun/{tahun}', [App\Http\Controllers\PekerjaanController::class, 'pekerjaan']);
+    //TFL
+    Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index']);
+
 
     Route::resource('kontrak', KontrakController::class, [
         'names' => [
@@ -74,7 +80,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             'store' => 'kontrak.store',
             'edit' => 'kontrak.edit',
             'update' => 'kontrak.update',
-            'show' => 'kontrak.detail'
+            'show' => 'kontrak.detail',
             // etc...
         ]
     ]);

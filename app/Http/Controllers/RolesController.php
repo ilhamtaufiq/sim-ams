@@ -18,7 +18,7 @@ class RolesController extends Controller
      */
     function __construct()
     {
-
+        $this->middleware(['role:admin']);
     }
     
     /**
