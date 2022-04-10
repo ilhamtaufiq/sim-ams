@@ -8,16 +8,16 @@
     <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Basic form</h3>
+            <h3 class="card-title">Daftar Kegiatan</h3>
           </div>
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
+          <table class="table table-vcenter card-table">
                 <thead>
                     <tr>
                       <th>No</th>
                     <th>Program</th>
                     <th>Kegiatan</th>
-                    <th>Pagu</th>
+                    <th>Progress Fisik</th>
                     <th>Tahun Anggaran</th>
                     <th>Opsi</th>
                     </tr>
@@ -35,7 +35,13 @@
                       <td>{{$i++}}</td>
                     <td>{{$item->pekerjaan->kegiatan->sub_kegiatan}}</td>
                     <td>{{$item->pekerjaan->nama_pekerjaan}}</td>
-                    <td>{{$pagu}}</td>
+                    <td>
+                      <div class="progress mb-2">
+                        <div class="progress-bar" style="width: 100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="100% Complete">
+                        <span>38% Complete</span> 
+                      </div>
+                      </div>
+                    </td>
                     <td>{{$item->pekerjaan->tahun_anggaran}}</td>
                     <td>
                         <div class="btn-list flex-nowrap">
@@ -44,7 +50,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><circle cx="12" cy="12" r="3" /></svg>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-team{{$item->pekerjaan->id}}">
                                   Dokumentasi Foto
                                 </a>
                                 <a class="dropdown-item" href="#">
@@ -58,15 +64,76 @@
                     @endforeach
                 </tbody>
             </table>
+          </div>
         </div>
-        </div>
-      </div>
+    </div>
 </div>
+  @foreach ($data as $d)
+  <div class="modal modal-blur fade" id="modal-team{{$d->pekerjaan->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form action="/foto/pekerjaan/post" method="POST" enctype="multipart/form-data">
+            @csrf
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">{{$d->pekerjaan->nama_pekerjaan}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row mb-3 align-items-end">
+                <div class="col-auto">
+                  <a href="#" class="avatar avatar-upload rounded">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+                    <span class="avatar-upload-text">
+                    <img id="prev" src="#" alt="your image" />
+                    </span>
+                  </a>
+                </div>
+                <div class="col">
+                  <label class="form-label">Foto</label>
+                  <input name="images[1]" type="file" id="img" class="form-control" />
+                  <input value="{{$d->pekerjaan->id}}" type="text" name="pekerjaan_id" id="pekerjaan_id" hidden>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Progress</label>
+                <div class="row g-2">
+                  <div class="col-auto">
+                    <label class="form-check form-check-inline">
+                      <input class="form-check-input" name="progress[1]" value="0" type="radio">
+                      <span class="form-check-label">0%</span>
+                    </label>
+                    <labe class="form-check form-check-inline">
+                      <input class="form-check-input" name="progress[1]" value="25" type="radio">
+                      <span class="form-check-label">25%</span>
+                    </labe>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label class="form-label">Keterangan</label>
+                <textarea class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Upload</button>
+            </div>
+          </div>
+      </form>
+    </div>
+  </div>
+  @endforeach
 @endsection
 @section('js')
+<script>
+  img.onchange = evt => {
+  const [file] = img.files
+  if (file) {
+    prev.src = URL.createObjectURL(file)
+  }
+}
+</script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
-
 <!--Data Table-->
 <script type="text/javascript"  src=" https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript"  src=" https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>

@@ -28,7 +28,8 @@ class PekerjaanController extends Controller
         $userId = Auth::id();
         $data = Tfl::with('pekerjaan.kegiatan')->where('user_id',$userId)->get();
         return view('tfl.home',[
-            'data' => $data
+            'data' => $data,
+            'title' => 'Sanitasi DAK'
         ]);
 
     }

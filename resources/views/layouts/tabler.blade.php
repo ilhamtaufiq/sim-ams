@@ -75,7 +75,7 @@
             <div class="row align-items-center">
               <div class="col">
                 <h2 class="page-title">
-                  Empty page
+                  {{$title}}
                 </h2>
               </div>
             </div>
