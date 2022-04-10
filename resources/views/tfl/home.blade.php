@@ -14,7 +14,7 @@
           <table class="table table-vcenter card-table">
                 <thead>
                     <tr>
-                      <th>No</th>
+                    <th>No</th>
                     <th>Program</th>
                     <th>Kegiatan</th>
                     <th>Progress Fisik</th>
@@ -54,7 +54,7 @@
                                   Dokumentasi Foto
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                  Progress
+                                  Informasi Kegiatan
                                 </a>
                               </div>
                             </div>
