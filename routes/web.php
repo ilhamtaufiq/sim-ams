@@ -68,10 +68,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             // etc...
         ]
     ]);
-    Route::get('/pekerjaan/tahun/{tahun}', [App\Http\Controllers\PekerjaanController::class, 'pekerjaan']);
-    //TFL
-    Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index']);
-
 
     Route::resource('kontrak', KontrakController::class, [
         'names' => [
@@ -92,17 +88,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             'edit' => 'foto.edit',
             'update' => 'foto.update',
             'show' => 'foto.detail'
-            // etc...
-        ]
-    ]);
-    Route::resource('dokumen', DokumenController::class, [
-        'names' => [
-            'index' => 'dokumen',
-            'create' => 'dokumen.tambah',
-            'store' => 'dokumen.post',
-            'edit' => 'dokumen.edit',
-            'update' => 'dokumen.update',
-            'show' => 'dokumen.detail'
             // etc...
         ]
     ]);
@@ -131,7 +116,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     ]);
 
     // Route::get('/pekerjaan/{pekerjaan_id}', [PekerjaanController::class, 'pekerjaan.detail']);
-
+    // Single
     Route::get('/cover/kontrak/{kontrak}', [App\Http\Controllers\KontrakController::class, 'cover']);
 
     Route::get('/foto/pekerjaan/{pekerjaan}', [App\Http\Controllers\FotoController::class, 'progress']);
@@ -140,6 +125,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
     Route::get('/desa/{kec_id}', [App\Http\Controllers\DesaController::class, 'getdesa']);
     Route::get('/pekerjaan/kegiatan/{keg_id}', [App\Http\Controllers\PekerjaanController::class, 'getPekerjaan']);
+
+    Route::get('/pekerjaan/tahun/{tahun}', [App\Http\Controllers\PekerjaanController::class, 'pekerjaan']);
+    //TFL
+    Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index']);
+    //Air Minum
+    Route::get('/airminum', [App\Http\Controllers\PekerjaanController::class, 'am_index'])->name('am_index');
+
+    Route::get('/dok/tambah', [App\Http\Controllers\DokumenController::class, 'create']);
+    Route::post('/dok/post', [App\Http\Controllers\DokumenController::class, 'store'])->name('dokumen.post');
 });
 
 

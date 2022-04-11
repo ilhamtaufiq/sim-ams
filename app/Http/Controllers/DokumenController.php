@@ -10,18 +10,18 @@ use App\Models\Pekerjaan;
 
 class DokumenController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $pekerjaan = Pekerjaan::get();
-        return view('halaman.dokumen.index',[
-            'pekerjaan' => $pekerjaan,
-        ]);
-    }
+    // /**
+    //  * Display a listing of the resource.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function index()
+    // {
+    //     $pekerjaan = Pekerjaan::get();
+    //     return view('halaman.dokumen.index',[
+    //         'pekerjaan' => $pekerjaan,
+    //     ]);
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -69,8 +69,8 @@ class DokumenController extends Controller
               }
            }
   
-          return back()->with('pesan', 'Dokumen Berhasil Ditambahkan');
-    }
+           return redirect()->route('am_index')->with('pesan', 'Data Pekerjaan Berhasil Ditambahkan');
+        }
 
     /**
      * Display the specified resource.

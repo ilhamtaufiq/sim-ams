@@ -17,11 +17,7 @@ use DateTime;
 
 class PekerjaanController extends Controller
 {
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function tfl_index()
     {
         //TFL
@@ -30,6 +26,17 @@ class PekerjaanController extends Controller
         return view('tfl.home',[
             'data' => $data,
             'title' => 'Sanitasi DAK'
+        ]);
+
+    }
+
+    public function am_index()
+    {
+        //Air Minum
+        $data = Pekerjaan::with('kegiatan','desa','kec')->where('program_id',[3,4,5])->get();
+        return view('am.index',[
+            'data' => $data,
+            'title' => 'Air Minum'
         ]);
 
     }

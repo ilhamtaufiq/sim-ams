@@ -102,10 +102,10 @@
                       <input class="form-check-input" name="progress[1]" value="0" type="radio">
                       <span class="form-check-label">0%</span>
                     </label>
-                    <labe class="form-check form-check-inline">
+                    <label class="form-check form-check-inline">
                       <input class="form-check-input" name="progress[1]" value="25" type="radio">
                       <span class="form-check-label">25%</span>
-                    </labe>
+                    </label>
                   </div>
                 </div>
               </div>
