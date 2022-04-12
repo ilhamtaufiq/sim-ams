@@ -1,7 +1,5 @@
 @extends('layouts.tabler')
 @section('css')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
 @endsection
 @section('content')
 <div class="container-xl">
@@ -12,7 +10,7 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-          <table id="example1" class="table table-vcenter card-table">
+              <table id="example1" class="table table-vcenter card-table">
                 <thead>
                     <tr>
                     <th>No</th>
@@ -61,7 +59,7 @@
                     </tr>
                     @endforeach
                 </tbody>
-            </table>
+              </table>
             </div>
           </div>
         </div>
@@ -180,15 +178,11 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
 <script>
     $(document).ready(function() {
-    $.fn.dataTable.ext.classes.sLengthSelect = 'btn btn-dark';
-    $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn btn-dark' })
     $('#example1').DataTable( {
-      drawCallback: function () {
-      $('.page-link').addClass('btn btn-dark');
-      $('.form-control').addClass('theme-dark');
-      },
         dom: 'Bfrtip',
         responsive: true,
+        ordering: true,
+        info:     true,
         buttons: [
             {
                 extend: 'copyHtml5',
@@ -220,6 +214,11 @@
             },
         ]
     } );
+    $('#example1_filter input').addClass('form-control form-control-sm'); // <-- add this line
+    $('#example1_filter label').addClass('text-muted'); // <-- add this line
+
+
+
 } );
 </script>
 @endsection
