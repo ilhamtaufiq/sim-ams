@@ -8,9 +8,10 @@
     <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Daftar Kegiatan</h3>
+            <!-- <h3 class="card-title">Daftar Kegiatan</h3> -->
           </div>
           <div class="card-body">
+            <div class="table-responsive">
           <table id="example1" class="table table-vcenter card-table">
                 <thead>
                     <tr>
@@ -45,10 +46,13 @@
                               </button>
                               <div class="dropdown-menu dropdown-menu-end">
                                 <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-team{{$item->id}}">
-                                  Dokumentasi Foto
+                                  Upload Dokumen
+                                </a>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-foto{{$item->id}}">
+                                  Upload Foto
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                  Informasi Kegiatan
+                                  Output
                                 </a>
                               </div>
                             </div>
@@ -58,12 +62,48 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
           </div>
         </div>
     </div>
 </div>
   @foreach ($data as $d)
+  <!-- Upload Dokumen -->
   <div class="modal modal-blur fade" id="modal-team{{$d->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <form action="{{route('dokumen.post')}}" method="POST" enctype="multipart/form-data">
+          @csrf
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{$d->nama_pekerjaan}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row mb-3 align-items-end">
+              <div class="col-auto">
+                <!-- Preview goes here -->
+              </div>
+              <div class="col">
+                <label class="form-label">File</label>
+                <input type="file" name="files[]" class="form-control" accept="*" multiple>
+                <input value="{{$d->id}}" type="text" name="pekerjaan_id" id="pekerjaan_id" hidden>
+              </div>
+            </div>
+            <div>
+              <label class="form-label">Keterangan</label>
+              <textarea name="keterangan" id="keterangan" class="form-control" placeholder="Tambah keterangan, misal; HPS, Gambar, dsb "></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Upload</button>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+  <!-- Upload Foto -->
+  <div class="modal modal-blur fade" id="modal-foto{{$d->id}}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <form action="/foto/pekerjaan/post" method="POST" enctype="multipart/form-data">
             @csrf
@@ -78,7 +118,7 @@
                   <a href="#" class="avatar avatar-upload rounded">
                     <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                     <span class="avatar-upload-text">
-                    <img id="prev" src="#" alt="your image" />
+                    <img id="prev" src="#" alt="Foto" />
                     </span>
                   </a>
                 </div>
@@ -96,10 +136,10 @@
                       <input class="form-check-input" name="progress[1]" value="0" type="radio">
                       <span class="form-check-label">0%</span>
                     </label>
-                    <labe class="form-check form-check-inline">
+                    <label class="form-check form-check-inline">
                       <input class="form-check-input" name="progress[1]" value="25" type="radio">
                       <span class="form-check-label">25%</span>
-                    </labe>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -140,30 +180,40 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
 <script>
     $(document).ready(function() {
+    $.fn.dataTable.ext.classes.sLengthSelect = 'btn btn-dark';
+    $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn btn-dark' })
     $('#example1').DataTable( {
+      drawCallback: function () {
+      $('.page-link').addClass('btn btn-dark');
+      $('.form-control').addClass('theme-dark');
+      },
         dom: 'Bfrtip',
         responsive: true,
         buttons: [
             {
                 extend: 'copyHtml5',
+                className: 'btn btn-dark',
                 exportOptions: {
                   columns: [ 0, 1, 2, 3, 4, 5 ]
                 }
             },
             {
                 extend: 'excelHtml5',
+                className: 'btn btn-dark',
                 exportOptions: {
                   columns: [ 0, 1, 2, 3, 4]
                 }
             },
             {
               extend: 'print',
+              className: 'btn btn-dark',
               exportOptions: {
                     columns: [ 0, 1, 2, 3, 4 ]
                 }
             },
             {
                 extend: 'pdfHtml5',
+                className: 'btn btn-dark',
                 exportOptions: {
                     columns: [ 0, 1, 2, 3, 4 ]
                 }

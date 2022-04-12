@@ -11,7 +11,7 @@
           </span>
         </a>
       </li>
-      <li class="nav-item dropdown {{ Route::is(['am_index','tfl']) ? 'active' : '' }}">
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >          <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-subtask" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.25" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -29,11 +29,23 @@
         <div class="dropdown-menu">
           <div class="dropdown-menu-columns">
             <div class="dropdown-menu-column">
-              <a class="dropdown-item {{ Route::is('am_index') ? 'active' : '' }}" href="/airminum">
-                Air Minum
+              <a class="dropdown-item" href="/kegiatan/1">
+                Sanitasi DAK
+              </a>
+              <a class="dropdown-item" href="/kegiatan/2">
+                Pembangunan MCK
+              </a>
+              <a class="dropdown-item" href="/kegiatan/3">
+                Pembangunan SPAM
+              </a>
+              <a class="dropdown-item" href="/kegiatan/4">
+                Rehab SPAM
+              </a>
+              <a class="dropdown-item" href="/kegiatan/5">
+                Perluasan SPAM DAK
               </a>
               <a class="dropdown-item {{ Route::is('tfl') ? 'active' : '' }}" href="/tfl">
-                Sanitasi DAK
+                TFL
               </a>
             </div>
           </div>

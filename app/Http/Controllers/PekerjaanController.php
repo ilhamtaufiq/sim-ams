@@ -30,13 +30,13 @@ class PekerjaanController extends Controller
 
     }
 
-    public function am_index()
+    public function kegiatan($id)
     {
         //Air Minum
-        $data = Pekerjaan::with('kegiatan','desa','kec')->where('program_id',[3,4,5])->get();
-        return view('am.index',[
+        $data = Pekerjaan::with('kegiatan','desa','kec')->where('program_id',$id)->get();
+        return view('pages.pekerjaan.index',[
             'data' => $data,
-            'title' => 'Air Minum'
+            'title' => 'Daftar Kegiatan'
         ]);
 
     }

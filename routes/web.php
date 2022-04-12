@@ -51,12 +51,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             // etc...
         ]
     ]);
-    Route::resource('kegiatan', KegiatanController::class, [
-        'names' => [
-            'index' => 'kegiatan',
-            // etc...
-        ]
-    ]);
+
     Route::resource('pekerjaan', PekerjaanController::class, [
         'names' => [
             'index' => 'pekerjaan',
@@ -130,7 +125,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     //TFL
     Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index']);
     //Air Minum
-    Route::get('/airminum', [App\Http\Controllers\PekerjaanController::class, 'am_index'])->name('am_index');
+    Route::get('/kegiatan', [App\Http\Controllers\KegiatanController::class, 'index']);
+    Route::get('/kegiatan/{id}', [App\Http\Controllers\PekerjaanController::class, 'kegiatan'])->name('kegiatan');
 
     Route::get('/dok/tambah', [App\Http\Controllers\DokumenController::class, 'create']);
     Route::post('/dok/post', [App\Http\Controllers\DokumenController::class, 'store'])->name('dokumen.post');

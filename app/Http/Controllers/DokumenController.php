@@ -69,7 +69,7 @@ class DokumenController extends Controller
               }
            }
   
-           return redirect()->route('am_index')->with('pesan', 'Data Pekerjaan Berhasil Ditambahkan');
+           return back()->with('pesan', 'Dokumen berhasil diunggah');
         }
 
     /**
