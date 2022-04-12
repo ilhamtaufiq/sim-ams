@@ -59,7 +59,8 @@ class PekerjaanController extends Controller
     {
         //wtf
         $data = Pekerjaan::with('kegiatan','desa','kec')->get();
-        return view('halaman.pekerjaan.index',[
+        return view('pages.pekerjaan.index',[
+            'title' => 'Bidang Air Minum dan Sanitasi',
             'data' => $data
         ]);
 
