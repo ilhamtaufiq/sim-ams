@@ -39,7 +39,7 @@ Route::get('/home', function () {
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
-Route::group(['namespace' => 'App\Http\Controllers'], function()
+Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth']], function()
 {
     Route::resource('roles', RolesController::class);
     Route::resource('permissions', PermissionsController::class);

@@ -1,8 +1,8 @@
 <!doctype html>
 <!--
 * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
-* @version 1.0.0-beta5
-* @link https://tabler.io
+* @version  1.0.0-beta5
+* @link  https://tabler.io
 * Copyright 2018-2022 The Tabler Authors
 * Copyright 2018-2022 codecalm.net Paweł Kuna
 * Licensed under MIT (https://github.com/tabler/tabler/blob/master/LICENSE)
@@ -12,15 +12,15 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>{{$title ?? 'Bidang Air Minum dan Sanitasi'}}</title>
+    <title><?php echo e($title ?? 'Bidang Air Minum dan Sanitasi'); ?></title>
     <!-- CSS files -->
-    <link href="{{asset('tabler/css/tabler.min.css')}}" rel="stylesheet"/>
-    <link href="{{asset('tabler/css/tabler-flags.min.css')}}" rel="stylesheet"/>
-    <link href="{{asset('tabler/css/tabler-payments.min.css')}}" rel="stylesheet"/>
-    <link href="{{asset('tabler/css/tabler-vendors.min.css')}}" rel="stylesheet"/>
-    <link href="{{asset('tabler/css/demo.min.css')}}" rel="stylesheet"/>
+    <link href="<?php echo e(asset('tabler/css/tabler.min.css')); ?>" rel="stylesheet"/>
+    <link href="<?php echo e(asset('tabler/css/tabler-flags.min.css')); ?>" rel="stylesheet"/>
+    <link href="<?php echo e(asset('tabler/css/tabler-payments.min.css')); ?>" rel="stylesheet"/>
+    <link href="<?php echo e(asset('tabler/css/tabler-vendors.min.css')); ?>" rel="stylesheet"/>
+    <link href="<?php echo e(asset('tabler/css/demo.min.css')); ?>" rel="stylesheet"/>
     <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css">
-    @yield('css')
+    <?php echo $__env->yieldContent('css'); ?>
   </head>
   <body >
   <div class="page">
@@ -133,8 +133,8 @@
               <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
                 <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
                 <div class="d-none d-xl-block ps-2">
-                  <div>{{Auth::user()->name}}</div>
-                  <div class="mt-1 small text-muted">{{Auth::user()->roles->first()->name}}</div>
+                  <div><?php echo e(Auth::user()->name); ?></div>
+                  <div class="mt-1 small text-muted"><?php echo e(Auth::user()->roles->first()->name); ?></div>
                 </div>
               </a>
               <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -143,17 +143,17 @@
                 <a href="#" class="dropdown-item">Feedback</a>
                 <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">Settings</a>
-                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <a class="dropdown-item" href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                   Keluar
                 </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                  @csrf
+                <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+                  <?php echo csrf_field(); ?>
               </form>              
               </div>
             </div>
           </div>
           <!-- Menu Item -->
-          @include('partials.menu')
+          <?php echo $__env->make('partials.menu', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </div>
       </header>
       <div class="page-wrapper">
@@ -163,7 +163,8 @@
             <div class="row align-items-center">
               <div class="col">
                 <h2 class="page-title">
-                  {{$title}}
+                  <?php echo e($title); ?>
+
                 </h2>
               </div>
             </div>
@@ -171,16 +172,16 @@
         </div>
         <div class="page-body">
             <!-- Content here -->
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
         </div>
         <!-- Footer -->
-        @include('partials.footer')
+        <?php echo $__env->make('partials.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
       </div>
     </div>
     <!-- Libs JS -->
     <!-- Tabler Core -->
-    <script src="{{asset('tabler/js/tabler.min.js')}}"></script>
-    <script src="{{asset('tabler/js/demo.min.js')}}"></script>
-    @yield('js')
+    <script src="<?php echo e(asset('tabler/js/tabler.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('tabler/js/demo.min.js')); ?>"></script>
+    <?php echo $__env->yieldContent('js'); ?>
   </body>
-</html>
+</html><?php /**PATH C:\Users\Ilham\Documents\GitHub\sim-ams\resources\views/layouts/tabler.blade.php ENDPATH**/ ?>
