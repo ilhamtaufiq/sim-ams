@@ -20,13 +20,13 @@
               <polyline points="17 8 21 12 17 16"></polyline>
               <line x1="14" y1="4" x2="10" y2="20"></line>
            </svg>
-          </span> di Cianjur
+          </span>
         </div>
         <div class="col-12 col-lg-auto mt-3 mt-lg-0">
           <ul class="list-inline list-inline-dots mb-0">
             <li class="list-inline-item">
               Copyright &copy; 2022
-              <a href="twitter.com/ilhamtopiq">ilhamtopiq</a>
+              <a href="https://twitter.com/ilhamtopiq">ilhamtopiq</a>
             </li>
             <li class="list-inline-item">
               <a href="./changelog.html" class="link-secondary" rel="noopener">

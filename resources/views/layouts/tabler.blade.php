@@ -12,7 +12,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>{{$title}}</title>
+    <title>{{$title ?? 'Bidang Air Minum dan Sanitasi'}}</title>
     <!-- CSS files -->
     <link href="{{asset('tabler/css/tabler.min.css')}}" rel="stylesheet"/>
     <link href="{{asset('tabler/css/tabler-flags.min.css')}}" rel="stylesheet"/>
@@ -30,7 +30,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-            <a href=".">
+            <a href="#">
              Bidang Air Minum dan Sanitasi 
             </a>
           </h1>

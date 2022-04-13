@@ -23,7 +23,7 @@ class PekerjaanController extends Controller
         //TFL
         $userId = Auth::id();
         $data = Tfl::with('pekerjaan.kegiatan')->where('user_id',$userId)->get();
-        return view('tfl.home',[
+        return view('pages.tfl.home',[
             'data' => $data,
             'title' => 'Sanitasi DAK'
         ]);

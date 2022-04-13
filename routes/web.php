@@ -122,6 +122,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
     Route::get('/pekerjaan/kegiatan/{keg_id}', [App\Http\Controllers\PekerjaanController::class, 'getPekerjaan']);
 
     Route::get('/pekerjaan/tahun/{tahun}', [App\Http\Controllers\PekerjaanController::class, 'pekerjaan']);
+    //V1.2
     //TFL
     Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index']);
     //Air Minum

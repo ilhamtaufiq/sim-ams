@@ -35,7 +35,8 @@ class DashboardController extends Controller
         $sandak = Pekerjaan::where('program_id','=',1)->get(); 
         $mck = Pekerjaan::where('program_id','=',2)->get();        
        
-        return view ('dashboard',[
+        return view ('pages.dashboard',[
+            'title' => 'Dashboard',
             'am1' => $am1,
             'am2' => $am2,
             'am3' => $am3,
