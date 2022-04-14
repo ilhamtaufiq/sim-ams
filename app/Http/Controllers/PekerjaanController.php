@@ -159,7 +159,8 @@ class PekerjaanController extends Controller
             $selesai = new DateTime($pekerjaan->detail->tgl_selesai);
             $interval = $mulai->diff($selesai);
             $days = $interval->format('%a')." Hari Kalender";
-            return view('halaman.pekerjaan.detail', compact('pekerjaan'),[
+            return view('pages.pekerjaan.info', compact('pekerjaan'),[
+                'title' => $pekerjaan->nama_pekerjaan,
                 'foto' => $foto,
                 'dokumen' => $dokumen,
                 'days' => $days,
@@ -168,7 +169,8 @@ class PekerjaanController extends Controller
 
         } else {
             # code...
-            return view('halaman.pekerjaan.detail', compact('pekerjaan'),[
+            return view('pages.pekerjaan.info', compact('pekerjaan'),[
+                'title' => $pekerjaan->nama_pekerjaan,
                 'foto' => $foto,
                 'dokumen' => $dokumen,
                 // 'days' => $days,

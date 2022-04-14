@@ -1,0 +1,1 @@
+<?php echo $slot; ?><?php /**PATH /Users/ilhamtaufiq/www/ams/vendor/sebastienheyd/boilerplate/src/resources/views/components/minify.blade.php ENDPATH**/ ?>
