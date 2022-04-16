@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kontrak;
 use Illuminate\Http\Request;
 use App\Models\Pekerjaan;
+use Alert;
 
 class KontrakController extends Controller
 {
@@ -17,9 +18,10 @@ class KontrakController extends Controller
     public function index()
     {
         // Data Kontrak
-        $data = Kontrak::with('pekerjaan')->get();
+        $data = Kontrak::with('pekerjaan.kegiatan')->get();
+        $title = 'Data Kontrak';
         // dd($data);
-        return view('halaman.kontrak.index',compact('data'));
+        return view('pages.kontrak.index',compact('data','title'));
         
     }
 
@@ -98,7 +100,9 @@ class KontrakController extends Controller
             'nama_pelaksana' => $request->nama_pelaksana,
             'nama_pengawas'=>$request->nama_pengawas,
         ]);     
-        return redirect()->route('kontrak')->with('pesan', 'Data Kontrak Berhasil Ditambahkan');
+        Alert::success('Kontrak', 'Data Kontrak Berhasil Ditambahkan');
+
+        return redirect('kontrak');
     }
     /**
      * Display the specified resource.
@@ -180,8 +184,8 @@ class KontrakController extends Controller
     
         $this->validate($request, $rules, $customMessages, $attributeNames);
         $kontrak->update($request->all());
-    
-        return redirect()->route('kontrak')->with('pesan', 'Data Kontrak Berhasil Diubah');
+        Alert::success('Kontrak', 'Data Kontrak Berhasil Diubah');
+        return redirect('kontrak');
     }
 
     /**
@@ -194,6 +198,7 @@ class KontrakController extends Controller
     {
         //
         $kontrak->delete();
-        return redirect()->route('kontrak')->with('pesan', 'Data Kontrak Berhasil Dihapus ');
+        Alert::success('Kontrak', 'Data Kontrak Berhasil Dihapus');
+        return redirect('kontrak');
     }
 }

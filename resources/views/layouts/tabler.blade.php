@@ -171,6 +171,7 @@
         </div>
         <div class="page-body">
             <!-- Content here -->
+            @include('sweetalert::alert')
             @yield('content')
         </div>
         <!-- Footer -->

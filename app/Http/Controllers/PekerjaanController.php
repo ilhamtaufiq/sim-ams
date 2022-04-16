@@ -147,12 +147,10 @@ class PekerjaanController extends Controller
     public function show(Pekerjaan $pekerjaan)
     {
         //
-        $pekerjaan = Pekerjaan::with('kec','desa','kegiatan','detail.realisasi','dokumen')->where('id',$pekerjaan->id)->first();
+        $pekerjaan = Pekerjaan::with('kec','desa','kegiatan','detail','detail.realisasi','dokumen')->where('id',$pekerjaan->id)->first();
         $pekerjaan_id = $pekerjaan->id;
         $foto = Foto::where('pekerjaan_id',$pekerjaan_id)->get();
         $dokumen = Dokumen::where('pekerjaan_id',$pekerjaan_id)->get();
-        // dd($pekerjaan);
-
         if (!is_null($pekerjaan->detail)) {
             # code...
             $mulai = new DateTime($pekerjaan->detail->tgl_mulai);
