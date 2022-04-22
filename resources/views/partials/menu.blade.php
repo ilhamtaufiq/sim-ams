@@ -1,8 +1,9 @@
 <div class="collapse navbar-collapse" id="navbar-menu">
     <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
         <ul class="navbar-nav">
+            @role('admin')
             <li class="nav-item">
-                <a class="nav-link" href="/dashboard">
+                <a class="nav-link" href="/">
                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                         <!-- Download SVG icon from http://tabler-icons.io/i/home -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -42,7 +43,6 @@
                 <div class="dropdown-menu">
                     <div class="dropdown-menu-columns">
                         <div class="dropdown-menu-column">
-                            @role('admin')
                                 <a class="dropdown-item" href="/kegiatan/1">
                                     Sanitasi DAK
                                 </a>
@@ -58,7 +58,6 @@
                                 <a class="dropdown-item" href="/kegiatan/5">
                                     Perluasan SPAM DAK
                                 </a>
-                            @endrole
                             <a class="dropdown-item {{ Route::is('tfl') ? 'active' : '' }}" href="/tfl">
                                 Sanitasi DAK 2022
                             </a>
@@ -84,6 +83,7 @@
                     </span>
                 </a>
             </li>
+            @endrole
         </ul>
     </div>
 </div>

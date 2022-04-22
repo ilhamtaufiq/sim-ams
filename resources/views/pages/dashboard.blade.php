@@ -18,7 +18,7 @@
           <div class="card">
             <div class="card-body">
               <div class="d-flex align-items-center">
-                <div class="subheader">Revenue</div>
+                <div class="subheader">Total Kegiatan</div>
               </div>
               <div class="d-flex align-items-baseline">
                 <div class="h1 mb-0 me-2">{{$total_pekerjaan}} Kegiatan</div>

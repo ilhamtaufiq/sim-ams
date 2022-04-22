@@ -16,7 +16,6 @@
                     @if ($errors->any())
                         {{ implode('', $errors->all(':message')) }}
                     @endif
-
                     <div class="card-actions">
                         <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data-kontrak">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
@@ -56,7 +55,7 @@
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $item->pekerjaan->kegiatan->sub_kegiatan }}</td>
                                         <td><a
-                                                href="/pekerjaan/{{ $item->id }}">{{ $item->pekerjaan->nama_pekerjaan }}</a>
+                                                href="/pekerjaan/{{ $item->pekerjaan->id }}">{{ $item->pekerjaan->nama_pekerjaan }}</a>
                                         </td>
                                         <td>{{ $kontrak }}</td>
                                         <td>{{ $item->pekerjaan->tahun_anggaran }}</td>

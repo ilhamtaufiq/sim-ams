@@ -16,7 +16,6 @@
                         <?php echo e(implode('', $errors->all(':message'))); ?>
 
                     <?php endif; ?>
-
                     <div class="card-actions">
                         <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data-kontrak">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
@@ -56,7 +55,7 @@
                                         <td><?php echo e($i++); ?></td>
                                         <td><?php echo e($item->pekerjaan->kegiatan->sub_kegiatan); ?></td>
                                         <td><a
-                                                href="/pekerjaan/<?php echo e($item->id); ?>"><?php echo e($item->pekerjaan->nama_pekerjaan); ?></a>
+                                                href="/pekerjaan/<?php echo e($item->pekerjaan->id); ?>"><?php echo e($item->pekerjaan->nama_pekerjaan); ?></a>
                                         </td>
                                         <td><?php echo e($kontrak); ?></td>
                                         <td><?php echo e($item->pekerjaan->tahun_anggaran); ?></td>

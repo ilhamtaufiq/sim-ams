@@ -32,7 +32,19 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $role = Auth::user()->roles->first()->name; 
+        switch ($role) {
+          case 'admin':
+            return redirect('/');
+            break;
+          case 'tfl':
+            return redirect('/tfl');
+            break; 
+      
+          default:
+            return '/'; 
+          break;
+        }
     }
 
     /**

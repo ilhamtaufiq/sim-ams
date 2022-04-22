@@ -29,40 +29,43 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/home', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// Route::get('/home', function () {
+//     return view('home');
+// });
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');
-Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth']], function()
+
+Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','role:admin']], function()
 {
     Route::resource('roles', RolesController::class);
     Route::resource('permissions', PermissionsController::class);
     Route::resource('users', UsersController::class);
 
-    Route::resource('dashboard', DashboardController::class, [
-        'names' => [
-            'index' => 'dashboard',
-            // etc...
-        ]
-    ]);
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index']);
 
-    Route::resource('pekerjaan', PekerjaanController::class, [
-        'names' => [
-            'index' => 'pekerjaan',
-            'create' => 'pekerjaan.tambah',
-            'store' => 'pekerjaan.store',
-            'edit' => 'pekerjaan.edit',
-            'update' => 'pekerjaan.update',
-            'show' => 'pekerjaan.detail',
-            // etc...
-        ]
-    ]);
+    // Route::resource('dashboard', DashboardController::class, [
+    //     'names' => [
+    //         'index' => 'dashboard',
+    //         // etc...
+    //     ]
+    // ]);
+
+    // Route::resource('pekerjaan', PekerjaanController::class, [
+    //     'names' => [
+    //         'index' => 'pekerjaan',
+    //         'create' => 'pekerjaan.tambah',
+    //         'store' => 'pekerjaan.store',
+    //         'edit' => 'pekerjaan.edit',
+    //         'update' => 'pekerjaan.update',
+    //         'show' => 'pekerjaan.detail',
+    //         // etc...
+    //     ]
+    // ]);
 
     Route::resource('kontrak', KontrakController::class, [
         'names' => [
@@ -124,13 +127,16 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth']], f
     Route::get('/pekerjaan/tahun/{tahun}', [App\Http\Controllers\PekerjaanController::class, 'pekerjaan']);
     //V1.2
     //TFL
-    Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index']);
     //Air Minum
     Route::get('/kegiatan', [App\Http\Controllers\KegiatanController::class, 'index']);
     Route::get('/kegiatan/{id}', [App\Http\Controllers\PekerjaanController::class, 'kegiatan'])->name('kegiatan');
 
     Route::get('/dok/tambah', [App\Http\Controllers\DokumenController::class, 'create']);
     Route::post('/dok/post', [App\Http\Controllers\DokumenController::class, 'store'])->name('dokumen.post');
+});
+Route::group(['middleware' => ['role:admin|tfl']], function () {
+    Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index']);
+
 });
 
 
