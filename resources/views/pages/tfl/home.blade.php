@@ -34,7 +34,7 @@
                     <tr>
                       <td>{{$i++}}</td>
                     <td>{{$item->pekerjaan->kegiatan->sub_kegiatan}}</td>
-                    <td><a href="/kegiatan/{{$item->pekerjaan->id}}">{{$item->pekerjaan->nama_pekerjaan}}</a></td>
+                    <td><a href="/sanitasi/dak/{{$item->pekerjaan->id}}">{{$item->pekerjaan->nama_pekerjaan}}</a></td>
                     <td>
                       <div class="progress mb-2">
                         <div class="progress-bar" style="width: 100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="100% Complete">
