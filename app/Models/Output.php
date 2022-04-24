@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tfl extends Model
+class Output extends Model
 {
     use HasFactory;
-    protected $table = 'db_tfl';
+    protected $table = 'db_output';
 
     /**
-     * Get all of the comments for the Tfl
+     * Get the user associated with the Output
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -21,12 +21,13 @@ class Tfl extends Model
     }
 
     /**
-     * Get the user associated with the Pekerjaan
+     * Get all of the comments for the Output
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function detail()
+    public function realisasi_output()
     {
-        return $this->hasOne(Kontrak::class, 'pekerjaan_id', 'id');
+        return $this->hasMany(OutputRealisasi::class, 'output_id', 'id');
     }
 }
+

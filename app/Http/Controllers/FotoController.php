@@ -63,7 +63,8 @@ class FotoController extends Controller
                   Foto::create([
                       'nama' => $name,
                       'path' => '/storage/'.$path,
-                      'pekerjaan_id' => $request->pekerjaan_id
+                      'pekerjaan_id' => $request->pekerjaan_id,
+
 
                     ]);
               }
@@ -93,6 +94,7 @@ class FotoController extends Controller
                     'nama' => $name,
                     'path' => '/storage/'.$path,
                     'pekerjaan_id' => $request->pekerjaan_id,
+                    'keterangan' => $request->keterangan,
                     'progress' => $request->progress[$progress],
                 ]);
             }

@@ -55,17 +55,17 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
     //     ]
     // ]);
 
-    // Route::resource('pekerjaan', PekerjaanController::class, [
-    //     'names' => [
-    //         'index' => 'pekerjaan',
-    //         'create' => 'pekerjaan.tambah',
-    //         'store' => 'pekerjaan.store',
-    //         'edit' => 'pekerjaan.edit',
-    //         'update' => 'pekerjaan.update',
-    //         'show' => 'pekerjaan.detail',
-    //         // etc...
-    //     ]
-    // ]);
+    Route::resource('pekerjaan', PekerjaanController::class, [
+        'names' => [
+            'index' => 'pekerjaan',
+            'create' => 'pekerjaan.tambah',
+            'store' => 'pekerjaan.store',
+            'edit' => 'pekerjaan.edit',
+            'update' => 'pekerjaan.update',
+            'show' => 'pekerjaan.detail',
+            // etc...
+        ]
+    ]);
 
     Route::resource('kontrak', KontrakController::class, [
         'names' => [
@@ -136,6 +136,8 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
 });
 Route::group(['middleware' => ['role:admin|tfl']], function () {
     Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index']);
+    Route::get('/sanitasi/dak/{pekerjaan}', [App\Http\Controllers\PekerjaanController::class, 'tfl_show']);
+
 
 });
 

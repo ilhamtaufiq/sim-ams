@@ -22,13 +22,63 @@ class PekerjaanController extends Controller
     {
         //TFL
         $userId = Auth::id();
-        $data = Tfl::with('pekerjaan.kegiatan')->where('user_id',$userId)->get();
+        $data = Tfl::with('pekerjaan.kegiatan','pekerjaan.output','pekerjaan.realisasi_output')->where('user_id',$userId)->get();
+        foreach($data as $d)  
+        // dd($d->pekerjaan->realisasi_output);      
         return view('pages.tfl.home',[
             'data' => $data,
-            'title' => 'Sanitasi DAK'
+            'title' => 'Sanitasi DAK',
+            'realisasi_output' => $d->pekerjaan->realisasi_output
         ]);
 
     }
+
+    public function tfl_show($pekerjaan)
+    {
+        $userId = Auth::id();
+        $tfl = Tfl::with('pekerjaan.kegiatan')->where('user_id',$userId)
+        ->where('pekerjaan_id',$pekerjaan)->first();
+        // dd($tfl->pekerjaan);
+        $pekerjaan_id = $pekerjaan;
+        $foto = Foto::where('pekerjaan_id',$pekerjaan_id)->get();
+        $dokumen = Dokumen::where('pekerjaan_id',$pekerjaan_id)->get();
+        if( empty($tfl)){
+            return redirect(url('/tfl') );
+        }else{
+            if (!is_null($tfl->pekerjaan->detail)) {
+                # code...
+                $mulai = new DateTime($tfl->pekerjaan->detail->tgl_mulai);
+                $selesai = new DateTime($tfl->pekerjaan->detail->tgl_selesai);
+                $interval = $mulai->diff($selesai);
+                $days = $interval->format('%a')." Hari Kalender";
+                return view('pages.tfl.info', compact('pekerjaan'),[
+                    'title' => $tfl->pekerjaan->nama_pekerjaan,
+                    'foto' => $foto,
+                    'dokumen' => $dokumen,
+                    'days' => $days,
+                    'pagu' => $tfl->pekerjaan->pagu,
+                    'tfl' => $tfl,
+    
+                ]);
+    
+            } else {
+                # code...
+                return view('pages.tfl.info', compact('pekerjaan'),[
+                    'title' => $tfl->pekerjaan->nama_pekerjaan,
+                    'foto' => $foto,
+                    'dokumen' => $dokumen,
+                    'pagu' => $tfl->pekerjaan->pagu,
+                    'tfl' => $tfl,
+    
+                    // 'days' => $days,
+    
+    
+                ]);
+    
+            }     
+        }
+
+    }   
 
     public function kegiatan($id)
     {

@@ -84,6 +84,25 @@ class Pekerjaan extends Model
         return $this->hasMany(Tfl::class, 'pekerjaan_id', 'id');
     }
 
+    /**
+     * Get all of the comments for the Pekerjaan
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function output()
+    {
+        return $this->hasMany(Output::class, 'pekerjaan_id', 'id');
+    }
+
+    /**
+     * Get all of the comments for the Pekerjaan
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function realisasi_output()
+    {
+        return $this->hasMany(OutputRealisasi::class, 'pekerjaan_id', 'id');
+    }
 
     public static function boot() {
         parent::boot();
