@@ -63,8 +63,8 @@ class OutputRealisasiController extends Controller
             $output = OutputRealisasi::updateOrCreate([
                 'output_id' => $request->output_id,
                 'pekerjaan_id' => $request->pekerjaan_id,
-                'realisasi' => $r
-                // 'satuan' => $request->satuan,
+                'realisasi' => $r,
+                'satuan' => $request->satuan,
             ]);    
         }
            
