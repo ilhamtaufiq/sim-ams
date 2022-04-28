@@ -10,6 +10,9 @@ use App\Models\Kecamatan;
 use App\Models\Foto;
 use App\Models\Dokumen;
 use App\Models\Tfl;
+use App\Models\OutputRealisasi;
+
+
 use Auth;
 
 
@@ -23,12 +26,14 @@ class PekerjaanController extends Controller
         //TFL
         $userId = Auth::id();
         $data = Tfl::with('pekerjaan.kegiatan','pekerjaan.output','pekerjaan.realisasi_output')->where('user_id',$userId)->get();
+        $realisasi = OutputRealisasi::get();
         foreach($data as $d)  
         // dd($d->pekerjaan->realisasi_output);      
         return view('pages.tfl.home',[
             'data' => $data,
             'title' => 'Sanitasi DAK',
-            'realisasi_output' => $d->pekerjaan->realisasi_output
+            'realisasi_output' => $d->pekerjaan->realisasi_output,
+            'realisasi' => $realisasi
         ]);
 
     }

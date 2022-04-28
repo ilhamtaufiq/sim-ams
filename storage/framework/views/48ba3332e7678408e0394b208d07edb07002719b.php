@@ -190,7 +190,7 @@
         <div class="modal modal-blur fade" id="modal-realisasi<?php echo e($d->pekerjaan->id); ?>" tabindex="-1" role="dialog"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <form action="/foto/pekerjaan/post" method="POST" enctype="multipart/form-data">
+                <form action="/realisasi/output/" method="POST">
                     <?php echo csrf_field(); ?>
                     <div class="modal-content">
                         <div class="modal-header">
@@ -203,7 +203,9 @@
                                 <label class="form-label">Realisasi Output</label>
                                 <?php $__currentLoopData = $d->pekerjaan->output; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $output): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="floating-input" autocomplete="off">
+                                        <input name="pekerjaan_id" type="number" value="<?php echo e($d->pekerjaan->id); ?>" hidden>
+                                        <input name="output_id" type="number" value="<?php echo e($output->id); ?>">
+                                        <input name="realisasi[]" type="number" class="form-control" id="floating-input" autocomplete="off">
                                         <label for="floating-input"><?php echo e($output->komponen); ?></label>
                                     </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

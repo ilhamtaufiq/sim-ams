@@ -244,7 +244,7 @@
         <div class="modal modal-blur fade" id="modal-realisasi{{ $d->pekerjaan->id }}" tabindex="-1" role="dialog"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <form action="/foto/pekerjaan/post" method="POST" enctype="multipart/form-data">
+                <form action="/realisasi/output/" method="POST">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -257,7 +257,9 @@
                                 <label class="form-label">Realisasi Output</label>
                                 @foreach ($d->pekerjaan->output as $output)
                                     <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="floating-input" autocomplete="off">
+                                        <input name="pekerjaan_id" type="number" value="{{$d->pekerjaan->id}}" hidden>
+                                        <input name="output_id" type="number" value="{{$output->id}}">
+                                        <input name="realisasi[]" type="number" class="form-control" id="floating-input" autocomplete="off">
                                         <label for="floating-input">{{ $output->komponen }}</label>
                                     </div>
                                 @endforeach

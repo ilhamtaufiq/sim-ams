@@ -9,6 +9,7 @@ class Output extends Model
 {
     use HasFactory;
     protected $table = 'db_output';
+    protected $fillable = ['pekerjaan_id','komponen','volume','satuan'];
 
     /**
      * Get the user associated with the Output

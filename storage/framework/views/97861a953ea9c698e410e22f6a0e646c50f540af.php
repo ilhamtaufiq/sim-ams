@@ -62,7 +62,10 @@
                                                             data-bs-target="#modal-foto<?php echo e($item->id); ?>">
                                                             Upload Foto
                                                         </a>
-                                                      
+                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#modal-output<?php echo e($item->id); ?>">
+                                                            Target Output
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -171,7 +174,50 @@
                     </div>
                 </form>
             </div>
-        </div>            
+        </div>
+        
+        <div class="modal modal-blur fade" id="modal-output<?php echo e($d->id); ?>" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <form action="/target/output/" method="POST">
+                    <?php echo csrf_field(); ?>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><?php echo e($d->nama_pekerjaan); ?></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Target Output</label>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" name="pekerjaan_id" value="<?php echo e($d->id); ?>" hidden>
+                                        <select name="komponen" id="komponen" class="form-control">
+                                            <option value="Tangki Septik Komunal">Tangki Septik Komunal</option>
+                                            <option value="Tangki Septik Individual">Tangki Septik Individual</option>
+                                            <option value="Sambungan Rumah">Sambungan Rumah</option>
+                                        </select>
+                                        <label for="floating-input">Komponen</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input name="volume" type="number" class="form-control" id="floating-input" autocomplete="off">
+                                        <label for="floating-input">Volume</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input name="satuan" type="text" class="form-control" id="floating-input" autocomplete="off">
+                                        <label for="floating-input">Satuan</label>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Upload</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>  
+                  
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('js'); ?>

@@ -120,6 +120,10 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
     Route::get('/foto/pekerjaan/{pekerjaan}', [App\Http\Controllers\FotoController::class, 'progress']);
     Route::post('/foto/pekerjaan/post', [App\Http\Controllers\FotoController::class, 'storeFoto']);
 
+    Route::post('/target/output/', [App\Http\Controllers\OutputController::class, 'store']);
+    Route::post('/realisasi/output/', [App\Http\Controllers\OutputRealisasiController::class, 'store']);
+
+
 
     Route::get('/desa/{kec_id}', [App\Http\Controllers\DesaController::class, 'getdesa']);
     Route::get('/pekerjaan/kegiatan/{keg_id}', [App\Http\Controllers\PekerjaanController::class, 'getPekerjaan']);

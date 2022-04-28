@@ -61,7 +61,7 @@
                           <div class="col-auto"><span class="status-dot status-dot-animated bg-red d-block"></span></div>
                           <div class="col text-truncate">
                             <a href="#" class="text-body d-block">Example 1</a>
-                            <div class="d-block text-muted text-truncate mt-n1">
+                            <div class="d-block text-truncate mt-n1">
                               Change deprecated html tags to text decoration classes (#29604)
                             </div>
                           </div>
