@@ -48,6 +48,8 @@ class KontrakController extends Controller
         //
 
         $s = Pekerjaan::where('id',$request->pekerjaan_id)->pluck('pagu')->first();
+        $kontrak = 'Rp' . number_format($s, 2, ',', '.');
+
         // $s = $kontrak->pagu;
         $rules = [
             'program_id' => 'required',
@@ -65,7 +67,10 @@ class KontrakController extends Controller
         ];
     
         $customMessages = [
-            'required' => ':attribute tidak boleh kosong '
+            'required' => ':attribute tidak boleh kosong ',
+            'unique'    => ':attribute sudah digunakan',
+            'max' => ':attribute tidak boleh lebih dari pagu '.$kontrak
+
         ];
         $string = ['Rp',',00','.'];
         $attributeNames = array(
@@ -138,7 +143,14 @@ class KontrakController extends Controller
         //
         $kontrak = Kontrak::with('pekerjaan','kegiatan')->first();
         // dd($kontrak);
-        return view('halaman.kontrak.edit', compact('kontrak'));
+        return response()->json($kontrak, 200);    
+    }
+
+    public function edit_kontrak(Request $request)
+    {
+        $data = Kontrak::with('pekerjaan','kegiatan')->where('id' , $request->id)->first();
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -150,24 +162,26 @@ class KontrakController extends Controller
      */
     public function update(Request $request, Kontrak $kontrak)
     {
+        $s = Pekerjaan::where('id',$request->pekerjaan_id)->pluck('pagu')->first();
+        $kontrak = 'Rp' . number_format($s, 2, ',', '.');
+        $k = $request->no_spk;
+
         //edit
         $rules = [
             'program_id' => 'required',
             'pekerjaan_id' => 'required',
-            'harga_kontrak' => 'required',
+            'harga_kontrak' => 'required|numeric|max:'.$s,
             'no_spk' => 'required',
             'tgl_spk' => 'required',
             'tgl_mulai' => 'required',
             'tgl_selesai' => 'required',
             'nama_pelaksana' => 'required',
             'nama_pengawas' => 'required',
-
-
-
         ];
     
         $customMessages = [
-            'required' => ':attribute tidak boleh kosong '
+            'required' => ':attribute tidak boleh kosong ',
+            'max' => ':attribute tidak boleh lebih dari pagu '.$kontrak
         ];
 
         $attributeNames = array(
@@ -182,8 +196,20 @@ class KontrakController extends Controller
             'nama_pengawas' => 'Nama Pengawas',        
         );
     
+        // $string = ['Rp',',00','.'];
+
         $this->validate($request, $rules, $customMessages, $attributeNames);
-        $kontrak->update($request->all());
+        $kontrak->update([
+            'program_id' => $request->program_id,
+            'pekerjaan_id' => $request->pekerjaan_id,
+            'harga_kontrak' => $request->harga_kontrak,
+            'no_spk' => $request->no_spk,
+            'tgl_spk' => $request->tgl_spk,
+            'tgl_mulai' => $request->tgl_mulai,
+            'tgl_selesai' => $request->tgl_selesai,
+            'nama_pelaksana' => $request->nama_pelaksana,
+            'nama_pengawas'=>$request->nama_pengawas,
+        ]);     
         Alert::success('Kontrak', 'Data Kontrak Berhasil Diubah');
         return redirect('kontrak');
     }

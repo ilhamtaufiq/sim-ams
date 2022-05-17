@@ -1,250 +1,376 @@
-@extends('layouts.tabler')
+@extends('layouts.simple.master')
+
+@section('title', 'Data Kontrak')
+
 @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatable-extension.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/select2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/sweetalert2.css') }}">
+
+
 @endsection
+
+@section('style')
+    <style>
+        .select2-offscreen,
+        .select2-offscreen:focus {
+            // Keep original element in the same spot
+            // So that HTML5 valiation message appear in the correct position
+            left: auto !important;
+            top: auto !important;
+        }
+
+    </style>
+@endsection
+
+@section('breadcrumb-title')
+    <h3>{{$title}}</h3>
+@endsection
+
+@section('breadcrumb-items')
+    <li class="breadcrumb-item">Data</li>
+    <li class="breadcrumb-item active">Kegiatan</li>
+@endsection
+
 @section('content')
-    <div class="container-xl">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <!-- <h3 class="card-title">Daftar Kegiatan</h3> -->
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="example1" class="table table-vcenter card-table">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Program</th>
-                                    <th>Kegiatan</th>
-                                    <th>Pagu</th>
-                                    <th>Tahun Anggaran</th>
-                                    <th>Opsi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $i = 1;
-                                @endphp
-                                @foreach ($data as $item)
-                                    @php
-                                        $number = $item->pagu;
-                                        $pagu = 'Rp' . number_format($number, 2, ',', '.');
-                                    @endphp
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Tahun Anggaran 2022</h5>
+                        <div class="card-header-right">
+                            <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#modal-pekerjaan"
+                                data-bs-original-title="" title=""> <span class="fa fa-edit"></span>
+                                Tambah
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="dt-ext table-responsive">
+                            <table id="example1" class="display">
+                                <thead>
                                     <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $item->kegiatan->sub_kegiatan }}</td>
-                                        <td><a href="/pekerjaan/{{ $item->id }}">{{ $item->nama_pekerjaan }}</a></td>
-                                        <td>{{ $pagu }}</td>
-                                        <td>{{ $item->tahun_anggaran }}</td>
-                                        <td>
-                                            <div class="btn-list flex-nowrap">
-                                                <div class="dropdown">
-                                                    <button class="btn dropdown-toggle align-text-top"
-                                                        data-bs-toggle="dropdown">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon"
-                                                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                            stroke="currentColor" fill="none" stroke-linecap="round"
-                                                            stroke-linejoin="round">
-                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                            <path
-                                                                d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
-                                                            <circle cx="12" cy="12" r="3" />
-                                                        </svg>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#modal-team{{ $item->id }}">
-                                                            Upload Dokumen
-                                                        </a>
-                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#modal-foto{{ $item->id }}">
-                                                            Upload Foto
-                                                        </a>
-                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#modal-output{{ $item->id }}">
-                                                            Target Output
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <th>No</th>
+                                        <th>Program</th>
+                                        <th>Kegiatan</th>
+                                        <th>Pagu</th>
+                                        <th>Tahun Anggaran</th>
+                                        <th>Opsi</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $i = 1;
+                                    @endphp
+                                    @foreach ($data as $item)
+                                        @php
+                                            $number = $item->pagu;
+                                            $pagu = 'Rp' . number_format($number, 2, ',', '.');
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $item->kegiatan->sub_kegiatan }}</td>
+                                            <td><a href="/pekerjaan/{{ $item->id }}">{{ $item->nama_pekerjaan }}</a>
+                                            </td>
+                                            <td>{{ $pagu }}</td>
+                                            <td>{{ $item->tahun_anggaran }}</td>
+                                            <td>
+                                                <div class="card-body btn-showcase">
+                                                    <button class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-hapus{{ $item->id }}"><i
+                                                            class="fa fa-trash"></i></button>
+                                                    <button class="btn btn-warning btn-edit" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-ubah{{$item->id}}" id="edit-item"
+                                                        data-id="{{ $item->id }}"><i
+                                                            class="fa fa-edit"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @foreach ($data as $d)
-        <!-- Upload Dokumen -->
-        <div class="modal modal-blur fade" id="modal-team{{ $d->id }}" tabindex="-1" role="dialog"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <form action="{{ route('dokumen.post') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">{{ $d->nama_pekerjaan }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row mb-3 align-items-end">
-                                <div class="col-auto">
-                                    <!-- Preview goes here -->
-                                </div>
-                                <div class="col">
-                                    <label class="form-label">File</label>
-                                    <input type="file" name="files[]" class="form-control" accept="*" multiple>
-                                    <input value="{{ $d->id }}" type="text" name="pekerjaan_id" id="pekerjaan_id"
-                                        hidden>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="form-label">Keterangan</label>
-                                <textarea name="keterangan" id="keterangan" class="form-control"
-                                    placeholder="Tambah keterangan, misal; HPS, Gambar, dsb "></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Upload</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- Upload Foto -->
-        <div class="modal modal-blur fade" id="modal-foto{{ $d->id }}" tabindex="-1" role="dialog"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <form action="/foto/pekerjaan/post" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">{{ $d->nama_pekerjaan }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row mb-3 align-items-end">
-                                <div class="col-auto">
-                                    <a href="#" class="avatar avatar-upload rounded">
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                                        <span class="avatar-upload-text">
-                                            <img id="prev" src="#" alt="Foto" />
-                                        </span>
-                                    </a>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label">Foto</label>
-                                    <input name="images[1]" type="file" id="img" class="form-control" />
-                                    <input value="{{ $d->id }}" type="text" name="pekerjaan_id" id="pekerjaan_id"
-                                        hidden>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Progress</label>
-                                <div class="row g-2">
-                                    <div class="col-auto">
-                                        <label class="form-check form-check-inline">
-                                            <input class="form-check-input" name="progress[1]" value="0" type="radio">
-                                            <span class="form-check-label">0%</span>
-                                        </label>
-                                        <label class="form-check form-check-inline">
-                                            <input class="form-check-input" name="progress[1]" value="25" type="radio">
-                                            <span class="form-check-label">25%</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="form-label">Keterangan</label>
-                                <textarea class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Upload</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        {{-- Target Output   --}}
-        <div class="modal modal-blur fade" id="modal-output{{ $d->id }}" tabindex="-1" role="dialog"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <form action="/target/output/" method="POST">
-                    @csrf
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">{{ $d->nama_pekerjaan }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
+    <div class="modal fade bd-example-modal-lg" id="modal-pekerjaan" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Data Kegiatan</h5>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="needs-validation" novalidate="" action="{{ route('pekerjaan.store') }}" method="POST">
+                        @csrf
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label class="form-label">Target Output</label>
-                                    <div class="form-floating mb-3">
-                                        <input type="text" name="pekerjaan_id" value="{{$d->id}}" hidden>
-                                        <select name="komponen" id="komponen" class="form-control">
-                                            <option value="Tangki Septik Komunal">Tangki Septik Komunal</option>
-                                            <option value="Tangki Septik Individual">Tangki Septik Individual</option>
-                                            <option value="Sambungan Rumah">Sambungan Rumah</option>
+                                <label>Program</label>
+                                <select id="program_id" name="program_id" class="form-control select2 select2-offscreen"
+                                    required style="width: 100%;">
+                                    <option selected disabled value="">Pilih Program/Kegiatan/Sub Kegiatan</option>
+                                    <optgroup label="Sanitasi">
+                                        <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
+                                        <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat
+                                            Skala Permukiman</option>
+                                    </optgroup>
+                                    <optgroup label="Air Minum">
+                                        <option value="3">Pembangunan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
+                                        <option value="4">Perbaikan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
+                                        <option value="5">Perluasan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="pekerjaan_id">Nama Pekerjaan</label>
+                                <input type="text" name="nama_pekerjaan" class="form-control" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label>Kecamatan</label>
+                                        <select id="kecamatan_id" name="kecamatan_id" class="form-control select2"
+                                            style="width: 100%;" required>
+                                            <option value="">Pilih Kecamatan</option>
+                                            @foreach ($kec as $item)
+                                                <option value="{{ $item->id }}">{{ $item->n_kec }}</option>
+                                            @endforeach
                                         </select>
-                                        <label for="floating-input">Komponen</label>
                                     </div>
-                                    <div class="form-floating mb-3">
-                                        <input name="volume" type="number" class="form-control" id="floating-input" autocomplete="off">
-                                        <label for="floating-input">Volume</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label class="form-label">Pilih Desa</label>
+                                        <select value="" name="desa_id" id="desa_id" class="form-control select2"
+                                            style="width: 100%;" required>
+                                            <option value="">Pilih Desa</option>
+                                        </select>
                                     </div>
-                                    <div class="form-floating mb-3">
-                                        <input name="satuan" type="text" class="form-control" id="floating-input" autocomplete="off">
-                                        <label for="floating-input">Satuan</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="Pagu">Pagu</label>
+                                        <input type="text" class="form-control" name="pagu" data-type="currency" id="currency-field" placeholder="Input Pagu" required>
                                     </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="">Tahun Anggaran</label>
+                                        <select name="tahun_anggaran" class="form-control select2" required>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Upload</button>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @foreach ($data as $d)
+    <div class="modal modal-blur fade" id="modal-hapus{{ $d->id }}" tabindex="-1" role="dialog"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <!-- Download SVG icon from http://tabler-icons.io/i/alert-triangle -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon mb-2 text-danger icon-lg" width="24" height="24"
+                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M12 9v2m0 4v.01" />
+                        <path
+                            d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" />
+                    </svg>
+                    <h3>Apakah anda yakin?</h3>
+                    <div class="text-muted">Hapus Data Kontrak Kegiatan {{ $d->nama_pekerjaan }}</div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
+                                    Batal
+                                </a></div>
+                            <form action="{{ route('pekerjaan.destroy', $d->id) }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <div class="col">
+                                    <button class="btn btn-danger w-100" type="submit">Hapus</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>  
-                  
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-lg" id="modal-ubah{{$d->id}}" name="modal-ubah" style="overflow:hidden;" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Data Kegiatan</h5>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="needs-validation" novalidate="" action="{{ route('pekerjaan.update', $d->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label>Program</label>
+                                <select id="program_id" name="program_id" class="form-control select2 select-ubah select2-offscreen"
+                                    required style="width: 100%;">
+                                    <option selected disabled value="">Pilih Program/Kegiatan/Sub Kegiatan</option>
+                                    <optgroup label="Sanitasi">
+                                        <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
+                                        <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat
+                                            Skala Permukiman</option>
+                                    </optgroup>
+                                    <optgroup label="Air Minum">
+                                        <option value="3">Pembangunan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
+                                        <option value="4">Perbaikan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
+                                        <option value="5">Perluasan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="pekerjaan_id">Nama Pekerjaan {{$d->id}}</label>
+                                <input id="nama_pekerjaan" type="text" name="nama_pekerjaan" class="form-control" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label>Kecamatan</label>
+                                        <select id="kec" name="kecamatan_id" class="form-control select2 select-ubah select2-offscreen"
+                                            style="width: 100%;" required>
+                                            <option value="">Pilih Kecamatan</option>
+                                            @foreach ($kec as $item)
+                                                <option value="{{ $item->id }}">{{ $item->n_kec }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <label class="form-label">Pilih Desa</label>
+                                        <select id="desa" value="" name="desa_id" id="desa_id" class="form-control select2 select-ubah select2-offscreen"
+                                            style="width: 100%;" required>
+                                            <option value="">Pilih Desa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="Pagu">Pagu</label>
+                                        <input id="pagu" type="text" class="form-control" name="pagu" data-type="currency" id="currency-field" placeholder="Input Pagu" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label for="">Tahun Anggaran</label>
+                                        <select id="tahun_anggaran" name="tahun_anggaran" class="form-control select2 select-ubah" required>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     @endforeach
 @endsection
-@section('js')
+
+@section('script')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/jszip.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.autoFill.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.keyTable.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.colReorder.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.fixedHeader.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.rowReorder.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.scroller.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/custom.js') }}"></script>
+    <script src="{{ asset('assets/js/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>
+    <script src="{{ asset('assets/js/form-validation-custom.js') }}"></script>
     <script>
-        img.onchange = evt => {
-            const [file] = img.files
-            if (file) {
-                prev.src = URL.createObjectURL(file)
-            }
-        }
+        @if ($errors->any())
+            Swal.fire({
+                title: 'Error!',
+                text: '{{ implode('', $errors->all(':message')) }}',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        @endif
     </script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <!--Data Table-->
-    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap4.min.js"></script>
+    <script>
+        $(document).on('click', '.btn-edit', function() {
+            var id = $(this).data('id');
+            console.log(id);
 
+            $.ajax({
+                type: "GET",
+                url: "{{ url('edit/pekerjaan') }}",
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function(res) {
+                    $('#nama_pekerjaan').val(res.nama_pekerjaan);
+                    $('#pagu').val(res.pagu);
+                    $('#tahun_anggaran').val(res.tahun_anggaran);
+                    var $1 = $("<option selected='selected'></option>").val(res.program_id)
+                        .text(res.kegiatan.sub_kegiatan);
+                    $("[name=program_id]").append($1).trigger('change');
+                    var $2 = $("<option selected='selected'></option>").val(res.desa_id)
+                        .text(res.desa.n_desa);
+                    $("#desa").append($2).trigger('change');
+                    var $3 = $("<option selected='selected'></option>").val(res.kecamatan_id)
+                        .text(res.kec.n_kec);
+                    $("#kec").append($3).trigger('change');
+                }
+            });
+        })
+    </script>
 
-
-    <!--Export table buttons-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#example1').DataTable({
@@ -284,9 +410,184 @@
             });
             $('#example1_filter input').addClass('form-control form-control-sm'); // <-- add this line
             $('#example1_filter label').addClass('text-muted'); // <-- add this line
-
-
-
         });
+    </script>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery($('#pagu')).on('change', function() {
+                var pagu = jQuery(this).val();
+                $($('#harga_kontrak')).val(pagu.replace(/\D/g, ""));
+
+            })
+
+        })
+        $(document).ready(function() {
+            $(".select2").select2({
+                dropdownParent: $("#modal-content"),
+
+            });
+        });
+    </script>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery($('#program_id')).on('change', function() {
+                var kegID = jQuery(this).val();
+                if (kegID) {
+                    jQuery.ajax({
+                        url: '/pekerjaan/kegiatan/' + kegID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            console.log(data);
+                            jQuery($('#pekerjaan_id')).empty();
+                            jQuery.each(data, function(key, value) {
+                                if (value.detail != null) {
+                                    jQuery($('#pekerjaan_id')).empty();
+                                } else {
+                                    $($('#pekerjaan_id')).append('<option value="' +
+                                        value.id + '">' + value.nama_pekerjaan +
+                                        '</option>');
+                                    // $($('#pagu')).val(value.pagu);
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    $($('#pekerjaan_id')).empty();
+                }
+            });
+        });
+    </script>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery($('#kecamatan_id')).on('change', function() {
+                var KecID = jQuery(this).val();
+                if (KecID) {
+                    jQuery.ajax({
+                        url: '/desa/' + KecID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            console.log(data);
+                            jQuery($('#desa_id')).empty();
+                            jQuery.each(data, function(key, value) {
+                                $($('#desa_id')).append('<option value="' + key + '">' +
+                                    value + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $($('#desa_id')).empty();
+                }
+            });
+        });
+        jQuery(document).ready(function() {
+            jQuery($('#kec')).on('change', function() {
+                var KecID = jQuery(this).val();
+                if (KecID) {
+                    jQuery.ajax({
+                        url: '/desa/' + KecID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+                            console.log(data);
+                            jQuery($('#desa')).empty();
+                            jQuery.each(data, function(key, value) {
+                                $($('#desa')).append('<option value="' + key + '">' +
+                                    value + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $($('#desa')).empty();
+                }
+            });
+        });
+    </script>
+    <script>
+        $("input[data-type='currency']").on({
+            keyup: function() {
+                formatCurrency($(this));
+            },
+            blur: function() {
+                formatCurrency($(this), "blur");
+            }
+        });
+
+
+        function formatNumber(n) {
+            // format number 1000000 to 1,234,567
+            return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+        }
+
+
+        function formatCurrency(input, blur) {
+            // appends $ to value, validates decimal side
+            // and puts cursor back in right position.
+
+            // get input value
+            var input_val = input.val();
+
+            // don't validate empty input
+            if (input_val === "") {
+                return;
+            }
+
+            // original length
+            var original_len = input_val.length;
+
+            // initial caret position 
+            var caret_pos = input.prop("selectionStart");
+
+            // check for decimal
+            if (input_val.indexOf(",") >= 0) {
+
+                // get position of first decimal
+                // this prevents multiple decimals from
+                // being entered
+                var decimal_pos = input_val.indexOf(".");
+
+                // split number by decimal point
+                var left_side = input_val.substring(0, decimal_pos);
+                var right_side = input_val.substring(decimal_pos);
+
+                // add commas to left side of number
+                left_side = formatNumber(left_side);
+
+                // validate right side
+                right_side = formatNumber(right_side);
+
+                // On blur make sure 2 numbers after decimal
+                if (blur === "blur") {
+                    right_side += "00";
+                }
+
+                // Limit decimal to only 2 digits
+                right_side = right_side.substring(0, 2);
+
+                // join number by .
+                input_val = "Rp" + left_side + "." + right_side;
+
+            } else {
+                // no decimal entered
+                // add commas to number
+                // remove all non-digits
+                input_val = formatNumber(input_val);
+                input_val = "Rp" + input_val;
+
+                // final formatting
+                if (blur === "blur") {
+                    input_val += ",00";
+                }
+            }
+
+            // send updated string to input
+            input.val(input_val);
+
+            // put caret back in the right position
+            var updated_len = input_val.length;
+            caret_pos = updated_len - original_len + caret_pos;
+            input[0].setSelectionRange(caret_pos, caret_pos);
+        }
     </script>
 @endsection

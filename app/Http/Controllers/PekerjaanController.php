@@ -11,9 +11,12 @@ use App\Models\Foto;
 use App\Models\Dokumen;
 use App\Models\Tfl;
 use App\Models\OutputRealisasi;
+use App\Models\Output;
+
 
 
 use Auth;
+use Alert;
 
 
 use DateTime;
@@ -24,6 +27,19 @@ class PekerjaanController extends Controller
     public function tfl_index()
     {
         //TFL
+        if (Auth::user()->roles->first()->name == 'admin') {
+            $userId = Auth::id();
+            $data = Tfl::with('pekerjaan.kegiatan','pekerjaan.output','pekerjaan.realisasi_output')->get();
+            $realisasi = OutputRealisasi::get();
+            foreach($data as $d)  
+            // dd($d->pekerjaan->realisasi_output);      
+            return view('pages.tfl.home',[
+                'data' => $data,
+                'title' => 'Sanitasi DAK',
+                'realisasi_output' => $d->pekerjaan->realisasi_output,
+                'realisasi' => $realisasi
+            ]);
+        }
         $userId = Auth::id();
         $data = Tfl::with('pekerjaan.kegiatan','pekerjaan.output','pekerjaan.realisasi_output')->where('user_id',$userId)->get();
         $realisasi = OutputRealisasi::get();
@@ -41,7 +57,7 @@ class PekerjaanController extends Controller
     public function tfl_show($pekerjaan)
     {
         $userId = Auth::id();
-        $tfl = Tfl::with('pekerjaan.kegiatan')->where('user_id',$userId)
+        $tfl = Tfl::with('pekerjaan.kegiatan','pekerjaan.output','pekerjaan.realisasi_output')->where('user_id',$userId)
         ->where('pekerjaan_id',$pekerjaan)->first();
         // dd($tfl->pekerjaan);
         $pekerjaan_id = $pekerjaan;
@@ -89,9 +105,12 @@ class PekerjaanController extends Controller
     {
         //Air Minum
         $data = Pekerjaan::with('kegiatan','desa','kec')->where('program_id',$id)->get();
+        $kec = Kecamatan::get();
+        $kegiatan = kegiatan::where('id', $id)->get('sub_kegiatan');
         return view('pages.pekerjaan.index',[
             'data' => $data,
-            'title' => 'Daftar Kegiatan'
+            'title' => $kegiatan[0]->sub_kegiatan,
+            'kec' => $kec
         ]);
 
     }
@@ -105,6 +124,14 @@ class PekerjaanController extends Controller
 
         return response()->json($data);
     }
+
+    public function ubahPekerjaan(Request $request)
+    {
+        $data = Pekerjaan::with('kegiatan','desa','kec')->where('id' , $request->id)->first();
+
+        return response()->json($data, 200);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -113,10 +140,13 @@ class PekerjaanController extends Controller
     public function index()
     {
         //wtf
+        $kec = Kecamatan::get();
+
         $data = Pekerjaan::with('kegiatan','desa','kec')->get();
         return view('pages.pekerjaan.index',[
             'title' => 'Bidang Air Minum dan Sanitasi',
-            'data' => $data
+            'data' => $data,
+            'kec' => $kec
         ]);
 
     }
@@ -190,7 +220,9 @@ class PekerjaanController extends Controller
             'pagu' => str_replace($string, '', $request->pagu),
             'tahun_anggaran' => $request->tahun_anggaran,
         ]);     
-        return redirect()->route('pekerjaan')->with('pesan', 'Data Pekerjaan Berhasil Ditambahkan');
+        Alert::success('Kegiatan', 'Data Kegiatan Berhasil Ditambahkan');
+
+        return redirect('pekerjaan');
     }
   
     /**
@@ -206,6 +238,8 @@ class PekerjaanController extends Controller
         $pekerjaan_id = $pekerjaan->id;
         $foto = Foto::where('pekerjaan_id',$pekerjaan_id)->get();
         $dokumen = Dokumen::where('pekerjaan_id',$pekerjaan_id)->get();
+        $output = Output::where('pekerjaan_id',$pekerjaan_id)->get();
+
         if (!is_null($pekerjaan->detail)) {
             # code...
             $mulai = new DateTime($pekerjaan->detail->tgl_mulai);
@@ -217,6 +251,7 @@ class PekerjaanController extends Controller
                 'foto' => $foto,
                 'dokumen' => $dokumen,
                 'days' => $days,
+                'output' => $output,
 
             ]);
 
@@ -226,9 +261,8 @@ class PekerjaanController extends Controller
                 'title' => $pekerjaan->nama_pekerjaan,
                 'foto' => $foto,
                 'dokumen' => $dokumen,
+                'output' => $output,
                 // 'days' => $days,
-
-
             ]);
 
         }
@@ -307,6 +341,8 @@ class PekerjaanController extends Controller
     {
         //
         $pekerjaan->delete();
-        return redirect()->route('pekerjaan')->with('pesan', 'Data Pekerjaan Berhasil Dihapus ');
+        Alert::success('Kegiatan', 'Data Kegiatan Berhasil Dihapus');
+
+        return redirect('pekerjaan');
     }
 }

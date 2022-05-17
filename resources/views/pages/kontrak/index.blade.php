@@ -1,201 +1,214 @@
-@extends('layouts.tabler')
+@extends('layouts.simple.master')
+
+@section('title', 'Data Kontrak')
+
 @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap4.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
-    <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatable-extension.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/select2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/sweetalert2.css') }}">
+
+
 @endsection
+
+@section('style')
+    <style>
+        .select2-offscreen,
+        .select2-offscreen:focus {
+            // Keep original element in the same spot
+            // So that HTML5 valiation message appear in the correct position
+            left: auto !important;
+            top: auto !important;
+        }
+
+    </style>
+@endsection
+
+@section('breadcrumb-title')
+    <h3>Data Kontrak</h3>
+@endsection
+
+@section('breadcrumb-items')
+    <li class="breadcrumb-item">Data</li>
+    <li class="breadcrumb-item active">Kontrak</li>
+@endsection
+
 @section('content')
-    <div class="container-xl">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Tahun Anggaran 2022</h3>
-                    @if ($errors->any())
-                        {{ implode('', $errors->all(':message')) }}
-                    @endif
-                    <div class="card-actions">
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data-kontrak">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                            Tambah
-                        </a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Tahun Anggaran 2022</h5>
+                        <div class="card-header-right">
+                            <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#modal-kontrak"
+                                data-bs-original-title="" title=""> <span class="fa fa-edit"></span>
+                                Tambah
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="example1" class="table table-vcenter card-table">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Program</th>
-                                    <th>Kegiatan</th>
-                                    <th>Kontrak</th>
-                                    <th>Tahun Anggaran</th>
-                                    <th>Opsi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                    $i = 1;
-                                @endphp
-                                @foreach ($data as $item)
-                                    @php
-                                        $kontrak = 'Rp' . number_format($item->harga_kontrak, 2, ',', '.');
-                                    @endphp
+                    <div class="card-body">
+                        <div class="dt-ext table-responsive">
+                            <table id="example1" class="display">
+                                <thead>
                                     <tr>
-                                        <td>{{ $i++ }}</td>
-                                        <td>{{ $item->pekerjaan->kegiatan->sub_kegiatan }}</td>
-                                        <td><a
-                                                href="/pekerjaan/{{ $item->pekerjaan->id }}">{{ $item->pekerjaan->nama_pekerjaan }}</a>
-                                        </td>
-                                        <td>{{ $kontrak }}</td>
-                                        <td>{{ $item->pekerjaan->tahun_anggaran }}</td>
-                                        <td>
-                                            <div class="btn-list flex-nowrap">
-                                                <div class="dropdown">
-                                                    <button class="btn dropdown-toggle align-text-top"
-                                                        data-bs-toggle="dropdown">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon"
-                                                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                            stroke="currentColor" fill="none" stroke-linecap="round"
-                                                            stroke-linejoin="round">
-                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                            <path
-                                                                d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
-                                                            <circle cx="12" cy="12" r="3" />
-                                                        </svg>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#modal-ubah{{ $item->id }}">
-                                                            Ubah
-                                                        </a>
-                                                        <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                            data-bs-target="#modal-hapus{{ $item->id }}">
-                                                            Hapus
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <th>No</th>
+                                        <th>Program</th>
+                                        <th>Kegiatan</th>
+                                        <th>Nomor Kontrak</th>
+                                        <th>Tanggal Kontrak</th>
+                                        <th>Nilai Kontrak</th>
+                                        <th>Opsi</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $i = 1;
+                                    @endphp
+                                    @foreach ($data as $item)
+                                        @php
+                                            $kontrak = 'Rp' . number_format($item->harga_kontrak, 2, ',', '.');
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $i++ }}</td>
+                                            <td>{{ $item->pekerjaan->kegiatan->sub_kegiatan }}</td>
+                                            <td><a
+                                                    href="/pekerjaan/{{ $item->pekerjaan->id }}">{{ $item->pekerjaan->nama_pekerjaan }}</a>
+                                            </td>
+                                            <td>{{$item->no_spk}}</td>
+                                            <td>{{ date('j F, Y', strtotime($item->tgl_spk)) }}</td>
+                                            <td>{{ $kontrak }}</td>
+                                            <td>
+                                                <div class="card-body btn-showcase">
+                                                    <button class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-hapus{{ $item->id }}"><i
+                                                            class="fa fa-trash"></i></button>
+                                                    <button class="btn btn-warning btn-edit" data-bs-toggle="modal"
+                                                        data-bs-target="#modal-ubah{{$item->id}}" id="edit-item"
+                                                        data-id="{{ $item->id }}"><i
+                                                            class="fa fa-edit"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal modal-blur fade" id="data-kontrak" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
+    <div class="modal fade bd-example-modal-lg" id="modal-kontrak" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Tambah Data Kontrak</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('kontrak.store') }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label>Program</label>
-                            <select name="program_id" id="program_id" class="form-control select2" style="width: 100%;">
-                                <option value="">Pilih Program/Kegiatan/Sub Kegiatan</option>
-                                <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
-                                <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat Skala
-                                    Permukiman
-                                </option>
-                                <option value="3">Pembangunan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
-                                <option value="4">Perbaikan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
-                                <option value="5">Perluasan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="pekerjaan_id">Kegiatan</label>
-                            <select value="" name="pekerjaan_id" id="pekerjaan_id" class="form-control select2"
-                                style="width: 100%;">
-                                <option value="">Pilih Pekerjaan</option>
-                            </select>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div>
-                                    <label class="form-label">Nomor SPK</label>
-                                    <input name="no_spk" type="text" class="form-control">
-                                </div>
+                <div class="modal-body">
+                    <form class="needs-validation" novalidate="" action="{{ route('kontrak.store') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label>Program</label>
+                                <select id="program_id" name="program_id" class="form-control select2 select2-offscreen" required
+                                    style="width: 100%;">
+                                    <option selected disabled value="">Pilih Program/Kegiatan/Sub Kegiatan</option>
+                                    <optgroup label="Sanitasi">
+                                        <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
+                                        <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat
+                                            Skala Permukiman</option>
+                                    </optgroup>
+                                    <optgroup label="Air Minum">
+                                        <option value="3">Pembangunan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
+                                        <option value="4">Perbaikan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
+                                        <option value="5">Perluasan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
+                                    </optgroup>
+                                </select>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Tanggal Kontrak</label>
-                                    <input name="tgl_spk" type="date" class="form-control">
-                                </div>
+                            <div class="mb-3">
+                                <label for="pekerjaan_id">Kegiatan</label>
+                                <select id="pekerjaan_id" value="" name="pekerjaan_id" class="form-control select2 select2-offscreen"
+                                    style="width: 100%;" required>
+                                    <option value="">Pilih Kegiatan</option>
+                                </select>
                             </div>
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div>
-                                    <label class="form-label">Masa Pelaksanaan</label>
+
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div>
+                                        <label class="form-label">Nomor SPK</label>
+                                        <input name="no_spk" type="text" class="form-control" required="">
+                                        <div class="invalid-feedback"><a class="text-danger">Nomor SPK Invalid!</a></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Mulai</label>
-                                    <input name="tgl_mulai" type="date" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Selesai</label>
-                                    <input name="tgl_selesai" type="date" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Pelaksana</label>
-                                    <input name="nama_pelaksana" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Pengawas</label>
-                                    <input name="nama_pengawas" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="mb-3" tabindex="0" id="currency">
-                                    <label class="form-label">Nomor Kontrak</label>
-                                    <div class="input-group input-group-flat">
-                                        <input type="text" class="form-control" name="pagu" id="pagu" data-type="currency"
-                                            id="currency-field" placeholder="Nilai Kontrak">
-                                        <input value="" type="numeric" class="form-control" id="harga_kontrak"
-                                            name="harga_kontrak" hidden>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tanggal Kontrak</label>
+                                        <input name="tgl_spk" type="date" class="form-control" required="">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn me-auto" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan</button>
-                    </div>
-                </form>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label class="form-label">Masa Pelaksanaan</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Mulai</label>
+                                        <input name="tgl_mulai" type="date" class="form-control" required="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Selesai</label>
+                                        <input name="tgl_selesai" type="date" class="form-control" required="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Pelaksana</label>
+                                        <input name="nama_pelaksana" type="text" class="form-control" required="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Pengawas</label>
+                                        <input name="nama_pengawas" type="text" class="form-control" required="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="mb-3" tabindex="0" id="currency">
+                                        <label class="form-label">Nomor Kontrak</label>
+                                        <div class="input-group input-group-flat">
+                                            <input type="text" class="form-control" name="pagu" id="pagu"
+                                                data-type="currency" placeholder="Nilai Kontrak"
+                                                required>
+                                            <input value="" type="numeric" class="form-control" id="harga_kontrak"
+                                                name="harga_kontrak" hidden>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Save changes</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
     @foreach ($data as $d)
-        {{-- Hapus Data --}}
-        <div class="modal modal-blur fade" id="modal-hapus{{$d->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal modal-blur fade" id="modal-hapus{{ $d->id }}" tabindex="-1" role="dialog"
+            aria-hidden="true">
             <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -211,7 +224,7 @@
                                 d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75" />
                         </svg>
                         <h3>Apakah anda yakin?</h3>
-                        <div class="text-muted">Hapus Data Kontrak Kegiatan {{$d->pekerjaan->nama_pekerjaan}}</div>
+                        <div class="text-muted">Hapus Data Kontrak Kegiatan {{ $d->pekerjaan->nama_pekerjaan }}</div>
                     </div>
                     <div class="modal-footer">
                         <div class="w-100">
@@ -219,155 +232,196 @@
                                 <div class="col"><a href="#" class="btn w-100" data-bs-dismiss="modal">
                                         Batal
                                     </a></div>
-                                    <form action="{{ route('kontrak.destroy', $d->id)}}" method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                <div class="col">
-                                    <button class="btn btn-danger w-100" type="submit">Hapus</button>
-                                </div>
-                                    </form>
+                                <form action="{{ route('kontrak.destroy', $d->id) }}" method="post">
+                                    @method('DELETE')
+                                    @csrf
+                                    <div class="col">
+                                        <button class="btn btn-danger w-100" type="submit">Hapus</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal modal-blur fade" id="modal-ubah{{ $d->id }}" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content">
+        <div class="modal fade bd-example-modal-lg" name="modal-ubah" id="modal-ubah{{ $d->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content" id="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Tambah Data Kontrak</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{ route('kontrak.update', $d->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label>Program</label>
-                                <select name="program_id" id="program_id" class="form-control select2" style="width: 100%;">
-                                    <option value="{{ $d->program_id }}">{{ $d->pekerjaan->kegiatan->sub_kegiatan }}
-                                    </option>
-                                    <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
-                                    <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat Skala
-                                        Permukiman
-                                    </option>
-                                    <option value="3">Pembangunan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
-                                    <option value="4">Perbaikan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
-                                    <option value="5">Perluasan SPAM Jaringan Perpipaan di Kawasan Perdesaan</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="pekerjaan_id">Kegiatan</label>
-                                <select value="" name="pekerjaan_id" id="pekerjaan_id" class="form-control select2"
-                                    style="width: 100%;">
-                                    <option value="{{ $d->pekerjaan_id }}">{{ $d->pekerjaan->nama_pekerjaan }}</option>
-                                </select>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div>
-                                        <label class="form-label">Nomor SPK</label>
-                                        <input value="{{ $d->no_spk }}" name="no_spk" type="text"
-                                            class="form-control">
-                                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('kontrak.update', $d->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label>Program</label>
+                                    <select id="program" name="program_id" class="form-control select2 select-ubah select2-offscreen"
+                                        required style="width: 100%;">
+                                        <option selected disabled value="">Pilih Program</option>
+                                        <optgroup label="Sanitasi">
+                                            <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
+                                            <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat
+                                                Skala Permukiman</option>
+                                        </optgroup>
+                                        <optgroup label="Air Minum">
+                                            <option value="3">Pembangunan SPAM Jaringan Perpipaan di Kawasan Perdesaan
+                                            </option>
+                                            <option value="4">Perbaikan SPAM Jaringan Perpipaan di Kawasan Perdesaan
+                                            </option>
+                                            <option value="5">Perluasan SPAM Jaringan Perpipaan di Kawasan Perdesaan
+                                            </option>
+                                        </optgroup>
+                                    </select>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Tanggal Kontrak</label>
-                                        <input value="{{ $d->tgl_spk }}" name="tgl_spk" type="date"
-                                            class="form-control">
-                                    </div>
+                                <div class="mb-3">
+                                    <label for="pekerjaan_id">Kegiatan</label>
+                                    <select id="kegiatan" name="pekerjaan_id" class="form-control select2 select-ubah select2-offscreen"
+                                        style="width: 100%;" required>
+                                        <option value="">Pilih Kegiatan</option>
+                                    </select>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div>
-                                        <label class="form-label">Masa Pelaksanaan</label>
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div>
+                                            <label class="form-label">Nomor SPK</label>
+                                            <input id="no_spk" name="no_spk" type="text" class="form-control" required="">
+                                            <div class="invalid-feedback"><a class="text-danger">Nomor SPK Invalid!</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Mulai</label>
-                                        <input value="{{ $d->tgl_mulai }}" name="tgl_mulai" type="date"
-                                            class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Selesai</label>
-                                        <input value="{{ $d->tgl_selesai }}" name="tgl_selesai" type="date"
-                                            class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Pelaksana</label>
-                                        <input value="{{ $d->nama_pelaksana }}" name="nama_pelaksana" type="text"
-                                            class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">Pengawas</label>
-                                        <input value="{{ $d->nama_pengawas }}" name="nama_pengawas" type="text"
-                                            class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="mb-3" tabindex="0" id="currency">
-                                        <label class="form-label">Nomor Kontrak</label>
-                                        <div class="input-group input-group-flat">
-                                            <input value="{{ $d->harga_kontrak }}" type="text" class="form-control"
-                                                name="pagu" id="pagu" data-type="currency" id="currency-field"
-                                                placeholder="Nilai Kontrak">
-                                            <input value="{{ $d->harga_kontrak }}" type="numeric" class="form-control"
-                                                id="harga_kontrak" name="harga_kontrak" hidden>
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Tanggal Kontrak</label>
+                                            <input id="tgl_spk" name="tgl_spk" type="date" class="form-control"
+                                                required="">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn me-auto" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Simpan</button>
-                        </div>
-                    </form>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div>
+                                            <label class="form-label">Masa Pelaksanaan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Mulai</label>
+                                            <input id="tgl_mulai" name="tgl_mulai" type="date" class="form-control"
+                                                required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Selesai</label>
+                                            <input id="tgl_selesai" name="tgl_selesai" type="date" class="form-control" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Pelaksana</label>
+                                            <input id="nama_pelaksana" name="nama_pelaksana" type="text" class="form-control" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Pengawas</label>
+                                            <input id="nama_pengawas" name="nama_pengawas" type="text" class="form-control" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Nilai Kontrak</label>
+                                            <input type="text" class="form-control" name="pagu" id="kontrak"
+                                                data-type="currency" placeholder="Nilai Kontrak"
+                                                required>
+                                            <input id="n_kontrak" name="harga_kontrak" type="numeric" class="form-control" required="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">Save changes</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     @endforeach
 @endsection
-@section('js')
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript" src="https://adminlte.io/themes/v3/plugins/toastr/toastr.min.js"></script>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <!--Data Table-->
-    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap4.min.js"></script>
-
-
-
-    <!--Export table buttons-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@section('script')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
+    <script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/jszip.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.autoFill.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.keyTable.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.colReorder.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.fixedHeader.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.rowReorder.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.scroller.min.js') }}"></script>
+    <script src="{{ asset('assets/js/datatable/datatable-extension/custom.js') }}"></script>
+    <script src="{{ asset('assets/js/select2/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>
+    <script src="{{ asset('assets/js/form-validation-custom.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            $(".select2").select2({
-                dropdownParent: $("#data-kontrak")
-            });
-        });
+        @if ($errors->any())
+        Swal.fire({
+        title: 'Error!',
+        text:  '{{ implode('', $errors->all(':message')) }}',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+        })
+        @endif
     </script>
+    <script>
+        $(document).on('click', '.btn-edit', function() {
+            var id = $(this).data('id');
+            console.log(id);
+
+            $.ajax({
+                type: "GET",
+                url: "{{ url('edit/kontrak') }}",
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function(res) {
+                    $('#kontrak').val(res.harga_kontrak);
+                    $('#no_spk').val(res.no_spk);
+                    $('#tgl_spk').val(res.tgl_spk);
+                    $('#tgl_mulai').val(res.tgl_mulai);
+                    $('#tgl_selesai').val(res.tgl_selesai);
+                    $('#nama_pelaksana').val(res.nama_pelaksana);
+                    $('#nama_pengawas').val(res.nama_pengawas);
+                    var $newOption = $("<option selected='selected'></option>").val(res.kegiatan.id).text(res.kegiatan.program)
+                    $("#program").append($newOption).trigger('change');
+                    var $newOption = $("<option selected='selected'></option>").val(res.pekerjaan.id).text(res.pekerjaan.nama_pekerjaan)
+                    $("#kegiatan").append($newOption).trigger('change');
+                }
+            });
+        })
+    </script>
+
     <script>
         $(document).ready(function() {
             $('#example1').DataTable({
@@ -418,6 +472,22 @@
             })
 
         })
+        jQuery(document).ready(function() {
+            jQuery($('#kontrak')).on('change', function() {
+                var pagu = jQuery(this).val();
+                $($('#n_kontrak')).val(pagu.replace(/\D/g, ""));
+
+            })
+
+        })
+        $(document).ready(function() {
+            $(".select2").select2({
+                dropdownParent: $("#modal-content"),
+
+            });
+        });
+    </script>
+    <script>
         jQuery(document).ready(function() {
             jQuery($('#program_id')).on('change', function() {
                 var kegID = jQuery(this).val();

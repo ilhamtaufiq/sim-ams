@@ -64,7 +64,7 @@ class OutputController extends Controller
             'volume' => $request->volume,
             'satuan' => $request->satuan,
         ]);     
-        Alert::success('Target Output', 'Data Target Output Berhasil Dihapus');
+        Alert::success('Target Output', 'Data Target Output Berhasil Ditambahkan');
         return redirect()->back();
     }
 

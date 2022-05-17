@@ -13,6 +13,8 @@
         </div>
         <div class="card-body">
             <form method="post" action="{{ route('users.update', $user->id) }}">
+                @csrf
+                @method('PUT')
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name" class="form-label">Name</label>

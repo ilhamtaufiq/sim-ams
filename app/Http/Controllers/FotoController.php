@@ -64,6 +64,9 @@ class FotoController extends Controller
                       'nama' => $name,
                       'path' => '/storage/'.$path,
                       'pekerjaan_id' => $request->pekerjaan_id,
+                      'lat' => $request->lat,
+                      'long' => $request->long,
+                      'keterangan' => $request->keterangan
 
 
                     ]);

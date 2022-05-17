@@ -46,7 +46,7 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
     Route::resource('permissions', PermissionsController::class);
     Route::resource('users', UsersController::class);
 
-    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index']);
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('/');
 
     // Route::resource('dashboard', DashboardController::class, [
     //     'names' => [
@@ -116,12 +116,13 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
     // Route::get('/pekerjaan/{pekerjaan_id}', [PekerjaanController::class, 'pekerjaan.detail']);
     // Single
     Route::get('/cover/kontrak/{kontrak}', [App\Http\Controllers\KontrakController::class, 'cover']);
+    Route::get('/edit/kontrak/', [App\Http\Controllers\KontrakController::class, 'edit_kontrak']);
+
 
     Route::get('/foto/pekerjaan/{pekerjaan}', [App\Http\Controllers\FotoController::class, 'progress']);
     Route::post('/foto/pekerjaan/post', [App\Http\Controllers\FotoController::class, 'storeFoto']);
 
     Route::post('/target/output/', [App\Http\Controllers\OutputController::class, 'store']);
-    Route::post('/realisasi/output/', [App\Http\Controllers\OutputRealisasiController::class, 'store']);
 
 
 
@@ -129,6 +130,8 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
     Route::get('/pekerjaan/kegiatan/{keg_id}', [App\Http\Controllers\PekerjaanController::class, 'getPekerjaan']);
 
     Route::get('/pekerjaan/tahun/{tahun}', [App\Http\Controllers\PekerjaanController::class, 'pekerjaan']);
+    Route::get('/edit/pekerjaan/', [App\Http\Controllers\PekerjaanController::class, 'ubahPekerjaan']);
+
     //V1.2
     //TFL
     //Air Minum
@@ -139,10 +142,9 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
     Route::post('/dok/post', [App\Http\Controllers\DokumenController::class, 'store'])->name('dokumen.post');
 });
 Route::group(['middleware' => ['role:admin|tfl']], function () {
-    Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index']);
+    Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index'])->name('tfl');
     Route::get('/sanitasi/dak/{pekerjaan}', [App\Http\Controllers\PekerjaanController::class, 'tfl_show']);
-
-
+    Route::post('/realisasi/output/', [App\Http\Controllers\OutputRealisasiController::class, 'store']);
 });
 
 

@@ -39,7 +39,7 @@ class OutputRealisasiController extends Controller
         $rules = [
             'pekerjaan_id' => 'required',
             'output_id' => 'required',
-            // 'realisasi' => 'required',
+            'realisasi' => 'required',
             // 'satuan' => 'required',
 
         ];
@@ -58,13 +58,16 @@ class OutputRealisasiController extends Controller
     
         $this->validate($request, $rules, $customMessages, $attributeNames);
         $realisasi = $request->realisasi;   
+        $i = 1;
         foreach($realisasi as $r)
         {
             $output = OutputRealisasi::updateOrCreate([
-                'output_id' => $request->output_id,
+                'output_id' => $request->output_id[$i++],
+            ],[
                 'pekerjaan_id' => $request->pekerjaan_id,
+                'satuan' => $request->satuan[$i++],
                 'realisasi' => $r,
-                'satuan' => $request->satuan,
+                // 'satuan' => $request->satuan,
             ]);    
         }
            

@@ -9,5 +9,5 @@ class Foto extends Model
 {
     use HasFactory;
     protected $table = 'db_foto';
-    protected $fillable = ['pekerjaan_id','nama','path','progress'];
+    protected $fillable = ['pekerjaan_id','nama','path','progress','lat','long'];
 }

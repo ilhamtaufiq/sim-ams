@@ -55,7 +55,7 @@ class DokumenController extends Controller
               $files = $request->file('files');
   
               foreach($files as $file) {
-                  $name1 = $request->pekerjaan_id; 
+                  $name1 = $request->nama_pekerjaan; 
                   $ket = $request->keterangan;
                   $name = $name1.'-'.$ket.'.'.$file->extension();
                   $path = $file->storeAs('dokumen', $name, 'public');

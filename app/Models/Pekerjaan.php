@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Kegiatan;
 use App\Models\Realisasi;
+use App\Models\Ouput;
+
 
 class Pekerjaan extends Model
 {
@@ -41,7 +43,7 @@ class Pekerjaan extends Model
      */
     public function kec()
     {
-        return $this->hasOne(Kecamatan::class, 'kec_id', 'kecamatan_id');
+        return $this->hasOne(Kecamatan::class, 'id', 'kecamatan_id');
     }
 
     /**

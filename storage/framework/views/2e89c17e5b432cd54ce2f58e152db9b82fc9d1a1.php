@@ -11,6 +11,8 @@
         </div>
         <div class="card-body">
             <form method="post" action="<?php echo e(route('users.update', $user->id)); ?>">
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('PUT'); ?>
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name" class="form-label">Name</label>
