@@ -4,6 +4,8 @@
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/vendors/owlcarousel.css')); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/vendors/rating.css')); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/vendors/sweetalert2.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/vendors/photoswipe.css')); ?>">
+
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
         integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
@@ -68,6 +70,7 @@
                             <div>
                                 <table class="product-page-width">
                                     <tbody>
+                                        <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
                                         <tr>
                                             <td> <b>Pagu</b></td>
                                             <?php
@@ -84,6 +87,7 @@
                                             <?php endif; ?>
                                             <td><?php echo e($kontrak ?? 'Nilai Belum Diinput'); ?></td>
                                         </tr>
+                                        <?php endif; ?>
                                         <tr>
                                             <td><b>Output</b></td>
                                            <td> <?php $__currentLoopData = $tfl->pekerjaan->output; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $o): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -215,6 +219,62 @@
             </div>
         </div>
         
+        <div class="card">
+            <div class="card-header">
+               <h5>IMAGE GALLERY</h5>
+            </div>
+            <div class="gallery my-gallery card-body row" itemscope="">
+                <?php $__currentLoopData = $foto; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $f): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+               <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
+                  <a href="<?php echo e($f->path); ?>" itemprop="contentUrl" data-size="300x300"><img class="img-thumbnail" src="<?php echo e($f->path); ?>" itemprop="thumbnail" alt="Image description"></a>
+                  <figcaption itemprop="caption description">
+                    <form action="<?php echo e(route('foto.hapus', $f->id)); ?>" method="post">
+                        <?php echo method_field('DELETE'); ?>
+                        <?php echo csrf_field(); ?>
+                        <div class="col">
+                            <button class="btn btn-danger w-100" type="submit">Hapus</button>
+                        </div>
+                    </form>
+                  </figcaption>
+               </figure>
+               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
+            <!-- Root element of PhotoSwipe. Must have class pswp.-->
+            <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+               <div class="pswp__bg"></div>
+               <div class="pswp__scroll-wrap">
+                  <div class="pswp__container">
+                     <div class="pswp__item"></div>
+                     <div class="pswp__item"></div>
+                     <div class="pswp__item"></div>
+                  </div>
+                  <div class="pswp__ui pswp__ui--hidden">
+                     <div class="pswp__top-bar">
+                        <div class="pswp__counter"></div>
+                        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                        <button class="pswp__button pswp__button--share" title="Share"></button>
+                        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                        <div class="pswp__preloader">
+                           <div class="pswp__preloader__icn">
+                              <div class="pswp__preloader__cut">
+                                 <div class="pswp__preloader__donut"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                        <div class="pswp__share-tooltip"></div>
+                     </div>
+                     <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+                     <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+                     <div class="pswp__caption">
+                        <div class="pswp__caption__center"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
     </div>
     <div class="modal fade bd-example-modal-lg" id="modal-foto" tabindex="-1" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -422,6 +482,9 @@
     <script src="<?php echo e(asset('assets/js/rating/rating-script.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/owlcarousel/owl.carousel.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/ecommerce.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/photoswipe/photoswipe.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/photoswipe/photoswipe-ui-default.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/js/photoswipe/photoswipe.js')); ?>"></script>
     <script>
         var toastMixin = Swal.mixin({
             toast: true,

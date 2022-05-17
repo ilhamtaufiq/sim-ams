@@ -499,6 +499,16 @@
     <script src="{{ asset('assets/js/owlcarousel/owl.carousel.js') }}"></script>
     <script src="{{ asset('assets/js/ecommerce.js') }}"></script>
     <script>
+        @if ($errors->any())
+        Swal.fire({
+        title: 'Error!',
+        text:  '{{ implode('', $errors->all(':message')) }}',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+        })
+        @endif
+    </script>
+    <script>
         var toastMixin = Swal.mixin({
             toast: true,
             icon: 'success',

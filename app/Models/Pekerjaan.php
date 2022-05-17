@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Kegiatan;
 use App\Models\Realisasi;
 use App\Models\Ouput;
+use App\Models\Aspirasi;
 
 
 class Pekerjaan extends Model
@@ -77,13 +78,13 @@ class Pekerjaan extends Model
     }
 
     /**
-     * Get all of the comments for the Pekerjaan
+     * Get the user associated with the Pekerjaan
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function tfl()
     {
-        return $this->hasMany(Tfl::class, 'pekerjaan_id', 'id');
+        return $this->hasOne(Tfl::class, 'pekerjaan_id', 'id');
     }
 
     /**
@@ -104,6 +105,16 @@ class Pekerjaan extends Model
     public function realisasi_output()
     {
         return $this->hasMany(OutputRealisasi::class, 'pekerjaan_id', 'id');
+    }
+
+    /**
+     * Get the user associated with the Pekerjaan
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function aspirasi()
+    {
+        return $this->hasOne(Aspirasi::class, 'pekerjaan_id', 'id');
     }
 
     public static function boot() {

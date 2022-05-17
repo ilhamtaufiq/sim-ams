@@ -5,6 +5,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/owlcarousel.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/rating.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/sweetalert2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/photoswipe.css')}}">
+
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
         integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
@@ -69,6 +71,7 @@
                             <div>
                                 <table class="product-page-width">
                                     <tbody>
+                                        @role('admin')
                                         <tr>
                                             <td> <b>Pagu</b></td>
                                             @php
@@ -85,6 +88,7 @@
                                             @endif
                                             <td>{{ $kontrak ?? 'Nilai Belum Diinput' }}</td>
                                         </tr>
+                                        @endrole
                                         <tr>
                                             <td><b>Output</b></td>
                                            <td> @foreach ($tfl->pekerjaan->output as $o)
@@ -225,7 +229,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile"
-                                role="tab" aria-controls="top-profile" aria-selected="false">Map</a>
+                                role="tab" aria-controls="top-profile" aria-selected="false">Foto</a>
                             <div class="material-border"></div>
                         </li>
                     </ul>
@@ -233,17 +237,81 @@
                         <div class="tab-pane fade active show" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
                             <ul class="mb-0 m-t-20">
                                 @foreach ($dokumen as $dok)
-                                    <li><a href="{{ $dok->path }}">{{ $dok->file }}</a></li>
+                                    <li><a href="{{ $dok->path }}">{{ $dok->keterangan }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
                         <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
-                            <p class="mb-0 m-t-20">Peta Lokasi</p>
-                            <div class="map" id="map2" data-name="Map 2" data-coords="[48.886719,2.343076]" data-zoom="10" data-color="#ff654f" data-tileserver="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoib2xpdmllcmMiLCJhIjoiY2s5dnNnZWoyMDIzNDNzb2Y1dmQ4MGNtMCJ9.m4U-wYcS4EPcKe9nVXIbUA" data-attribution="&lt;a href=&quot;//www.openstreetmap.org/&quot;&gt;OSM&lt;/a&gt; | &lt;a href=&quot;//www.mapbox.com/&quot;&gt;Mapbox&lt;/a&gt;"></div>                        </div>
+                            <ul class="mb-0 m-t-20">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Foto</td>
+                                            <td><a href="/">Hapus</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </ul>
                     </div>
                 </div>
             </div>
         </div> --}}
+        <div class="card">
+            <div class="card-header">
+               <h5>IMAGE GALLERY</h5>
+            </div>
+            <div class="gallery my-gallery card-body row" itemscope="">
+                @foreach($foto as $f)
+               <figure class="col-xl-3 col-md-4 col-6" itemprop="associatedMedia" itemscope="">
+                  <a href="{{$f->path}}" itemprop="contentUrl" data-size="300x300"><img class="img-thumbnail" src="{{$f->path}}" itemprop="thumbnail" alt="Image description"></a>
+                  <figcaption itemprop="caption description">
+                    <form action="{{ route('foto.hapus', $f->id) }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <div class="col">
+                            <button class="btn btn-danger w-100" type="submit">Hapus</button>
+                        </div>
+                    </form>
+                  </figcaption>
+               </figure>
+               @endforeach
+            </div>
+            <!-- Root element of PhotoSwipe. Must have class pswp.-->
+            <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+               <div class="pswp__bg"></div>
+               <div class="pswp__scroll-wrap">
+                  <div class="pswp__container">
+                     <div class="pswp__item"></div>
+                     <div class="pswp__item"></div>
+                     <div class="pswp__item"></div>
+                  </div>
+                  <div class="pswp__ui pswp__ui--hidden">
+                     <div class="pswp__top-bar">
+                        <div class="pswp__counter"></div>
+                        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                        <button class="pswp__button pswp__button--share" title="Share"></button>
+                        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                        <div class="pswp__preloader">
+                           <div class="pswp__preloader__icn">
+                              <div class="pswp__preloader__cut">
+                                 <div class="pswp__preloader__donut"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                        <div class="pswp__share-tooltip"></div>
+                     </div>
+                     <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+                     <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+                     <div class="pswp__caption">
+                        <div class="pswp__caption__center"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
     </div>
     <div class="modal fade bd-example-modal-lg" id="modal-foto" tabindex="-1" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -451,6 +519,9 @@
     <script src="{{ asset('assets/js/rating/rating-script.js') }}"></script>
     <script src="{{ asset('assets/js/owlcarousel/owl.carousel.js') }}"></script>
     <script src="{{ asset('assets/js/ecommerce.js') }}"></script>
+    <script src="{{asset('assets/js/photoswipe/photoswipe.min.js')}}"></script>
+    <script src="{{asset('assets/js/photoswipe/photoswipe-ui-default.min.js')}}"></script>
+    <script src="{{asset('assets/js/photoswipe/photoswipe.js')}}"></script>
     <script>
         var toastMixin = Swal.mixin({
             toast: true,

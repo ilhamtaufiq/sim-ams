@@ -6,6 +6,8 @@ use App\Models\Foto;
 use App\Models\Pekerjaan;
 use Illuminate\Http\Request;
 
+use Alert;
+
 class FotoController extends Controller
 {
     /**
@@ -49,6 +51,9 @@ class FotoController extends Controller
         //
         $request->validate([
             'images' => 'required',
+            'keterangan'=>'required',
+            // 'lat' => 'required',
+            // 'long' => 'required',
           ]);
   
           if ($request->hasfile('images')) {
@@ -149,5 +154,8 @@ class FotoController extends Controller
     public function destroy(Foto $foto)
     {
         //
+        $foto->delete();
+        Alert::success('Foto', 'Data Foto Berhasil Dihapus');
+        return back();
     }
 }

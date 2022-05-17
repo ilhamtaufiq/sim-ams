@@ -11,7 +11,7 @@
         <div class="card-header">
         </div>
         <div class="card-body">
-            <form method="POST" action="">
+            <form method="POST" action="{{route('users.store')}}">
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>

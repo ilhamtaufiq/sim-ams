@@ -61,4 +61,14 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    /**
+     * Get all of the comments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tfl()
+    {
+        return $this->hasMany(Tfl::class, 'user_id', 'id');
+    }
 }

@@ -32,10 +32,12 @@
 							<li><a href="/kegiatan/3" class="<?php echo e(request()->route()->getPrefix()=='kegiatan' ? 'active' : ''); ?>">Pembangunan SPAM</a></li>
 							<li><a href="/kegiatan/4" class="<?php echo e(request()->route()->getPrefix()=='kegiatan' ? 'active' : ''); ?>">Rehab SPAM</a></li>
 							<li><a href="/kegiatan/5" class="<?php echo e(request()->route()->getPrefix()=='kegiatan' ? 'active' : ''); ?>">Air Minum DAK</a></li>
+							<li><a href="/aspirasi/" class="<?php echo e(request()->route()->getPrefix()=='aspirasi' ? 'active' : ''); ?>">Aspirasi</a></li>
+
 						</ul>
 					</li>
 					<li class="sidebar-list">
-						<a class="sidebar-link sidebar-title <?php echo e(request()->route()->getPrefix() == '/pekerjaan' ? 'active' : ''); ?>" href="#"><i data-feather="home"></i><span class="lan-3">Kontrak</span>
+						<a class="sidebar-link sidebar-title <?php echo e(request()->route()->getPrefix() == '/pekerjaan' ? 'active' : ''); ?>" href="#"><i data-feather="archive"></i><span class="lan-3">Kontrak</span>
 							<div class="according-menu"><i class="fa fa-angle-<?php echo e(request()->route()->getPrefix() == '/pekerjaan' ? 'down' : 'right'); ?>"></i></div>
 						</a>
 						<ul class="sidebar-submenu" style="display: <?php echo e(request()->route()->getPrefix() == '/dashboard' ? 'block;' : 'none;'); ?>">
@@ -44,7 +46,7 @@
 					</li>
 					<?php endif; ?>
 					<li class="sidebar-list">
-						<a class="sidebar-link sidebar-title <?php echo e(Route::currentRouteName()=='tfl' ? 'active' : ''); ?>" href="#"><i data-feather="home"></i><span class="lan-3">Sanitasi DAK</span></a>
+						<a class="sidebar-link sidebar-title <?php echo e(Route::currentRouteName()=='tfl' ? 'active' : ''); ?>" href="/tfl"><i data-feather="layers"></i><span class="lan-3">Sanitasi DAK</span></a>
 						
 					</li>
 				</ul>

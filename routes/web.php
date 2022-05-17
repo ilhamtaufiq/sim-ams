@@ -78,17 +78,17 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
             // etc...
         ]
     ]);
-    Route::resource('foto', FotoController::class, [
-        'names' => [
-            'index' => 'foto',
-            'create' => 'foto.tambah',
-            'store' => 'foto.store',
-            'edit' => 'foto.edit',
-            'update' => 'foto.update',
-            'show' => 'foto.detail'
-            // etc...
-        ]
-    ]);
+    // Route::resource('foto', FotoController::class, [
+    //     'names' => [
+    //         'index' => 'foto',
+    //         'create' => 'foto.tambah',
+    //         'store' => 'foto.store',
+    //         'edit' => 'foto.edit',
+    //         'update' => 'foto.update',
+    //         'show' => 'foto.detail'
+    //         // etc...
+    //     ]
+    // ]);
     Route::resource('realisasi', RealisasiController::class, [
         'names' => [
             'index' => 'realisasi',
@@ -113,10 +113,26 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
         ]
     ]);
 
+    Route::resource('aspirasi', AspirasiController::class, [
+        'names' => [
+            'index' => 'aspirasi',
+            'create' => 'aspirasi.tambah',
+            'store' => 'aspirasi.store',
+            'edit' => 'aspirasi.edit',
+            'update' => 'aspirasi.update',
+            'show' => 'aspirasi.detail'
+            // etc...
+        ]
+    ]);
     // Route::get('/pekerjaan/{pekerjaan_id}', [PekerjaanController::class, 'pekerjaan.detail']);
     // Single
+    Route::post('/tfl/lokasi/', [App\Http\Controllers\UsersController::class, 'lokasi'])->name('tfl.lokasi');
+
+
     Route::get('/cover/kontrak/{kontrak}', [App\Http\Controllers\KontrakController::class, 'cover']);
     Route::get('/edit/kontrak/', [App\Http\Controllers\KontrakController::class, 'edit_kontrak']);
+    Route::get('/edit/aspirasi/', [App\Http\Controllers\AspirasiController::class, 'edit_aspirasi']);
+
 
 
     Route::get('/foto/pekerjaan/{pekerjaan}', [App\Http\Controllers\FotoController::class, 'progress']);
@@ -128,6 +144,8 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
 
     Route::get('/desa/{kec_id}', [App\Http\Controllers\DesaController::class, 'getdesa']);
     Route::get('/pekerjaan/kegiatan/{keg_id}', [App\Http\Controllers\PekerjaanController::class, 'getPekerjaan']);
+    Route::get('/pekerjaan/kegiatan/aspirasi/{keg_id}', [App\Http\Controllers\PekerjaanController::class, 'getAspirasi']);
+
 
     Route::get('/pekerjaan/tahun/{tahun}', [App\Http\Controllers\PekerjaanController::class, 'pekerjaan']);
     Route::get('/edit/pekerjaan/', [App\Http\Controllers\PekerjaanController::class, 'ubahPekerjaan']);
@@ -139,12 +157,18 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
     Route::get('/kegiatan/{id}', [App\Http\Controllers\PekerjaanController::class, 'kegiatan'])->name('kegiatan');
 
     Route::get('/dok/tambah', [App\Http\Controllers\DokumenController::class, 'create']);
-    Route::post('/dok/post', [App\Http\Controllers\DokumenController::class, 'store'])->name('dokumen.post');
 });
 Route::group(['middleware' => ['role:admin|tfl']], function () {
     Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index'])->name('tfl');
     Route::get('/sanitasi/dak/{pekerjaan}', [App\Http\Controllers\PekerjaanController::class, 'tfl_show']);
     Route::post('/realisasi/output/', [App\Http\Controllers\OutputRealisasiController::class, 'store']);
+    Route::post('/foto/upload/', [App\Http\Controllers\FotoController::class, 'store'])->name('foto.store');
+    Route::delete('foto/hapus/{foto}', [App\Http\Controllers\FotoController::class, 'destroy'])->name('foto.hapus');
+    Route::post('/target/output/', [App\Http\Controllers\OutputController::class, 'store']);
+    Route::post('/dok/post', [App\Http\Controllers\DokumenController::class, 'store'])->name('dokumen.post');
+
+
+
 });
 
 

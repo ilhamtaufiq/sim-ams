@@ -378,6 +378,7 @@
                                     <div class="form-floating mb-3">
                                         <input name="pekerjaan_id" type="number" value="<?php echo e($pekerjaan->id); ?>" hidden>
                                         <input name="output_id[<?php echo e($i++); ?>]" type="number" value="<?php echo e($o->id); ?>" hidden>
+                                        <input name="satuan[<?php echo e($i++); ?>]" type="text" value="<?php echo e($o->satuan); ?>" hidden>
                                         <input name="realisasi[]" type="numeric" class="form-control" autocomplete="off" required="">
                                     </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -403,6 +404,16 @@
     <script src="<?php echo e(asset('assets/js/rating/rating-script.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/owlcarousel/owl.carousel.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/ecommerce.js')); ?>"></script>
+    <script>
+        <?php if($errors->any()): ?>
+        Swal.fire({
+        title: 'Error!',
+        text:  '<?php echo e(implode('', $errors->all(':message'))); ?>',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+        })
+        <?php endif; ?>
+    </script>
     <script>
         var toastMixin = Swal.mixin({
             toast: true,

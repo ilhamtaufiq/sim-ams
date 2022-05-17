@@ -26,25 +26,17 @@ class PekerjaanController extends Controller
     
     public function tfl_index()
     {
-        //TFL
-        if (Auth::user()->roles->first()->name == 'admin') {
-            $userId = Auth::id();
-            $data = Tfl::with('pekerjaan.kegiatan','pekerjaan.output','pekerjaan.realisasi_output')->get();
-            $realisasi = OutputRealisasi::get();
-            foreach($data as $d)  
-            // dd($d->pekerjaan->realisasi_output);      
-            return view('pages.tfl.home',[
-                'data' => $data,
-                'title' => 'Sanitasi DAK',
-                'realisasi_output' => $d->pekerjaan->realisasi_output,
-                'realisasi' => $realisasi
-            ]);
-        }
+        //Get User ID
         $userId = Auth::id();
-        $data = Tfl::with('pekerjaan.kegiatan','pekerjaan.output','pekerjaan.realisasi_output')->where('user_id',$userId)->get();
+        if (Auth::user()->roles->first()->name == 'admin') {
+            # Admin...
+            $data = Tfl::with('pekerjaan.kegiatan','pekerjaan.output','pekerjaan.realisasi_output')->get();
+        } else {
+            # TFL
+            $data = Tfl::with('pekerjaan.kegiatan','pekerjaan.output','pekerjaan.realisasi_output')->where('user_id',$userId)->get();
+        }
         $realisasi = OutputRealisasi::get();
         foreach($data as $d)  
-        // dd($d->pekerjaan->realisasi_output);      
         return view('pages.tfl.home',[
             'data' => $data,
             'title' => 'Sanitasi DAK',
@@ -57,9 +49,15 @@ class PekerjaanController extends Controller
     public function tfl_show($pekerjaan)
     {
         $userId = Auth::id();
-        $tfl = Tfl::with('pekerjaan.kegiatan','pekerjaan.output','pekerjaan.realisasi_output')->where('user_id',$userId)
-        ->where('pekerjaan_id',$pekerjaan)->first();
-        // dd($tfl->pekerjaan);
+
+        if (Auth::user()->roles->first()->name == 'admin') {
+            # Role Admin
+            $tfl = Tfl::with('pekerjaan.kegiatan','pekerjaan.output','pekerjaan.realisasi_output')->where('pekerjaan_id',$pekerjaan)->first();
+        } else {
+            # Role TFL
+            $tfl = Tfl::with('pekerjaan.kegiatan','pekerjaan.output','pekerjaan.realisasi_output')->where('user_id',$userId)
+            ->where('pekerjaan_id',$pekerjaan)->first();
+        }
         $pekerjaan_id = $pekerjaan;
         $foto = Foto::where('pekerjaan_id',$pekerjaan_id)->get();
         $dokumen = Dokumen::where('pekerjaan_id',$pekerjaan_id)->get();
@@ -119,6 +117,14 @@ class PekerjaanController extends Controller
     public function getPekerjaan($keg_id)
     {
         $data = Pekerjaan::with('detail')->get()
+        ->where('program_id', $keg_id);
+        // ->pluck('nama_pekerjaan', 'id');
+        return response()->json($data);
+    }
+
+    public function getAspirasi($keg_id)
+    {
+        $data = Pekerjaan::with('aspirasi')->get()
         ->where('program_id', $keg_id);
         // ->pluck('nama_pekerjaan', 'id');
 
