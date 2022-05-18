@@ -158,7 +158,7 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
 
     Route::get('/dok/tambah', [App\Http\Controllers\DokumenController::class, 'create']);
 });
-Route::group(['middleware' => ['role:admin|tfl']], function () {
+Route::group(['middleware' => ['auth','role:admin|tfl']], function () {
     Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index'])->name('tfl');
     Route::get('/sanitasi/dak/{pekerjaan}', [App\Http\Controllers\PekerjaanController::class, 'tfl_show']);
     Route::post('/realisasi/output/', [App\Http\Controllers\OutputRealisasiController::class, 'store']);
