@@ -418,10 +418,10 @@
                     $('#tgl_selesai').val(res.tgl_selesai);
                     $('#nama_pelaksana').val(res.nama_pelaksana);
                     $('#nama_pengawas').val(res.nama_pengawas);
-                    // $("#program").val(res.s.id);
-                    // var $newOption = $("<option selected='selected'></option>").val(res.pekerjaan.id)
-                    //     .text(res.pekerjaan.nama_pekerjaan)
-                    // $("#kegiatan").append($newOption);
+                    $("#program").val(res.kegiatan.id);
+                    var $newOption = $("<option selected='selected'></option>").val(res.pekerjaan.id)
+                        .text(res.pekerjaan.nama_pekerjaan)
+                    $("#kegiatan").append($newOption);
                 }
             });
         })
