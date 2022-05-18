@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Foto;
 use App\Models\Pekerjaan;
 use Illuminate\Http\Request;
+use File;
+use Storage;
 
 use Alert;
 
@@ -63,7 +65,7 @@ class FotoController extends Controller
                   $name1 = $request->pekerjaan_id; 
                 //   $name2 = $image->getClientOriginalName();
                   $name = $name1.'-'.uniqid().'.'.$image->extension();
-                  $path = $image->storeAs('uploads', $name, 'public');
+                  $path = $image->storeAs('foto', $name, 'public');
   
                   Foto::create([
                       'nama' => $name,
@@ -154,7 +156,15 @@ class FotoController extends Controller
     public function destroy(Foto $foto)
     {
         //
-        $foto->delete();
+		$f = Foto::where('id',$foto->id)->first();        
+        // Storage::delete('/storage/uploads/90-6284f4e48ed37.png');
+
+        if(file_exists(public_path($f->path))){
+            $foto->delete();
+            unlink(public_path($f->path));
+          }else{
+            dd('File not found');
+        }
         Alert::success('Foto', 'Data Foto Berhasil Dihapus');
         return back();
     }
