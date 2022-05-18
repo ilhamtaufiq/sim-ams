@@ -75,7 +75,7 @@
                                             <td><a
                                                     href="/pekerjaan/{{ $item->pekerjaan->id }}">{{ $item->pekerjaan->nama_pekerjaan }}</a>
                                             </td>
-                                            <td>{{$item->no_spk}}</td>
+                                            <td>{{ $item->no_spk }}</td>
                                             <td>{{ date('j F, Y', strtotime($item->tgl_spk)) }}</td>
                                             <td>{{ $kontrak }}</td>
                                             <td>
@@ -84,7 +84,7 @@
                                                         data-bs-target="#modal-hapus{{ $item->id }}"><i
                                                             class="fa fa-trash"></i></button>
                                                     <button class="btn btn-warning btn-edit" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-ubah{{$item->id}}" id="edit-item"
+                                                        data-bs-target="#modal-ubah{{ $item->id }}" id="edit-item"
                                                         data-id="{{ $item->id }}"><i
                                                             class="fa fa-edit"></i></button>
                                                 </div>
@@ -113,8 +113,8 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label>Program</label>
-                                <select id="program_id" name="program_id" class="form-control select2 select2-offscreen" required
-                                    style="width: 100%;">
+                                <select id="program_id" name="program_id" class="form-control select2 select2-offscreen"
+                                    required style="width: 100%;">
                                     <option selected disabled value="">Pilih Program/Kegiatan/Sub Kegiatan</option>
                                     <optgroup label="Sanitasi">
                                         <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
@@ -130,8 +130,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="pekerjaan_id">Kegiatan</label>
-                                <select id="pekerjaan_id" value="" name="pekerjaan_id" class="form-control select2 select2-offscreen"
-                                    style="width: 100%;" required>
+                                <select id="pekerjaan_id" value="" name="pekerjaan_id"
+                                    class="form-control select2 select2-offscreen" style="width: 100%;" required>
                                     <option value="">Pilih Kegiatan</option>
                                 </select>
                             </div>
@@ -188,8 +188,7 @@
                                         <label class="form-label">Nomor Kontrak</label>
                                         <div class="input-group input-group-flat">
                                             <input type="text" class="form-control" name="pagu" id="pagu"
-                                                data-type="currency" placeholder="Nilai Kontrak"
-                                                required>
+                                                data-type="currency" placeholder="Nilai Kontrak" required>
                                             <input value="" type="numeric" class="form-control" id="harga_kontrak"
                                                 name="harga_kontrak" hidden>
                                         </div>
@@ -245,8 +244,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade bd-example-modal-lg" name="modal-ubah" id="modal-ubah{{ $d->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal fade bd-example-modal-lg" name="modal-ubah" id="modal-ubah{{ $d->id }}" tabindex="-1"
+            role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content" id="modal-content">
                     <div class="modal-header">
@@ -260,9 +259,10 @@
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label>Program</label>
-                                    <select id="program" name="program_id" class="form-control select2 select-ubah select2-offscreen"
-                                        required style="width: 100%;">
-                                        <option selected disabled value="">Pilih Program</option>
+                                    <select id="program" name="program_id"
+                                        class="form-control select2 select-ubah select2-offscreen" required
+                                        style="width: 100%;">
+                                        <option selected disabled value="">{{$d->kegiatan->sub_kegiatan}}</option>
                                         <optgroup label="Sanitasi">
                                             <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
                                             <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat
@@ -280,8 +280,9 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="pekerjaan_id">Kegiatan</label>
-                                    <select id="kegiatan" name="pekerjaan_id" class="form-control select2 select-ubah select2-offscreen"
-                                        style="width: 100%;" required>
+                                    <select id="kegiatan" name="pekerjaan_id"
+                                        class="form-control select2 select-ubah select2-offscreen" style="width: 100%;"
+                                        required>
                                         <option value="">Pilih Kegiatan</option>
                                     </select>
                                 </div>
@@ -289,7 +290,8 @@
                                     <div class="col-lg-8">
                                         <div>
                                             <label class="form-label">Nomor SPK</label>
-                                            <input id="no_spk" name="no_spk" type="text" class="form-control" required="">
+                                            <input id="no_spk" name="no_spk" type="text" class="form-control"
+                                                required="">
                                             <div class="invalid-feedback"><a class="text-danger">Nomor SPK Invalid!</a>
                                             </div>
                                         </div>
@@ -320,28 +322,31 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">Selesai</label>
-                                            <input id="tgl_selesai" name="tgl_selesai" type="date" class="form-control" required="">
+                                            <input id="tgl_selesai" name="tgl_selesai" type="date" class="form-control"
+                                                required="">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">Pelaksana</label>
-                                            <input id="nama_pelaksana" name="nama_pelaksana" type="text" class="form-control" required="">
+                                            <input id="nama_pelaksana" name="nama_pelaksana" type="text"
+                                                class="form-control" required="">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">Pengawas</label>
-                                            <input id="nama_pengawas" name="nama_pengawas" type="text" class="form-control" required="">
+                                            <input id="nama_pengawas" name="nama_pengawas" type="text"
+                                                class="form-control" required="">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <label class="form-label">Nilai Kontrak</label>
                                             <input type="text" class="form-control" name="pagu" id="kontrak"
-                                                data-type="currency" placeholder="Nilai Kontrak"
-                                                required>
-                                            <input id="n_kontrak" name="harga_kontrak" type="numeric" class="form-control" required="">
+                                                data-type="currency" placeholder="Nilai Kontrak" required>
+                                            <input id="n_kontrak" name="harga_kontrak" type="number" class="form-control"
+                                                required="" hidden>
                                         </div>
                                     </div>
                                 </div>
@@ -359,7 +364,7 @@
 @endsection
 
 @section('script')
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatable/datatable-extension/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatable/datatable-extension/jszip.min.js') }}"></script>
@@ -385,12 +390,12 @@
     <script src="{{ asset('assets/js/form-validation-custom.js') }}"></script>
     <script>
         @if ($errors->any())
-        Swal.fire({
-        title: 'Error!',
-        text:  '{{ implode('', $errors->all(':message')) }}',
-        icon: 'error',
-        confirmButtonText: 'Ok'
-        })
+            Swal.fire({
+                title: 'Error!',
+                text: '{{ implode('', $errors->all(':message')) }}',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
         @endif
     </script>
     <script>
@@ -406,22 +411,23 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    $('#kontrak').val(res.harga_kontrak);
+                    console.log(res);
+                    $('#kontrak').val(res.harga_kontrak).change();
+                    $('#n_kontrak').val(res.harga_kontrak);
                     $('#no_spk').val(res.no_spk);
                     $('#tgl_spk').val(res.tgl_spk);
                     $('#tgl_mulai').val(res.tgl_mulai);
                     $('#tgl_selesai').val(res.tgl_selesai);
                     $('#nama_pelaksana').val(res.nama_pelaksana);
                     $('#nama_pengawas').val(res.nama_pengawas);
-                    var $newOption = $("<option selected='selected'></option>").val(res.kegiatan.id).text(res.kegiatan.program)
-                    $("#program").append($newOption).trigger('change');
-                    var $newOption = $("<option selected='selected'></option>").val(res.pekerjaan.id).text(res.pekerjaan.nama_pekerjaan)
-                    $("#kegiatan").append($newOption).trigger('change');
+                    // $("#program").val(res.s.id);
+                    // var $newOption = $("<option selected='selected'></option>").val(res.pekerjaan.id)
+                    //     .text(res.pekerjaan.nama_pekerjaan)
+                    // $("#kegiatan").append($newOption);
                 }
             });
         })
     </script>
-
     <script>
         $(document).ready(function() {
             $('#example1').DataTable({
@@ -480,16 +486,15 @@
             })
 
         })
-        $(document).ready(function() {
-            $(".select2").select2({
-                dropdownParent: $("#modal-content"),
-
+        $('select:not(.normal)').each(function() {
+            $(this).select2({
+                dropdownParent: $(this).parent()
             });
         });
     </script>
     <script>
         jQuery(document).ready(function() {
-            jQuery($('#program_id')).on('change', function() {
+            jQuery($('#program_id, #program')).on('change', function() {
                 var kegID = jQuery(this).val();
                 if (kegID) {
                     jQuery.ajax({
@@ -498,12 +503,13 @@
                         dataType: "json",
                         success: function(data) {
                             console.log(data);
-                            jQuery($('#pekerjaan_id')).empty();
+                            jQuery($('#pekerjaan_id, #kegiatan')).empty();
                             jQuery.each(data, function(key, value) {
                                 if (value.detail != null) {
-                                    jQuery($('#pekerjaan_id')).empty();
+                                    jQuery($('#pekerjaan_id, #kegiatan')).empty();
                                 } else {
-                                    $($('#pekerjaan_id')).append('<option value="' +
+                                    $($('#pekerjaan_id, #kegiatan')).append(
+                                        '<option value="' +
                                         value.id + '">' + value.nama_pekerjaan +
                                         '</option>');
                                     // $($('#pagu')).val(value.pagu);

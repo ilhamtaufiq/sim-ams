@@ -97,7 +97,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade bd-example-modal-lg" id="modal-pekerjaan" tabindex="-1" role="dialog"
+    <div class="modal fade bd-example-modal-lg" id="modal-pekerjaan" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content" id="modal-content">
@@ -181,7 +181,7 @@
         </div>
     </div>
     @foreach ($data as $d)
-    <div class="modal modal-blur fade" id="modal-hapus{{ $d->id }}" tabindex="-1" role="dialog"
+    <div class="modal modal-blur fade" id="modal-hapus{{ $d->id }}" role="dialog"
         aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -219,7 +219,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade bd-example-modal-lg" id="modal-ubah{{$d->id}}" name="modal-ubah" style="overflow:hidden;" role="dialog"
+    <div class="modal fade bd-example-modal-lg" id="modal-ubah{{$d->id}}" name="modal-ubah" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content" id="modal-content">
@@ -421,10 +421,9 @@
             })
 
         })
-        $(document).ready(function() {
-            $(".select2").select2({
-                dropdownParent: $("#modal-content"),
-
+        $('select:not(.normal)').each(function () {
+            $(this).select2({
+                dropdownParent: $(this).parent()
             });
         });
     </script>

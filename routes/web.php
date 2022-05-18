@@ -113,14 +113,12 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
         ]
     ]);
 
-    Route::resource('aspirasi', AspirasiController::class, [
+    Route::resource('paket', PaketController::class, [
         'names' => [
-            'index' => 'aspirasi',
-            'create' => 'aspirasi.tambah',
-            'store' => 'aspirasi.store',
-            'edit' => 'aspirasi.edit',
-            'update' => 'aspirasi.update',
-            'show' => 'aspirasi.detail'
+            'index' => 'paket',
+            'store' => 'paket.store',
+            'update' => 'paket.update',
+            'show' => 'paket.detail'
             // etc...
         ]
     ]);
@@ -131,7 +129,7 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
 
     Route::get('/cover/kontrak/{kontrak}', [App\Http\Controllers\KontrakController::class, 'cover']);
     Route::get('/edit/kontrak/', [App\Http\Controllers\KontrakController::class, 'edit_kontrak']);
-    Route::get('/edit/aspirasi/', [App\Http\Controllers\AspirasiController::class, 'edit_aspirasi']);
+    Route::get('/edit/paket/', [App\Http\Controllers\PaketController::class, 'edit_paket']);
 
 
 
@@ -144,7 +142,7 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
 
     Route::get('/desa/{kec_id}', [App\Http\Controllers\DesaController::class, 'getdesa']);
     Route::get('/pekerjaan/kegiatan/{keg_id}', [App\Http\Controllers\PekerjaanController::class, 'getPekerjaan']);
-    Route::get('/pekerjaan/kegiatan/aspirasi/{keg_id}', [App\Http\Controllers\PekerjaanController::class, 'getAspirasi']);
+    Route::get('/pekerjaan/kegiatan/paket/{keg_id}', [App\Http\Controllers\PekerjaanController::class, 'getPaket']);
 
 
     Route::get('/pekerjaan/tahun/{tahun}', [App\Http\Controllers\PekerjaanController::class, 'pekerjaan']);

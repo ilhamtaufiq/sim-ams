@@ -32,8 +32,6 @@
 							<li><a href="/kegiatan/3" class="<?php echo e(request()->route()->getPrefix()=='kegiatan' ? 'active' : ''); ?>">Pembangunan SPAM</a></li>
 							<li><a href="/kegiatan/4" class="<?php echo e(request()->route()->getPrefix()=='kegiatan' ? 'active' : ''); ?>">Rehab SPAM</a></li>
 							<li><a href="/kegiatan/5" class="<?php echo e(request()->route()->getPrefix()=='kegiatan' ? 'active' : ''); ?>">Air Minum DAK</a></li>
-							<li><a href="/aspirasi/" class="<?php echo e(request()->route()->getPrefix()=='aspirasi' ? 'active' : ''); ?>">Aspirasi</a></li>
-
 						</ul>
 					</li>
 					<li class="sidebar-list">
@@ -44,10 +42,12 @@
 							<li><a class="lan-4 <?php echo e(Route::currentRouteName()=='/' ? 'active' : ''); ?>" href="/kontrak">Daftar Kontrak</a></li>
 						</ul>
 					</li>
+					<li class="sidebar-list">
+						<a class="sidebar-link sidebar-title <?php echo e(Route::currentRouteName()=='paket' ? 'active' : ''); ?>" href="<?php echo e(route('paket')); ?>"><i data-feather="layers"></i><span class="lan-3">Paket Pekerjaan</span></a>
+					</li>
 					<?php endif; ?>
 					<li class="sidebar-list">
 						<a class="sidebar-link sidebar-title <?php echo e(Route::currentRouteName()=='tfl' ? 'active' : ''); ?>" href="/tfl"><i data-feather="layers"></i><span class="lan-3">Sanitasi DAK</span></a>
-						
 					</li>
 				</ul>
 			</div>

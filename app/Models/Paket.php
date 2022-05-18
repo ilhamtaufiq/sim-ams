@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Pekerjaan;
 
-class Aspirasi extends Model
+class Paket extends Model
 {
     use HasFactory;
 
-    protected $table = 'db_aspirasi';
+    protected $table = 'db_paket';
     protected $fillable = ['pekerjaan_id','nama_pelaksana','alamat_pelaksana','npwp_pelaksana','keterangan'];
 
     /**
-     * Get the user associated with the Aspirasi
+     * Get the user associated with the Paket
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
