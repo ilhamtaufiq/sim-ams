@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Aspirasi;
+use App\Models\Paket;
 use Illuminate\Http\Request;
 use Alert;
 
-class AspirasiController extends Controller
+class PaketController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class AspirasiController extends Controller
     {
 
 
-        $data = Aspirasi::with('pekerjaan')->get();
-        $title = "Aspirasi";
-        return view('pages.pekerjaan.aspirasi',compact('data','title'));
+        $data = Paket::with('pekerjaan')->get();
+        $title = "Paket Pekerjaan";
+        return view('pages.pekerjaan.paket',compact('data','title'));
     }
 
     /**
@@ -40,7 +40,7 @@ class AspirasiController extends Controller
      */
     public function store(Request $request)
     {
-        //tambah aspirasi
+        //tambah Paket
         $rules = [
             'pekerjaan_id' => 'required',
             'nama_pelaksana' => 'required',
@@ -66,25 +66,25 @@ class AspirasiController extends Controller
         $valid = $this->validate($request, $rules, $customMessages, $attributeNames);
 
 
-        $pekerjaan = Aspirasi::firstOrCreate([
+        $pekerjaan = Paket::firstOrCreate([
             'pekerjaan_id' => $request->pekerjaan_id,
             'nama_pelaksana' => $request->nama_pelaksana,
             'npwp_pelaksana' => $request->npwp_pelaksana,
             'alamat_pelaksana' => $request->alamat_pelaksana,
             'keterangan' => $request->keterangan,
         ]);     
-        Alert::success('Aspirasi', 'Data Kegiatan Aspirasi Berhasil Ditambahkan');
+        Alert::success('Paket Pekerjaan', 'Data Paket Pekerjaan Berhasil Ditambahkan');
 
-        return redirect('aspirasi');
+        return redirect('paket');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Aspirasi  $aspirasi
+     * @param  \App\Models\Paket  $Paket
      * @return \Illuminate\Http\Response
      */
-    public function show(Aspirasi $aspirasi)
+    public function show(Paket $paket)
     {
         //
     }
@@ -92,17 +92,17 @@ class AspirasiController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Aspirasi  $aspirasi
+     * @param  \App\Models\Paket  $Paket
      * @return \Illuminate\Http\Response
      */
-    public function edit(Aspirasi $aspirasi)
+    public function edit(Paket $paket)
     {
         //
     }
 
-    public function edit_aspirasi(Request $request)
+    public function edit_paket(Request $request)
     {
-        $data = Aspirasi::with('pekerjaan','pekerjaan.kegiatan')->where('id' , $request->id)->first();
+        $data = Paket::with('pekerjaan','pekerjaan.kegiatan')->where('id' , $request->id)->first();
 
         return response()->json($data, 200);
     }
@@ -112,10 +112,10 @@ class AspirasiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Aspirasi  $aspirasi
+     * @param  \App\Models\Paket  $Paket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Aspirasi $aspirasi)
+    public function update(Request $request, Paket $paket)
     {
         //
         $rules = [
@@ -143,28 +143,28 @@ class AspirasiController extends Controller
         $valid = $this->validate($request, $rules, $customMessages, $attributeNames);
 
 
-        $aspirasi->update([
+        $paket->update([
             'pekerjaan_id' => $request->pekerjaan_id,
             'nama_pelaksana' => $request->nama_pelaksana,
             'npwp_pelaksana' => $request->npwp_pelaksana,
             'alamat_pelaksana' => $request->alamat_pelaksana,
             'keterangan' => $request->keterangan,
         ]);     
-        Alert::success('Aspirasi', 'Data Kegiatan Aspirasi Berhasil Diubah');
+        Alert::success('Paket Pekerjaan', 'Data Paket Pekerjaan Berhasil Diubah');
 
-        return redirect('aspirasi');
+        return redirect('paket');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Aspirasi  $aspirasi
+     * @param  \App\Models\Paket  $Paket
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Aspirasi $aspirasi)
+    public function destroy(Paket $paket)
     {
-        $aspirasi->delete();
-        Alert::success('Aspirasi', 'Data Kegiatan Aspirasi Berhasil Dihapus');
-        return redirect('aspirasi');
+        $paket->delete();
+        Alert::success('Paket Pekerjaan', 'Data Paket Pekerjaan Berhasil Dihapus');
+        return redirect('paket');
     }
 }

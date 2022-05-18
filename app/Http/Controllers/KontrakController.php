@@ -163,8 +163,8 @@ class KontrakController extends Controller
     public function update(Request $request, Kontrak $kontrak)
     {
         $s = Pekerjaan::where('id',$request->pekerjaan_id)->pluck('pagu')->first();
-        $kontrak = 'Rp' . number_format($s, 2, ',', '.');
-        $k = $request->no_spk;
+        // $kontrak = 'Rp' . number_format($s, 2, ',', '.');
+        // $k = $request->no_spk;
 
         //edit
         $rules = [
@@ -181,7 +181,7 @@ class KontrakController extends Controller
     
         $customMessages = [
             'required' => ':attribute tidak boleh kosong ',
-            'max' => ':attribute tidak boleh lebih dari pagu '.$kontrak
+            'max' => ':attribute tidak boleh lebih dari pagu '.$s
         ];
 
         $attributeNames = array(

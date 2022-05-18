@@ -163,7 +163,7 @@ class FotoController extends Controller
             $foto->delete();
             unlink(public_path($f->path));
           }else{
-            dd('File not found');
+            // dd('File not found');
         }
         Alert::success('Foto', 'Data Foto Berhasil Dihapus');
         return back();

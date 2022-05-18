@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Kegiatan;
 use App\Models\Realisasi;
 use App\Models\Ouput;
-use App\Models\Aspirasi;
+use App\Models\Paket;
 
 
 class Pekerjaan extends Model
@@ -112,9 +112,9 @@ class Pekerjaan extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function aspirasi()
+    public function paket_pekerjaan()
     {
-        return $this->hasOne(Aspirasi::class, 'pekerjaan_id', 'id');
+        return $this->hasOne(Paket::class, 'pekerjaan_id', 'id');
     }
 
     public static function boot() {

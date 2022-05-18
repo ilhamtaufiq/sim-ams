@@ -95,7 +95,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade bd-example-modal-lg" id="modal-pekerjaan" tabindex="-1" role="dialog"
+    <div class="modal fade bd-example-modal-lg" id="modal-pekerjaan" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content" id="modal-content">
@@ -179,7 +179,7 @@
         </div>
     </div>
     <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $d): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <div class="modal modal-blur fade" id="modal-hapus<?php echo e($d->id); ?>" tabindex="-1" role="dialog"
+    <div class="modal modal-blur fade" id="modal-hapus<?php echo e($d->id); ?>" role="dialog"
         aria-hidden="true">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -217,7 +217,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade bd-example-modal-lg" id="modal-ubah<?php echo e($d->id); ?>" name="modal-ubah" style="overflow:hidden;" role="dialog"
+    <div class="modal fade bd-example-modal-lg" id="modal-ubah<?php echo e($d->id); ?>" name="modal-ubah" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content" id="modal-content">
@@ -419,10 +419,9 @@
             })
 
         })
-        $(document).ready(function() {
-            $(".select2").select2({
-                dropdownParent: $("#modal-content"),
-
+        $('select:not(.normal)').each(function () {
+            $(this).select2({
+                dropdownParent: $(this).parent()
             });
         });
     </script>

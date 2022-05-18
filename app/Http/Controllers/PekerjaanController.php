@@ -122,9 +122,9 @@ class PekerjaanController extends Controller
         return response()->json($data);
     }
 
-    public function getAspirasi($keg_id)
+    public function getPaket($keg_id)
     {
-        $data = Pekerjaan::with('aspirasi')->get()
+        $data = Pekerjaan::with('paket_pekerjaan')->get()
         ->where('program_id', $keg_id);
         // ->pluck('nama_pekerjaan', 'id');
 
