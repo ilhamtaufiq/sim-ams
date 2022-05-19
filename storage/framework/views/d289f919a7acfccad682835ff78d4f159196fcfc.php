@@ -275,7 +275,7 @@
                </div>
             </div>
          </div>
-    </div>
+        </div>
     <div class="modal fade bd-example-modal-lg" id="modal-foto" tabindex="-1" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -444,7 +444,7 @@
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="needs-validation" novalidate="" action="/realisasi/output/" method="POST">
+                    <form class="needs-validation" novalidate="" action="<?php echo e(route('realisasi.output')); ?>" method="POST">
                         <?php echo csrf_field(); ?>
                         <div class="modal-body">
                             <div class="mb-3">

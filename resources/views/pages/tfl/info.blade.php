@@ -481,7 +481,7 @@
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="needs-validation" novalidate="" action="/realisasi/output/" method="POST">
+                    <form class="needs-validation" novalidate="" action="{{route('realisasi.output')}}" method="POST">
                         @csrf
                         <div class="modal-body">
                             <div class="mb-3">

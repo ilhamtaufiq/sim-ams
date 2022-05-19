@@ -159,7 +159,7 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
 Route::group(['middleware' => ['auth','role:admin|tfl']], function () {
     Route::get('/tfl', [App\Http\Controllers\PekerjaanController::class, 'tfl_index'])->name('tfl');
     Route::get('/sanitasi/dak/{pekerjaan}', [App\Http\Controllers\PekerjaanController::class, 'tfl_show']);
-    Route::post('/realisasi/output/', [App\Http\Controllers\OutputRealisasiController::class, 'store']);
+    Route::post('/realisasi/output/', [App\Http\Controllers\OutputRealisasiController::class, 'store'])->name('realisasi.output');
     Route::post('/foto/upload/', [App\Http\Controllers\FotoController::class, 'store'])->name('foto.store');
     Route::delete('foto/hapus/{foto}', [App\Http\Controllers\FotoController::class, 'destroy'])->name('foto.hapus');
     Route::post('/target/output/', [App\Http\Controllers\OutputController::class, 'store']);
