@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/vendors/rating.css')); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/vendors/sweetalert2.css')); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/vendors/photoswipe.css')); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/vendors/mapsjs-ui.css')); ?>">
 
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
@@ -215,7 +216,7 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <div id="mapid"></div>
+                <div class="map-js-height" id="mapid"></div>
             </div>
         </div>
         
