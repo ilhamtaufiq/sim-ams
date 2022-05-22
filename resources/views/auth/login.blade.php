@@ -1,55 +1,78 @@
-<x-guest-layout>
-  <x-auth-card>
-      <x-slot name="logo">
-          <a href="/">
-              <img src="{{asset('assets/images/logo/logo.png')}}" alt="">
-          </a>
-      </x-slot>
+@extends('layouts.authentication.master')
+@section('title', 'Login')
 
-      <!-- Session Status -->
-      <x-auth-session-status class="mb-4" :status="session('status')" />
+@section('css')
+@endsection
 
-      <!-- Validation Errors -->
-      <x-auth-validation-errors class="mb-4" :errors="$errors" />
-      <form method="POST" action="{{ route('login') }}">
-          @csrf
+@section('style')
+@endsection
 
-          <!-- Email Address -->
-          <div>
-              <x-label for="username" :value="__('Username')" />
+@section('content')
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-xl-7 order-1"><img class="bg-img-cover bg-center" src="https://www.femina.co.id/images/images/water%20dalam.jpg" alt="looginpage"></div>
+      <div class="col-xl-5 p-0">
+         <div class="login-card">
+            <div>
+               <div><a class="logo text-start" href=""><img class="img-fluid for-light" src="{{asset('assets/images/logo/logo.png')}}" alt="looginpage"><img class="img-fluid for-dark" src="{{asset('assets/images/logo/logo_dark.png')}}" alt="looginpage"></a></div>
+               <div class="login-main">
+                  <form class="theme-form needs-validation" novalidate="" method="POST" action="{{ route('login') }}">
+                    @csrf
+                     <h4>Selamat Datang!</h4>
+                     <p>Silakan masukkan username dan password Anda!</p>
+                     <div class="form-group">
+                        <label class="col-form-label">Username</label>
+                        {{-- <input class="form-control" id="username" type="text" @error('username') is-invalid @enderror name="username" value="{{ old('username') }}" required autofocus> --}}
+                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required="" autofocus placeholder="Username">
+                        @error('username')
+                        <div class="invalid-feedback">
+                            <strong>{{$message ?: 'Masukkan username anda'}}</strong>
+                        </div>
+                        @enderror
+                     </div>
+                     <div class="form-group">
+                        <label class="col-form-label">Password</label>
+                        <input class="form-control" type="password" name="password" required="" placeholder="*********">
+                        <div class="invalid-feedback">
+                            <strong>Masukkan password anda.</strong>
+                        </div>
+                     </div>
+                     <div class="form-group mb-0">
+                        <div class="checkbox p-0">
+                           <input id="checkbox1" type="checkbox">
+                           <label class="text-muted" name="remember" id="remember_me" >Remember me</label>
+                        </div>
+                        <button class="btn btn-primary btn-block" type="submit">Login</button>
+                     </div>
+                
+                     <script>
+                        (function() {
+                        'use strict';
+                        window.addEventListener('load', function() {
+                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                        var forms = document.getElementsByClassName('needs-validation');
+                        // Loop over them and prevent submission
+                        var validation = Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                        }, false);
+                        });
+                        }, false);
+                        })();
+                        
+                     </script>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+@endsection
 
-              <x-input id="username" class="block mt-1 w-full" type="username" name="username" :value="old('username')" required autofocus />
-          </div>
-
-          <!-- Password -->
-          <div class="mt-4">
-              <x-label for="password" :value="__('Password')" />
-
-              <x-input id="password" class="block mt-1 w-full"
-                              type="password"
-                              name="password"
-                              required autocomplete="current-password" />
-          </div>
-
-          <!-- Remember Me -->
-          <div class="block mt-4">
-              <label for="remember_me" class="inline-flex items-center">
-                  <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                  <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-              </label>
-          </div>
-
-          <div class="flex items-center justify-end mt-4">
-              @if (Route::has('password.request'))
-                  <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                      {{ __('Forgot your password?') }}
-                  </a>
-              @endif
-
-              <x-button class="ml-3">
-                  {{ __('Log in') }}
-              </x-button>
-          </div>
-      </form>
-  </x-auth-card>
-</x-guest-layout>
+@section('script')
+@endsection
