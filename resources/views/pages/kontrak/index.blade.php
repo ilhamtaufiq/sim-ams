@@ -84,7 +84,7 @@
                                                         data-bs-target="#modal-hapus{{ $item->id }}"><i
                                                             class="fa fa-trash"></i></button>
                                                     <button class="btn btn-warning btn-edit" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-ubah{{ $item->id }}" id="edit-item"
+                                                        data-bs-target="#modal-ubah" id="edit-item"
                                                         data-id="{{ $item->id }}"><i
                                                             class="fa fa-edit"></i></button>
                                                 </div>
@@ -244,7 +244,9 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade bd-example-modal-lg" name="modal-ubah" id="modal-ubah{{ $d->id }}" tabindex="-1"
+        @endforeach
+
+        <div class="modal fade bd-example-modal-lg" name="modal-ubah" id="modal-ubah" tabindex="-1"
             role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content" id="modal-content">
@@ -253,7 +255,7 @@
                         <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('kontrak.update', $d->id) }}" method="POST">
+                        <form action="" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="modal-body">
@@ -360,7 +362,6 @@
                 </div>
             </div>
         </div>
-    @endforeach
 @endsection
 
 @section('script')
@@ -412,6 +413,7 @@
                 dataType: 'json',
                 success: function(res) {
                     console.log(res);
+                    $('form').attr('action', 'kontrak/'+res.id);
                     $('#kontrak').val(res.harga_kontrak).change();
                     $('#n_kontrak').val(res.harga_kontrak);
                     $('#no_spk').val(res.no_spk);

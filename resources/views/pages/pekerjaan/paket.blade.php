@@ -79,7 +79,7 @@
                                                         data-bs-target="#modal-hapus{{ $item->id }}"><i
                                                             class="fa fa-trash"></i></button>
                                                     <button class="btn btn-warning btn-edit" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-ubah{{ $item->id }}" id="edit-item"
+                                                        data-bs-target="#modal-ubah" id="edit-item"
                                                         data-id="{{ $item->id }}"><i
                                                             class="fa fa-edit"></i></button>
                                                 </div>
@@ -218,101 +218,101 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade bd-example-modal-lg" id="modal-ubah{{ $d->id }}" role="dialog"
-            aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content" id="modal-content-ubah">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Tambah Data Kontrak</h5>
-                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body modal-ubah">
-                        <form class="needs-validation" novalidate="" action="{{ route('paket.update', $d->id) }}"
-                            method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label>Program</label>
-                                    <select id="program" name="program_id" class="form-control select2 select2-offscreen"
-                                        required style="width: 100%;">
-                                        <option selected disabled value="">Pilih Program/Kegiatan/Sub Kegiatan</option>
-                                        <optgroup label="Sanitasi">
-                                            <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
-                                            <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat
-                                                Skala Permukiman</option>
-                                        </optgroup>
-                                        <optgroup label="Air Minum">
-                                            <option value="3">Pembangunan SPAM Jaringan Perpipaan di Kawasan Perdesaan
-                                            </option>
-                                            <option value="4">Perbaikan SPAM Jaringan Perpipaan di Kawasan Perdesaan
-                                            </option>
-                                            <option value="5">Perluasan SPAM Jaringan Perpipaan di Kawasan Perdesaan
-                                            </option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="pekerjaan_id">Kegiatan</label>
-                                    <select id="kegiatan" value="" name="pekerjaan_id"
-                                        class="form-control select2 select2-offscreen" style="width: 100%;" required>
-                                        <option value="">Pilih Kegiatan</option>
-                                    </select>
-                                </div>
+    @endforeach
+    <div class="modal fade bd-example-modal-lg" id="modal-ubah" role="dialog" tabindex="-1"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="modal-content-ubah">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Data Kontrak</h5>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal-ubah">
+                    <form class="needs-validation" novalidate="" action=""
+                        method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label>Program</label>
+                                <select id="program" name="program_id" class="form-control select2 select2-offscreen"
+                                    required style="width: 100%;">
+                                    <option selected disabled value="">Pilih Program/Kegiatan/Sub Kegiatan</option>
+                                    <optgroup label="Sanitasi">
+                                        <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
+                                        <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat
+                                            Skala Permukiman</option>
+                                    </optgroup>
+                                    <optgroup label="Air Minum">
+                                        <option value="3">Pembangunan SPAM Jaringan Perpipaan di Kawasan Perdesaan
+                                        </option>
+                                        <option value="4">Perbaikan SPAM Jaringan Perpipaan di Kawasan Perdesaan
+                                        </option>
+                                        <option value="5">Perluasan SPAM Jaringan Perpipaan di Kawasan Perdesaan
+                                        </option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="pekerjaan_id">Kegiatan</label>
+                                <select id="kegiatan" value="" name="pekerjaan_id"
+                                    class="form-control select2 select2-offscreen" style="width: 100%;" required>
+                                    <option value="">Pilih Kegiatan</option>
+                                </select>
+                            </div>
 
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div>
-                                            <label class="form-label">Nama Pelaksana</label>
-                                            <input id="pelaksana" name="nama_pelaksana" type="text" class="form-control"
-                                                required="">
-                                            <div class="invalid-feedback"><a class="text-danger">Nomor SPK Invalid!</a>
-                                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label class="form-label">Nama Pelaksana</label>
+                                        <input id="pelaksana" name="nama_pelaksana" type="text" class="form-control"
+                                            required="">
+                                        <div class="invalid-feedback"><a class="text-danger">Nomor SPK Invalid!</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div>
-                                            <label class="form-label">Data Pelaksana</label>
-                                        </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label class="form-label">Data Pelaksana</label>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Alamat</label>
-                                            <input id="alamat" name="alamat_pelaksana" type="text" class="form-control"
-                                                required="">
-                                        </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Alamat</label>
+                                        <input id="alamat" name="alamat_pelaksana" type="text" class="form-control"
+                                            required="">
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">NPWP</label>
-                                            <input id="npwp" name="npwp_pelaksana" type="text" class="form-control"
-                                                required="">
-                                        </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">NPWP</label>
+                                        <input id="npwp" name="npwp_pelaksana" type="text" class="form-control"
+                                            required="">
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3" tabindex="0" id="currency">
-                                            <label class="form-label">Keterangan</label>
-                                            <div class="input-group input-group-flat">
-                                                <textarea id="keterangan" class="form-control" name="keterangan" id=""></textarea>
-                                            </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="mb-3" tabindex="0" id="currency">
+                                        <label class="form-label">Keterangan</label>
+                                        <div class="input-group input-group-flat">
+                                            <textarea id="keterangan" class="form-control" name="keterangan" id=""></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" type="submit">Save changes</button>
-                        </form>
-                    </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Save changes</button>
+                    </form>
                 </div>
             </div>
         </div>
-    @endforeach
+    </div>
 @endsection
 
 @section('script')
@@ -341,11 +341,7 @@
     <script src="{{ asset('assets/js/select2/select2-custom.js') }}"></script>
     <script src="{{ asset('assets/js/form-validation-custom.js') }}"></script>
     <script>
-        $('select:not(.normal)').each(function() {
-            $(this).select2({
-                dropdownParent: $(this).parent()
-            });
-        });
+        
         @if ($errors->any())
             Swal.fire({
                 title: 'Error!',
@@ -368,6 +364,7 @@
                 },
                 dataType: 'json',
                 success: function(res) {
+                    $('form').attr('action', 'paket/'+res.id);
                     $('#pelaksana').val(res.nama_pelaksana);
                     $('#npwp').val(res.npwp_pelaksana);
                     $('#alamat').val(res.alamat_pelaksana);

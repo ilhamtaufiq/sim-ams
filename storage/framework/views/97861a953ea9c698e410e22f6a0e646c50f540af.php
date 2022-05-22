@@ -80,7 +80,7 @@
                                                         data-bs-target="#modal-hapus<?php echo e($item->id); ?>"><i
                                                             class="fa fa-trash"></i></button>
                                                     <button class="btn btn-warning btn-edit" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-ubah<?php echo e($item->id); ?>" id="edit-item"
+                                                        data-bs-target="#modal-ubah" id="edit-item" data-id="<?php echo e($item->id); ?>"
                                                         data-id="<?php echo e($item->id); ?>"><i
                                                             class="fa fa-edit"></i></button>
                                                 </div>
@@ -217,7 +217,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade bd-example-modal-lg" id="modal-ubah<?php echo e($d->id); ?>" name="modal-ubah" role="dialog"
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <div class="modal fade bd-example-modal-lg" id="modal-ubah" name="modal-ubah" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content" id="modal-content">
@@ -226,13 +227,13 @@
                     <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="needs-validation" novalidate="" action="<?php echo e(route('pekerjaan.update', $d->id)); ?>" method="POST">
+                    <form class="needs-validation" novalidate="" action="" method="POST">
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('PUT'); ?>
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label>Program</label>
-                                <select id="program_id" name="program_id" class="form-control select2 select-ubah select2-offscreen"
+                                <select id="program" name="program_id" class="form-control select2 select-ubah select2-offscreen"
                                     required style="width: 100%;">
                                     <option selected disabled value="">Pilih Program/Kegiatan/Sub Kegiatan</option>
                                     <optgroup label="Sanitasi">
@@ -248,8 +249,8 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="pekerjaan_id">Nama Pekerjaan <?php echo e($d->id); ?></label>
-                                <input id="nama_pekerjaan" type="text" name="nama_pekerjaan" class="form-control" required>
+                                <label for="pekerjaan_id">Nama Pekerjaan</label>
+                                <input id="pekerjaan" type="text" name="nama_pekerjaan" class="form-control" required>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -284,7 +285,7 @@
                                 <div class="col-lg-12">
                                     <div>
                                         <label for="">Tahun Anggaran</label>
-                                        <select id="tahun_anggaran" name="tahun_anggaran" class="form-control select2 select-ubah" required>
+                                        <select id="ta" name="tahun_anggaran" class="form-control select2 select-ubah" required>
                                             <option value="2022">2022</option>
                                             <option value="2021">2021</option>
                                         </select>
@@ -301,7 +302,6 @@
             </div>
         </div>
     </div>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('script'); ?>
@@ -352,18 +352,19 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    $('#nama_pekerjaan').val(res.nama_pekerjaan);
-                    $('#pagu').val(res.pagu);
-                    $('#tahun_anggaran').val(res.tahun_anggaran);
+                    $('form').attr('action', 'pekerjaan/'+res.id);
+                    $('#pekerjaan').val(res.nama_pekerjaan);
+                    $('#n_pagu').val(res.pagu);
+                    $('#ta').val(res.tahun_anggaran);
                     var $1 = $("<option selected='selected'></option>").val(res.program_id)
                         .text(res.kegiatan.sub_kegiatan);
-                    $("[name=program_id]").append($1).trigger('change');
+                    $("#program").append($1);
                     var $2 = $("<option selected='selected'></option>").val(res.desa_id)
                         .text(res.desa.n_desa);
-                    $("#desa").append($2).trigger('change');
+                    $("#desa").append($2);
                     var $3 = $("<option selected='selected'></option>").val(res.kecamatan_id)
                         .text(res.kec.n_kec);
-                    $("#kec").append($3).trigger('change');
+                    $("#kec").append($3);
                 }
             });
         })
