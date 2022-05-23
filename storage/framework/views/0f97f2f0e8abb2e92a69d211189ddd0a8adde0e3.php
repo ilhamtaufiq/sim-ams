@@ -198,7 +198,21 @@
                 <div id="mapid"></div>
             </div>
         </div>
-        
+        <div class="card">
+            <div class="card-header">
+                <h5>File</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <?php
+                        $i = 1;
+                    ?>
+                    <?php $__currentLoopData = $dokumen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <li><?php echo e($i++); ?>. <a href="<?php echo e($item->path); ?>"><?php echo e($item->file); ?></a><a href="">Hapus</a></li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="modal fade bd-example-modal-lg" id="modal-foto" tabindex="-1" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -397,7 +411,7 @@
     </div>
     <div class="card">
         <div class="card-header">
-           <h5>IMAGE GALLERY</h5>
+           <h5>Foto Kegiatan</h5>
         </div>
         <div class="gallery my-gallery card-body row" itemscope="">
             <?php $__currentLoopData = $foto; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $f): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
