@@ -56,7 +56,7 @@
                                         <th>Kegiatan</th>
                                         <th>Nama Pelaksana</th>
                                         <th>Alamat Pelaksana</th>
-                                        <th>NPWP Pelaksana</th>
+                                        <th>Tahap Pelaksanaan</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -67,12 +67,11 @@
                                     @foreach ($data as $item)
                                         <tr>
                                             <td>{{ $i++ }}</td>
-                                            <td><a
-                                                    href="/pekerjaan/{{ $item->pekerjaan->id }}">{{ $item->pekerjaan->nama_pekerjaan }}</a>
+                                            <td><a href="/pekerjaan/{{ $item->pekerjaan->id }}">{{ $item->pekerjaan->nama_pekerjaan }}</a> <label class="badge badge-success">{{$item->aspirasi==1 ? 'Aspirasi' : ''}}</label>
                                             </td>
                                             <td>{{ $item->nama_pelaksana }}</td>
                                             <td>{{ $item->alamat_pelaksana }}</td>
-                                            <td>{{ $item->npwp_pelaksana }}</td>
+                                            <td>Tahap {{ $item->tahap }}</td>
                                             <td>
                                                 <div class="card-body btn-showcase">
                                                     <button class="btn btn-danger" data-bs-toggle="modal"
@@ -158,6 +157,26 @@
                                     <div class="mb-3">
                                         <label class="form-label">NPWP</label>
                                         <input name="npwp_pelaksana" type="text" class="form-control" required="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="media mb-2">
+                                        <label class="col-form-label m-r-10">Aspirasi</label>
+                                        <div class="media-body text-end icon-state switch-outline">
+                                            <label class="switch">
+                                            <input name="aspirasi" type="checkbox" value="1"><span class="switch-state bg-primary"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tahap Pelaksanaan</label>
+                                        <select class="form-control" name="tahap" id="tahap">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -294,6 +313,26 @@
                                             required="">
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="media mb-2">
+                                        <label class="col-form-label m-r-10">Aspirasi</label>
+                                        <div class="media-body text-end icon-state switch-outline">
+                                            <label class="switch">
+                                            <input name="aspirasi" id="aspirasi" type="checkbox" value="1"><span class="switch-state bg-primary"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tahap Pelaksanaan</label>
+                                        <select class="form-controle" name="tahap" id="tahap_pelaksanaan">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12">
                                     <div class="mb-3" tabindex="0" id="currency">
                                         <label class="form-label">Keterangan</label>
@@ -368,6 +407,8 @@
                     $('#pelaksana').val(res.nama_pelaksana);
                     $('#npwp').val(res.npwp_pelaksana);
                     $('#alamat').val(res.alamat_pelaksana);
+                    $('#aspirasi').prop('checked', res.aspirasi);
+                    $('#tahap_pelaksanaan').val(res.tahap);
                     $('#keterangan').val(res.keterangan);
                     $("#program").val(res.pekerjaan.kegiatan.id);
                     var $newOption = $("<option selected='selected'></option>").val(res.pekerjaan.id)
@@ -377,7 +418,13 @@
             });
         })
     </script>
-
+   <script>
+    $('select:not(.normal)').each(function () {
+        $(this).select2({
+            dropdownParent: $(this).parent()
+        });
+    });
+</script>
     <script>
         $(document).ready(function() {
             $('#example1').DataTable({

@@ -12,8 +12,11 @@ class Paket extends Model
     use HasFactory;
 
     protected $table = 'db_paket';
-    protected $fillable = ['pekerjaan_id','nama_pelaksana','alamat_pelaksana','npwp_pelaksana','keterangan'];
-
+    protected $fillable = ['pekerjaan_id','nama_pelaksana','alamat_pelaksana','npwp_pelaksana','keterangan','tahap','aspirasi'];
+    public function setAspirasiAttribute($value)
+    {
+        $this->attributes['aspirasi'] = $value ?? 0;
+    }
     /**
      * Get the user associated with the Paket
      *
