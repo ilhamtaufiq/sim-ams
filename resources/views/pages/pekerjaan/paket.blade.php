@@ -55,8 +55,8 @@
                                         <th>No</th>
                                         <th>Kegiatan</th>
                                         <th>Nama Pelaksana</th>
-                                        <th>Alamat Pelaksana</th>
                                         <th>Tahap Pelaksanaan</th>
+                                        <th>Keterangan</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -70,8 +70,9 @@
                                             <td><a href="/pekerjaan/{{ $item->pekerjaan->id }}">{{ $item->pekerjaan->nama_pekerjaan }}</a> <label class="badge badge-success">{{$item->aspirasi==1 ? 'Aspirasi' : ''}}</label>
                                             </td>
                                             <td>{{ $item->nama_pelaksana }}</td>
-                                            <td>{{ $item->alamat_pelaksana }}</td>
                                             <td>Tahap {{ $item->tahap }}</td>
+                                            <td>{{ $item->keterangan }}</td>
+
                                             <td>
                                                 <div class="card-body btn-showcase">
                                                     <button class="btn btn-danger" data-bs-toggle="modal"

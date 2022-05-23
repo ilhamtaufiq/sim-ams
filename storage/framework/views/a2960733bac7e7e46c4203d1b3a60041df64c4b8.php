@@ -55,8 +55,8 @@
                                         <th>No</th>
                                         <th>Kegiatan</th>
                                         <th>Nama Pelaksana</th>
-                                        <th>Alamat Pelaksana</th>
                                         <th>Tahap Pelaksanaan</th>
+                                        <th>Keterangan</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -70,8 +70,9 @@
                                             <td><a href="/pekerjaan/<?php echo e($item->pekerjaan->id); ?>"><?php echo e($item->pekerjaan->nama_pekerjaan); ?></a> <label class="badge badge-success"><?php echo e($item->aspirasi==1 ? 'Aspirasi' : ''); ?></label>
                                             </td>
                                             <td><?php echo e($item->nama_pelaksana); ?></td>
-                                            <td><?php echo e($item->alamat_pelaksana); ?></td>
                                             <td>Tahap <?php echo e($item->tahap); ?></td>
+                                            <td><?php echo e($item->keterangan); ?></td>
+
                                             <td>
                                                 <div class="card-body btn-showcase">
                                                     <button class="btn btn-danger" data-bs-toggle="modal"
