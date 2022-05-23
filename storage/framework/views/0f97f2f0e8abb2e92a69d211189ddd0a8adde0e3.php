@@ -208,7 +208,7 @@
                         $i = 1;
                     ?>
                     <?php $__currentLoopData = $dokumen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li><?php echo e($i++); ?>. <a href="<?php echo e($item->path); ?>"><?php echo e($item->file); ?></a><a href="">Hapus</a></li>
+                        <li><?php echo e($i++); ?>. <a href="<?php echo e($item->path); ?>"><?php echo e($item->file); ?></a></li>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </div>
