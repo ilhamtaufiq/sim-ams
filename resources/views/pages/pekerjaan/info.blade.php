@@ -154,7 +154,7 @@
                                                     @if (is_null($pekerjaan->detail))
                                                         Data Belum Diinput
                                                     @else
-                                                        {{ date('j F, Y', strtotime($pekerjaan->detail->tgl_mulai)) }}
+                                                        {{ Carbon\Carbon::parse($pekerjaan->detail->tgl_mulai)->locale('id')->formatLocalized('%A %d %B %Y') ?? 'data belum diinput' }}
                                                     @endif
                                                 </p>
                                             </div>
@@ -169,7 +169,7 @@
                                                     @if (is_null($pekerjaan->detail))
                                                         Data Belum Diinput
                                                     @else
-                                                        {{ date('j F, Y', strtotime($pekerjaan->detail->selesai ?? 'data belum diinput')) }}
+                                                        {{ Carbon\Carbon::parse($pekerjaan->detail->tgl_selesai)->locale('id')->formatLocalized('%A %d %B %Y') ?? 'data belum diinput' }}
                                                     @endif
                                                 </p>
                                             </div>
