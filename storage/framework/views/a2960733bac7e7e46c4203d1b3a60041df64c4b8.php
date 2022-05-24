@@ -55,8 +55,8 @@
                                         <th>No</th>
                                         <th>Kegiatan</th>
                                         <th>Nama Pelaksana</th>
-                                        <th>Alamat Pelaksana</th>
-                                        <th>NPWP Pelaksana</th>
+                                        <th>Tahap Pelaksanaan</th>
+                                        <th>Keterangan</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -67,19 +67,19 @@
                                     <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr>
                                             <td><?php echo e($i++); ?></td>
-                                            <td><a
-                                                    href="/pekerjaan/<?php echo e($item->pekerjaan->id); ?>"><?php echo e($item->pekerjaan->nama_pekerjaan); ?></a>
+                                            <td><a href="/pekerjaan/<?php echo e($item->pekerjaan->id); ?>"><?php echo e($item->pekerjaan->nama_pekerjaan); ?></a> <label class="badge badge-success"><?php echo e($item->aspirasi==1 ? 'Aspirasi' : ''); ?></label>
                                             </td>
                                             <td><?php echo e($item->nama_pelaksana); ?></td>
-                                            <td><?php echo e($item->alamat_pelaksana); ?></td>
-                                            <td><?php echo e($item->npwp_pelaksana); ?></td>
+                                            <td>Tahap <?php echo e($item->tahap); ?></td>
+                                            <td><?php echo e($item->keterangan); ?></td>
+
                                             <td>
                                                 <div class="card-body btn-showcase">
                                                     <button class="btn btn-danger" data-bs-toggle="modal"
                                                         data-bs-target="#modal-hapus<?php echo e($item->id); ?>"><i
                                                             class="fa fa-trash"></i></button>
                                                     <button class="btn btn-warning btn-edit" data-bs-toggle="modal"
-                                                        data-bs-target="#modal-ubah<?php echo e($item->id); ?>" id="edit-item"
+                                                        data-bs-target="#modal-ubah" id="edit-item"
                                                         data-id="<?php echo e($item->id); ?>"><i
                                                             class="fa fa-edit"></i></button>
                                                 </div>
@@ -160,6 +160,26 @@
                                         <input name="npwp_pelaksana" type="text" class="form-control" required="">
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="media mb-2">
+                                        <label class="col-form-label m-r-10">Aspirasi</label>
+                                        <div class="media-body text-end icon-state switch-outline">
+                                            <label class="switch">
+                                            <input name="aspirasi" type="checkbox" value="1"><span class="switch-state bg-primary"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tahap Pelaksanaan</label>
+                                        <select class="form-control" name="tahap" id="tahap">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12">
                                     <div class="mb-3" tabindex="0" id="currency">
                                         <label class="form-label">Keterangan</label>
@@ -218,101 +238,121 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade bd-example-modal-lg" id="modal-ubah<?php echo e($d->id); ?>" role="dialog"
-            aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content" id="modal-content-ubah">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Tambah Data Kontrak</h5>
-                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body modal-ubah">
-                        <form class="needs-validation" novalidate="" action="<?php echo e(route('paket.update', $d->id)); ?>"
-                            method="POST">
-                            <?php echo csrf_field(); ?>
-                            <?php echo method_field('PUT'); ?>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label>Program</label>
-                                    <select id="program" name="program_id" class="form-control select2 select2-offscreen"
-                                        required style="width: 100%;">
-                                        <option selected disabled value="">Pilih Program/Kegiatan/Sub Kegiatan</option>
-                                        <optgroup label="Sanitasi">
-                                            <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
-                                            <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat
-                                                Skala Permukiman</option>
-                                        </optgroup>
-                                        <optgroup label="Air Minum">
-                                            <option value="3">Pembangunan SPAM Jaringan Perpipaan di Kawasan Perdesaan
-                                            </option>
-                                            <option value="4">Perbaikan SPAM Jaringan Perpipaan di Kawasan Perdesaan
-                                            </option>
-                                            <option value="5">Perluasan SPAM Jaringan Perpipaan di Kawasan Perdesaan
-                                            </option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="pekerjaan_id">Kegiatan</label>
-                                    <select id="kegiatan" value="" name="pekerjaan_id"
-                                        class="form-control select2 select2-offscreen" style="width: 100%;" required>
-                                        <option value="">Pilih Kegiatan</option>
-                                    </select>
-                                </div>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <div class="modal fade bd-example-modal-lg" id="modal-ubah" role="dialog" tabindex="-1"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="modal-content-ubah">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Data Kontrak</h5>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal-ubah">
+                    <form class="needs-validation" novalidate="" action=""
+                        method="POST">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label>Program</label>
+                                <select id="program" name="program_id" class="form-control select2 select2-offscreen"
+                                    required style="width: 100%;">
+                                    <option selected disabled value="">Pilih Program/Kegiatan/Sub Kegiatan</option>
+                                    <optgroup label="Sanitasi">
+                                        <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
+                                        <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat
+                                            Skala Permukiman</option>
+                                    </optgroup>
+                                    <optgroup label="Air Minum">
+                                        <option value="3">Pembangunan SPAM Jaringan Perpipaan di Kawasan Perdesaan
+                                        </option>
+                                        <option value="4">Perbaikan SPAM Jaringan Perpipaan di Kawasan Perdesaan
+                                        </option>
+                                        <option value="5">Perluasan SPAM Jaringan Perpipaan di Kawasan Perdesaan
+                                        </option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="pekerjaan_id">Kegiatan</label>
+                                <select id="kegiatan" value="" name="pekerjaan_id"
+                                    class="form-control select2 select2-offscreen" style="width: 100%;" required>
+                                    <option value="">Pilih Kegiatan</option>
+                                </select>
+                            </div>
 
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div>
-                                            <label class="form-label">Nama Pelaksana</label>
-                                            <input id="pelaksana" name="nama_pelaksana" type="text" class="form-control"
-                                                required="">
-                                            <div class="invalid-feedback"><a class="text-danger">Nomor SPK Invalid!</a>
-                                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label class="form-label">Nama Pelaksana</label>
+                                        <input id="pelaksana" name="nama_pelaksana" type="text" class="form-control"
+                                            required="">
+                                        <div class="invalid-feedback"><a class="text-danger">Nomor SPK Invalid!</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div>
-                                            <label class="form-label">Data Pelaksana</label>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label class="form-label">Data Pelaksana</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Alamat</label>
+                                        <input id="alamat" name="alamat_pelaksana" type="text" class="form-control"
+                                            required="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">NPWP</label>
+                                        <input id="npwp" name="npwp_pelaksana" type="text" class="form-control"
+                                            required="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="media mb-2">
+                                        <label class="col-form-label m-r-10">Aspirasi</label>
+                                        <div class="media-body text-end icon-state switch-outline">
+                                            <label class="switch">
+                                            <input name="aspirasi" id="aspirasi" type="checkbox" value="1"><span class="switch-state bg-primary"></span>
+                                            </label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Alamat</label>
-                                            <input id="alamat" name="alamat_pelaksana" type="text" class="form-control"
-                                                required="">
-                                        </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tahap Pelaksanaan</label>
+                                        <select class="form-controle" name="tahap" id="tahap_pelaksanaan">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">NPWP</label>
-                                            <input id="npwp" name="npwp_pelaksana" type="text" class="form-control"
-                                                required="">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3" tabindex="0" id="currency">
-                                            <label class="form-label">Keterangan</label>
-                                            <div class="input-group input-group-flat">
-                                                <textarea id="keterangan" class="form-control" name="keterangan" id=""></textarea>
-                                            </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="mb-3" tabindex="0" id="currency">
+                                        <label class="form-label">Keterangan</label>
+                                        <div class="input-group input-group-flat">
+                                            <textarea id="keterangan" class="form-control" name="keterangan" id=""></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" type="submit">Save changes</button>
-                        </form>
-                    </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Save changes</button>
+                    </form>
                 </div>
             </div>
         </div>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('script'); ?>
@@ -341,11 +381,7 @@
     <script src="<?php echo e(asset('assets/js/select2/select2-custom.js')); ?>"></script>
     <script src="<?php echo e(asset('assets/js/form-validation-custom.js')); ?>"></script>
     <script>
-        $('select:not(.normal)').each(function() {
-            $(this).select2({
-                dropdownParent: $(this).parent()
-            });
-        });
+        
         <?php if($errors->any()): ?>
             Swal.fire({
                 title: 'Error!',
@@ -368,9 +404,12 @@
                 },
                 dataType: 'json',
                 success: function(res) {
+                    $('form').attr('action', 'paket/'+res.id);
                     $('#pelaksana').val(res.nama_pelaksana);
                     $('#npwp').val(res.npwp_pelaksana);
                     $('#alamat').val(res.alamat_pelaksana);
+                    $('#aspirasi').prop('checked', res.aspirasi);
+                    $('#tahap_pelaksanaan').val(res.tahap);
                     $('#keterangan').val(res.keterangan);
                     $("#program").val(res.pekerjaan.kegiatan.id);
                     var $newOption = $("<option selected='selected'></option>").val(res.pekerjaan.id)
@@ -380,7 +419,13 @@
             });
         })
     </script>
-
+   <script>
+    $('select:not(.normal)').each(function () {
+        $(this).select2({
+            dropdownParent: $(this).parent()
+        });
+    });
+</script>
     <script>
         $(document).ready(function() {
             $('#example1').DataTable({

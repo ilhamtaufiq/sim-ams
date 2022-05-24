@@ -46,6 +46,7 @@ class PaketController extends Controller
             'nama_pelaksana' => 'required',
             'alamat_pelaksana' => 'required',
             'npwp_pelaksana' => 'required',
+            'tahap' => 'required',
 
 
 
@@ -60,7 +61,9 @@ class PaketController extends Controller
             'pekerjaan_id' => 'Pekerjaan',
             'nama_pelaksana' => 'Nama Pelaksana',
             'alamat_pelaksana' => 'Alamat Pelaksana',
-            'npwp_pelaksana' => 'NPWP Pelaksana',   
+            'npwp_pelaksana' => 'NPWP Pelaksana', 
+            'tahap' => 'Tahap Pelaksanaan',   
+  
         );
     
         $valid = $this->validate($request, $rules, $customMessages, $attributeNames);
@@ -71,7 +74,10 @@ class PaketController extends Controller
             'nama_pelaksana' => $request->nama_pelaksana,
             'npwp_pelaksana' => $request->npwp_pelaksana,
             'alamat_pelaksana' => $request->alamat_pelaksana,
+            'tahap' => $request->tahap,
+            'aspirasi' => $request->aspirasi,
             'keterangan' => $request->keterangan,
+
         ]);     
         Alert::success('Paket Pekerjaan', 'Data Paket Pekerjaan Berhasil Ditambahkan');
 
@@ -123,6 +129,7 @@ class PaketController extends Controller
             'nama_pelaksana' => 'required',
             'alamat_pelaksana' => 'required',
             'npwp_pelaksana' => 'required',
+            'tahap' => 'required',
 
 
 
@@ -138,6 +145,7 @@ class PaketController extends Controller
             'nama_pelaksana' => 'Nama Pelaksana',
             'alamat_pelaksana' => 'Alamat Pelaksana',
             'npwp_pelaksana' => 'NPWP Pelaksana',   
+            'tahap' => 'Tahapan Pelaksanaan'
         );
     
         $valid = $this->validate($request, $rules, $customMessages, $attributeNames);
@@ -148,10 +156,11 @@ class PaketController extends Controller
             'nama_pelaksana' => $request->nama_pelaksana,
             'npwp_pelaksana' => $request->npwp_pelaksana,
             'alamat_pelaksana' => $request->alamat_pelaksana,
+            'aspirasi' => $request->aspirasi,
+            'tahap' => $request->tahap,
             'keterangan' => $request->keterangan,
         ]);     
         Alert::success('Paket Pekerjaan', 'Data Paket Pekerjaan Berhasil Diubah');
-
         return redirect('paket');
     }
 

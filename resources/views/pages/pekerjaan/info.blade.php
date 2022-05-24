@@ -262,36 +262,21 @@
                 <div id="mapid"></div>
             </div>
         </div>
-        {{-- <div class="card">
-            <div class="row product-page-main">
-                <div class="col-sm-12">
-                    <ul class="nav nav-tabs border-tab mb-0" id="top-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home" role="tab"
-                                aria-controls="top-home" aria-selected="false">File</a>
-                            <div class="material-border"></div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile"
-                                role="tab" aria-controls="top-profile" aria-selected="false">Map</a>
-                            <div class="material-border"></div>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="top-tabContent">
-                        <div class="tab-pane fade active show" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
-                            <ul class="mb-0 m-t-20">
-                                @foreach ($dokumen as $dok)
-                                    <li><a href="{{ $dok->path }}">{{ $dok->file }}</a></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
-                            <p class="mb-0 m-t-20">Peta Lokasi</p>
-                            <div class="map" id="map2" data-name="Map 2" data-coords="[48.886719,2.343076]" data-zoom="10" data-color="#ff654f" data-tileserver="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoib2xpdmllcmMiLCJhIjoiY2s5dnNnZWoyMDIzNDNzb2Y1dmQ4MGNtMCJ9.m4U-wYcS4EPcKe9nVXIbUA" data-attribution="&lt;a href=&quot;//www.openstreetmap.org/&quot;&gt;OSM&lt;/a&gt; | &lt;a href=&quot;//www.mapbox.com/&quot;&gt;Mapbox&lt;/a&gt;"></div>                        </div>
-                    </div>
-                </div>
+        <div class="card">
+            <div class="card-header">
+                <h5>File</h5>
             </div>
-        </div> --}}
+            <div class="card-body">
+                <ul>
+                    @php
+                        $i = 1;
+                    @endphp
+                    @foreach ($dokumen as $item)
+                        <li>{{$i++}}. <a href="{{$item->path}}">{{$item->file}}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="modal fade bd-example-modal-lg" id="modal-foto" tabindex="-1" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -490,7 +475,7 @@
     </div>
     <div class="card">
         <div class="card-header">
-           <h5>IMAGE GALLERY</h5>
+           <h5>Foto Kegiatan</h5>
         </div>
         <div class="gallery my-gallery card-body row" itemscope="">
             @foreach($foto as $f)
