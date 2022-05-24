@@ -169,7 +169,7 @@
                                                     @if (is_null($pekerjaan->detail))
                                                         Data Belum Diinput
                                                     @else
-                                                        {{ date('j F, Y', strtotime($pekerjaan->detail->tgl_mulai ?? 'data belum diinput')) }}
+                                                        {{ date('j F, Y', strtotime($pekerjaan->detail->selesai ?? 'data belum diinput')) }}
                                                     @endif
                                                 </p>
                                             </div>

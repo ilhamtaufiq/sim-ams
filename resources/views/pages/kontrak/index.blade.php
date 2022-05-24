@@ -264,7 +264,7 @@
                                     <select id="program" name="program_id"
                                         class="form-control select2 select-ubah select2-offscreen" required
                                         style="width: 100%;">
-                                        <option selected disabled value="">{{$d->kegiatan->sub_kegiatan}}</option>
+                                        <option selected disabled value="">Pilih Program</option>
                                         <optgroup label="Sanitasi">
                                             <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
                                             <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat
@@ -422,10 +422,12 @@
                     $('#tgl_selesai').val(res.tgl_selesai);
                     $('#nama_pelaksana').val(res.nama_pelaksana);
                     $('#nama_pengawas').val(res.nama_pengawas);
-                    $("#program").val(res.kegiatan.id);
-                    var $newOption = $("<option selected='selected'></option>").val(res.pekerjaan.id)
+                    var $1 = $("<option selected='selected'></option>").val(res.kegiatan.id)
+                        .text(res.kegiatan.sub_kegiatan)
+                    $("#program").append($1);                    
+                    var $2 = $("<option selected='selected'></option>").val(res.pekerjaan.id)
                         .text(res.pekerjaan.nama_pekerjaan)
-                    $("#kegiatan").append($newOption);
+                    $("#kegiatan").append($2);
                 }
             });
         })
