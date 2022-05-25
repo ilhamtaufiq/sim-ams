@@ -441,14 +441,9 @@
                             console.log(data);
                             jQuery($('#pekerjaan_id')).empty();
                             jQuery.each(data, function(key, value) {
-                                if (value.detail != null) {
-                                    jQuery($('#pekerjaan_id')).empty();
-                                } else {
                                     $($('#pekerjaan_id')).append('<option value="' +
                                         value.id + '">' + value.nama_pekerjaan +
                                         '</option>');
-                                    // $($('#pagu')).val(value.pagu);
-                                }
                             });
                         }
                     });

@@ -480,14 +480,9 @@
                             console.log(data);
                             jQuery($('#pekerjaan_id, #kegiatan')).empty();
                             jQuery.each(data, function(key, value) {
-                                if (value.detail != null) {
-                                    jQuery($('#pekerjaan_id, #kegiatan')).empty();
-                                } else {
                                     $($('#pekerjaan_id, #kegiatan')).append('<option value="' +
                                         value.id + '">' + value.nama_pekerjaan +
                                         '</option>');
-                                    // $($('#pagu')).val(value.pagu);
-                                }
                             });
                         }
                     });
