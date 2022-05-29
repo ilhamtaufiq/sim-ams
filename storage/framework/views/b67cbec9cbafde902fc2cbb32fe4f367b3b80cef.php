@@ -56,6 +56,7 @@
                                         <th>Nomor Kontrak</th>
                                         <th>Tanggal Kontrak</th>
                                         <th>Nilai Kontrak</th>
+                                        <th>Pelaksana</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -76,6 +77,7 @@
                                             <td><?php echo e($item->no_spk); ?></td>
                                             <td><?php echo e(date('j F, Y', strtotime($item->tgl_spk))); ?></td>
                                             <td><?php echo e($kontrak); ?></td>
+                                            <td><?php echo e($item->nama_pelaksana); ?></td>
                                             <td>
                                                 <div class="card-body btn-showcase">
                                                     <button class="btn btn-danger" data-bs-toggle="modal"
@@ -172,7 +174,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label class="form-label">Pelaksana</label>
-                                        <input name="nama_pelaksana" type="text" class="form-control" required="">
+                                        <input id="pelaksana" name="nama_pelaksana" type="text" class="form-control" required="">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -441,28 +443,28 @@
                         extend: 'copyHtml5',
                         className: 'btn btn-dark',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         }
                     },
                     {
                         extend: 'excelHtml5',
                         className: 'btn btn-dark',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         }
                     },
                     {
                         extend: 'print',
                         className: 'btn btn-dark',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4]
+                            columns: [0, 1, 2, 3, 4, 5, 6,]
                         }
                     },
                     {
                         extend: 'pdfHtml5',
                         className: 'btn btn-dark',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                         }
                     },
                 ]
@@ -511,6 +513,8 @@
                                         '<option value="' +
                                         value.id + '">' + value.nama_pekerjaan +
                                         '</option>');
+                                        $('#pelaksana').val(value.paket_pekerjaan.nama_pelaksana);
+
                                     // $($('#pagu')).val(value.pagu);
                             });
                         }
