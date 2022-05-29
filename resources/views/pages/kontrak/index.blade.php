@@ -79,7 +79,7 @@
                                             <td>{{ $item->no_spk }}</td>
                                             <td>{{ date('j F, Y', strtotime($item->tgl_spk)) }}</td>
                                             <td>{{ $kontrak }}</td>
-                                            <td>{{$item->nama_pelaksana}}</td>
+                                            <td>{{ $item->nama_pelaksana }}</td>
                                             <td>
                                                 <div class="card-body btn-showcase">
                                                     <button class="btn btn-danger" data-bs-toggle="modal"
@@ -133,7 +133,7 @@
                             <div class="mb-3">
                                 <label for="pekerjaan_id">Kegiatan</label>
                                 <select id="pekerjaan_id" value="" name="pekerjaan_id"
-                                    class="form-control select2 select2-offscreen" style="width: 100%;" required>
+                                    class="form-control select2 select2-offscreen pekerjaan" style="width: 100%;" required>
                                     <option value="">Pilih Kegiatan</option>
                                 </select>
                             </div>
@@ -176,7 +176,8 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label class="form-label">Pelaksana</label>
-                                        <input id="pelaksana" name="nama_pelaksana" type="text" class="form-control" required="">
+                                        <input id="pelaksana" name="nama_pelaksana" type="text" class="form-control"
+                                            required="">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -246,124 +247,122 @@
                 </div>
             </div>
         </div>
-        @endforeach
+    @endforeach
 
-        <div class="modal fade bd-example-modal-lg" name="modal-ubah" id="modal-ubah" tabindex="-1"
-            role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content" id="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Ubah Data Kontrak</h5>
-                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label>Program</label>
-                                    <select id="program" name="program_id"
-                                        class="form-control select2 select-ubah select2-offscreen" required
-                                        style="width: 100%;">
-                                        <option selected disabled value="">Pilih Program</option>
-                                        <optgroup label="Sanitasi">
-                                            <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
-                                            <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat
-                                                Skala Permukiman</option>
-                                        </optgroup>
-                                        <optgroup label="Air Minum">
-                                            <option value="3">Pembangunan SPAM Jaringan Perpipaan di Kawasan Perdesaan
-                                            </option>
-                                            <option value="4">Perbaikan SPAM Jaringan Perpipaan di Kawasan Perdesaan
-                                            </option>
-                                            <option value="5">Perluasan SPAM Jaringan Perpipaan di Kawasan Perdesaan
-                                            </option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="pekerjaan_id">Kegiatan</label>
-                                    <select id="kegiatan" name="pekerjaan_id"
-                                        class="form-control select2 select-ubah select2-offscreen" style="width: 100%;"
-                                        required>
-                                        <option value="">Pilih Kegiatan</option>
-                                    </select>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <div>
-                                            <label class="form-label">Nomor SPK</label>
-                                            <input id="no_spk" name="no_spk" type="text" class="form-control"
-                                                required="">
-                                            <div class="invalid-feedback"><a class="text-danger">Nomor SPK Invalid!</a>
-                                            </div>
+    <div class="modal fade bd-example-modal-lg" name="modal-ubah" id="modal-ubah" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" id="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ubah Data Kontrak</h5>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label>Program</label>
+                                <select id="program" name="program_id"
+                                    class="form-control select2 select-ubah select2-offscreen" required
+                                    style="width: 100%;">
+                                    <option selected disabled value="">Pilih Program</option>
+                                    <optgroup label="Sanitasi">
+                                        <option value="1">Pembangunan/Penyediaan Sub Sistem Pengolahan Setempat</option>
+                                        <option value="2">Pembangunan/Penyediaan Sistem Pengelolaan Air Limbah Terpusat
+                                            Skala Permukiman</option>
+                                    </optgroup>
+                                    <optgroup label="Air Minum">
+                                        <option value="3">Pembangunan SPAM Jaringan Perpipaan di Kawasan Perdesaan
+                                        </option>
+                                        <option value="4">Perbaikan SPAM Jaringan Perpipaan di Kawasan Perdesaan
+                                        </option>
+                                        <option value="5">Perluasan SPAM Jaringan Perpipaan di Kawasan Perdesaan
+                                        </option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="pekerjaan_id">Kegiatan</label>
+                                <select id="kegiatan" name="pekerjaan_id"
+                                    class="form-control select2 select-ubah select2-offscreen" style="width: 100%;"
+                                    required>
+                                    <option value="">Pilih Kegiatan</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div>
+                                        <label class="form-label">Nomor SPK</label>
+                                        <input id="no_spk" name="no_spk" type="text" class="form-control" required="">
+                                        <div class="invalid-feedback"><a class="text-danger">Nomor SPK Invalid!</a>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-3">
-                                            <label class="form-label">Tanggal Kontrak</label>
-                                            <input id="tgl_spk" name="tgl_spk" type="date" class="form-control"
-                                                required="">
-                                        </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tanggal Kontrak</label>
+                                        <input id="tgl_spk" name="tgl_spk" type="date" class="form-control" required="">
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div>
-                                            <label class="form-label">Masa Pelaksanaan</label>
-                                        </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div>
+                                        <label class="form-label">Masa Pelaksanaan</label>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Mulai</label>
-                                            <input id="tgl_mulai" name="tgl_mulai" type="date" class="form-control"
-                                                required="">
-                                        </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Mulai</label>
+                                        <input id="tgl_mulai" name="tgl_mulai" type="date" class="form-control"
+                                            required="">
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Selesai</label>
-                                            <input id="tgl_selesai" name="tgl_selesai" type="date" class="form-control"
-                                                required="">
-                                        </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Selesai</label>
+                                        <input id="tgl_selesai" name="tgl_selesai" type="date" class="form-control"
+                                            required="">
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Pelaksana</label>
-                                            <input id="nama_pelaksana" name="nama_pelaksana" type="text"
-                                                class="form-control" required="">
-                                        </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Pelaksana</label>
+                                        <input id="nama_pelaksana" name="nama_pelaksana" type="text" class="form-control"
+                                            required="">
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Pengawas</label>
-                                            <input id="nama_pengawas" name="nama_pengawas" type="text"
-                                                class="form-control" required="">
-                                        </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Pengawas</label>
+                                        <input id="nama_pengawas" name="nama_pengawas" type="text" class="form-control"
+                                            required="">
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Nilai Kontrak</label>
-                                            <input type="text" class="form-control" name="pagu" id="kontrak"
-                                                data-type="currency" placeholder="Nilai Kontrak" required>
-                                            <input id="n_kontrak" name="harga_kontrak" type="number" class="form-control"
-                                                required="" hidden>
-                                        </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Nilai Kontrak</label>
+                                        <input type="text" class="form-control" name="pagu" id="kontrak"
+                                            data-type="currency" placeholder="Nilai Kontrak" required>
+                                        <input id="n_kontrak" name="harga_kontrak" type="number" class="form-control"
+                                            required="" hidden>
                                     </div>
                                 </div>
                             </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" type="submit">Save changes</button>
-                        </form>
-                    </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Save changes</button>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 @endsection
 
 @section('script')
@@ -415,7 +414,7 @@
                 dataType: 'json',
                 success: function(res) {
                     console.log(res);
-                    $('form').attr('action', 'kontrak/'+res.id);
+                    $('form').attr('action', 'kontrak/' + res.id);
                     $('#kontrak').val(res.harga_kontrak).change();
                     $('#n_kontrak').val(res.harga_kontrak);
                     $('#no_spk').val(res.no_spk);
@@ -426,7 +425,7 @@
                     $('#nama_pengawas').val(res.nama_pengawas);
                     var $1 = $("<option selected='selected'></option>").val(res.kegiatan.id)
                         .text(res.kegiatan.sub_kegiatan)
-                    $("#program").append($1);                    
+                    $("#program").append($1);
                     var $2 = $("<option selected='selected'></option>").val(res.pekerjaan.id)
                         .text(res.pekerjaan.nama_pekerjaan)
                     $("#kegiatan").append($2);
@@ -459,7 +458,7 @@
                         extend: 'print',
                         className: 'btn btn-dark',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6,]
+                            columns: [0, 1, 2, 3, 4, 5, 6, ]
                         }
                     },
                     {
@@ -511,18 +510,17 @@
                             console.log(data);
                             jQuery($('#pekerjaan_id, #kegiatan')).empty();
                             jQuery.each(data, function(key, value) {
-                                    $($('#pekerjaan_id, #kegiatan')).append(
-                                        '<option value="' +
-                                        value.id + '">' + value.nama_pekerjaan +
-                                        '</option>');
-                                        $('#pelaksana').val(value.paket_pekerjaan.nama_pelaksana);
+                                $($('#pekerjaan_id, #kegiatan')).append(
+                                    '<option value="' +
+                                    value.id + '">' + value.nama_pekerjaan +
+                                    '</option>');
 
-                                    // $($('#pagu')).val(value.pagu);
+
+                                // $($('#pagu')).val(value.pagu);
                             });
                         }
                     });
-                } else {
-                }
+                } else {}
             });
         });
     </script>
