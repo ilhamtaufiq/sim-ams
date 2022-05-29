@@ -80,7 +80,6 @@ class PaketController extends Controller
 
         ]);     
         Alert::success('Paket Pekerjaan', 'Data Paket Pekerjaan Berhasil Ditambahkan');
-
         return redirect('paket');
     }
 

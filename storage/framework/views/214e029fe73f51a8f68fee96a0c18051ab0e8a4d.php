@@ -106,7 +106,7 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label>Program</label>
-                                <select id="program_id" name="program_id" class="form-control select2" required
+                                <select id="program_id" name="program_id" class="form-control select2 selek" required
                                     style="width: 100%;">
                                     <option selected disabled value="">Pilih Program/Kegiatan/Sub Kegiatan</option>
                                     <optgroup label="Sanitasi">
@@ -123,7 +123,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="pekerjaan_id">Kegiatan</label>
-                                <select id="pekerjaan_id" value="" name="pekerjaan_id" class="form-control select2"
+                                <select id="pekerjaan_id" value="" name="pekerjaan_id" class="form-control select2 selek"
                                     style="width: 100%;" required>
                                     <option value="">Pilih Kegiatan</option>
                                 </select>
@@ -253,7 +253,7 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label>Program</label>
-                                <select id="program" name="program_id" class="form-control select2 select2-offscreen"
+                                <select id="program" name="program_id" class="form-control select2 select2-offscreen selek"
                                     required style="width: 100%;">
                                     <option selected disabled value="">Pilih Program/Kegiatan/Sub Kegiatan</option>
                                     <optgroup label="Sanitasi">
@@ -274,7 +274,7 @@
                             <div class="mb-3">
                                 <label for="pekerjaan_id">Kegiatan</label>
                                 <select id="kegiatan" value="" name="pekerjaan_id"
-                                    class="form-control select2 select2-offscreen" style="width: 100%;" required>
+                                    class="form-control select2 select2-offscreen selek" style="width: 100%;" required>
                                     <option value="">Pilih Kegiatan</option>
                                 </select>
                             </div>
