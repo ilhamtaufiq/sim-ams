@@ -127,7 +127,7 @@ Route::group(['namespace' => 'App\Http\Controllers','middleware' => ['auth','rol
     Route::post('/tfl/lokasi/', [App\Http\Controllers\UsersController::class, 'lokasi'])->name('tfl.lokasi');
 
 
-    Route::get('/cover/kontrak/{kontrak}', [App\Http\Controllers\KontrakController::class, 'cover']);
+    Route::get('/cover/kontrak/', [App\Http\Controllers\KontrakController::class, 'cover']);
     Route::get('/edit/kontrak/', [App\Http\Controllers\KontrakController::class, 'edit_kontrak']);
     Route::get('/edit/paket/', [App\Http\Controllers\PaketController::class, 'edit_paket']);
 

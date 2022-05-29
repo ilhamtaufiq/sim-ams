@@ -53,8 +53,8 @@
                                         <th>No</th>
                                         <th>Kegiatan</th>
                                         <th>Nama Pelaksana</th>
-                                        <th>Alamat Pelaksana</th>
-                                        <th>NPWP Pelaksana</th>
+                                        <th>Tahap Pelaksanaan</th>
+                                        <th>Keterangan</th>
                                         <th>Opsi</th>
                                     </tr>
                                 </thead>
@@ -65,12 +65,12 @@
                                     <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr>
                                             <td><?php echo e($i++); ?></td>
-                                            <td><a
-                                                    href="/pekerjaan/<?php echo e($item->pekerjaan->id); ?>"><?php echo e($item->pekerjaan->nama_pekerjaan); ?></a>
+                                            <td><a href="/pekerjaan/<?php echo e($item->pekerjaan->id); ?>"><?php echo e($item->pekerjaan->nama_pekerjaan); ?></a> <label class="badge badge-success"><?php echo e($item->aspirasi==1 ? 'Aspirasi' : ''); ?></label>
                                             </td>
                                             <td><?php echo e($item->nama_pelaksana); ?></td>
-                                            <td><?php echo e($item->alamat_pelaksana); ?></td>
-                                            <td><?php echo e($item->npwp_pelaksana); ?></td>
+                                            <td>Tahap <?php echo e($item->tahap); ?></td>
+                                            <td><?php echo e($item->keterangan); ?></td>
+
                                             <td>
                                                 <div class="card-body btn-showcase">
                                                     <button class="btn btn-danger" data-bs-toggle="modal"
@@ -156,6 +156,26 @@
                                     <div class="mb-3">
                                         <label class="form-label">NPWP</label>
                                         <input name="npwp_pelaksana" type="text" class="form-control" required="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="media mb-2">
+                                        <label class="col-form-label m-r-10">Aspirasi</label>
+                                        <div class="media-body text-end icon-state switch-outline">
+                                            <label class="switch">
+                                            <input name="aspirasi" type="checkbox" value="1"><span class="switch-state bg-primary"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tahap Pelaksanaan</label>
+                                        <select class="form-control" name="tahap" id="tahap">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -292,6 +312,26 @@
                                             required="">
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="media mb-2">
+                                        <label class="col-form-label m-r-10">Aspirasi</label>
+                                        <div class="media-body text-end icon-state switch-outline">
+                                            <label class="switch">
+                                            <input name="aspirasi" id="aspirasi" type="checkbox" value="1"><span class="switch-state bg-primary"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tahap Pelaksanaan</label>
+                                        <select class="form-controle" name="tahap" id="tahap_pelaksanaan">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12">
                                     <div class="mb-3" tabindex="0" id="currency">
                                         <label class="form-label">Keterangan</label>
@@ -366,6 +406,8 @@
                     $('#pelaksana').val(res.nama_pelaksana);
                     $('#npwp').val(res.npwp_pelaksana);
                     $('#alamat').val(res.alamat_pelaksana);
+                    $('#aspirasi').prop('checked', res.aspirasi);
+                    $('#tahap_pelaksanaan').val(res.tahap);
                     $('#keterangan').val(res.keterangan);
                     $("#program").val(res.pekerjaan.kegiatan.id);
                     var $newOption = $("<option selected='selected'></option>").val(res.pekerjaan.id)
@@ -375,7 +417,13 @@
             });
         })
     </script>
-
+   <script>
+    $('select:not(.normal)').each(function () {
+        $(this).select2({
+            dropdownParent: $(this).parent()
+        });
+    });
+</script>
     <script>
         $(document).ready(function() {
             $('#example1').DataTable({
@@ -430,14 +478,9 @@
                             console.log(data);
                             jQuery($('#pekerjaan_id, #kegiatan')).empty();
                             jQuery.each(data, function(key, value) {
-                                if (value.detail != null) {
-                                    jQuery($('#pekerjaan_id, #kegiatan')).empty();
-                                } else {
                                     $($('#pekerjaan_id, #kegiatan')).append('<option value="' +
                                         value.id + '">' + value.nama_pekerjaan +
                                         '</option>');
-                                    // $($('#pagu')).val(value.pagu);
-                                }
                             });
                         }
                     });

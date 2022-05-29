@@ -279,7 +279,7 @@
                                 <div class="col-lg-12">
                                     <div>
                                         <label for="Pagu">Pagu</label>
-                                        <input id="pagu" type="text" class="form-control" name="pagu" data-type="currency" id="currency-field" placeholder="Input Pagu" required>
+                                        <input id="n_pagu" type="text" class="form-control" name="pagu" data-type="currency" id="currency-field" placeholder="Input Pagu" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -352,7 +352,7 @@
                 },
                 dataType: 'json',
                 success: function(res) {
-                    $('form').attr('action', 'pekerjaan/'+res.id);
+                    $('form').attr('action', "<?php echo e(url('pekerjaan')); ?>/"+res.id);
                     $('#pekerjaan').val(res.nama_pekerjaan);
                     $('#n_pagu').val(res.pagu);
                     $('#ta').val(res.tahun_anggaran);
@@ -439,14 +439,9 @@
                             console.log(data);
                             jQuery($('#pekerjaan_id')).empty();
                             jQuery.each(data, function(key, value) {
-                                if (value.detail != null) {
-                                    jQuery($('#pekerjaan_id')).empty();
-                                } else {
                                     $($('#pekerjaan_id')).append('<option value="' +
                                         value.id + '">' + value.nama_pekerjaan +
                                         '</option>');
-                                    // $($('#pagu')).val(value.pagu);
-                                }
                             });
                         }
                     });

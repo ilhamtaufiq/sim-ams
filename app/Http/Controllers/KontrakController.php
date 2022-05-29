@@ -115,10 +115,10 @@ class KontrakController extends Controller
      * @param  \App\Models\Kontrak  $kontrak
      * @return \Illuminate\Http\Response
      */
-    public function cover(Kontrak $kontrak)
+    public function cover()
     {
         //
-        return view('halaman.print.coverkontrak',compact('kontrak'));
+        return view('pages.print.coverkontrak');
     }
 
     /**

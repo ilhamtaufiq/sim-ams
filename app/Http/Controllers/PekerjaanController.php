@@ -116,8 +116,8 @@ class PekerjaanController extends Controller
     //custom
     public function getPekerjaan($keg_id)
     {
-        $data = Pekerjaan::with('detail')->get()
-        ->where('program_id', $keg_id)->where('detail', null);
+        $data = Pekerjaan::with('detail','paket_pekerjaan')->get()
+        ->where('program_id', $keg_id)->where('detail', null)->whereNotNull('paket_pekerjaan');
         // ->pluck('nama_pekerjaan', 'id');
         return response()->json($data);
     }
